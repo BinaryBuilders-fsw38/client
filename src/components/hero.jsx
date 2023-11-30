@@ -1,5 +1,5 @@
 import "../css/index.css";
-import Banner from "../images/banneralt.png";
+import Banner from "../images/men.png";
 import "../css/hero.css";
 
 const Hero = () => {
