@@ -2,7 +2,7 @@ import "../css/index.css";
 
 const Register = () => {
   return (
-    <div className="flex mt-10">
+    <div className="flex mt-10 max-w-7xl mx-auto">
       <div className="m-auto w-full pl-10">
         <div className="flex flex-wrap -mx-2">
           <div className="register w-full md:w-1/2 px-2 text-left">                        

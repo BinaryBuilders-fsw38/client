@@ -3,7 +3,7 @@ import "../css/index.css";
 const Login = () => {
   return (
     <div className="flex mt-10">
-      <div className="m-auto w-full max-w-4xl">
+      <div className="mx-auto w-full max-w-7xl ">
         <div className="flex flex-wrap -mx-2">
           {/* Bagian kiri */}
           <div className="login w-full md:w-1/2 px-2 text-left">
