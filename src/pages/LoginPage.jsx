@@ -1,20 +1,18 @@
-import Footer from "../components/footer";
-import Navbar from "../components/navbar";
-import MiniNavbar from "../components/miniNavbar";
+import Footer from "../components/Footer";
+import Navbar from "../components/Nav";
 import Login from "../components/Login";
 
 const LoginPage = () => {
-    return (
+  return (
     <>
-        <Navbar />
-        <MiniNavbar/>
-            <div className="LoginPage">
-                <Login />
-            </div>
-        <Footer/>
+      <Navbar />
+
+      <div className="LoginPage">
+        <Login />
+      </div>
+      <Footer />
     </>
-        
-    );
-  };
-  
-  export default LoginPage;
+  );
+};
+
+export default LoginPage;

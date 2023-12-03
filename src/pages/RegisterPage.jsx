@@ -1,20 +1,17 @@
-import Footer from "../components/footer";
-import Navbar from "../components/navbar";
-import MiniNavbar from "../components/miniNavbar";
+import Footer from "../components/Footer";
+import Navbar from "../components/Nav";
 import Register from "../components/Register";
 
 const RegisterPage = () => {
-    return (
+  return (
     <>
-        <Navbar />
-        <MiniNavbar/>
-            <div className="RegisterPage">
-                <Register />
-            </div>
-        <Footer/>
+      <Navbar />
+      <div className="RegisterPage">
+        <Register />
+      </div>
+      <Footer />
     </>
-        
-    );
-  };
-  
-  export default RegisterPage;
+  );
+};
+
+export default RegisterPage;
