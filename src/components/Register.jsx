@@ -5,7 +5,8 @@ const Register = () => {
     <div className="flex mt-10 max-w-7xl mx-auto">
       <div className="m-auto w-full pl-10">
         <div className="flex flex-wrap -mx-2">
-          <div className="register w-full md:w-1/2 px-2 text-left">                        
+          <div className="register w-full md:w-1/2 px-2 text-left">  
+            <h1 className="text-3xl font-bold mb-10">Register pelanggan</h1>                      
             <div className="dataDiri">
               <p className="mb-1">Nama Depan</p>
               <div className="border-b-2 border-gray-200 py-2 mb-4">
