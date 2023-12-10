@@ -3,6 +3,7 @@ import Navbar from "../components/Nav";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import HomeCategory from "../components/HomeCategory";
+import Cart from "../components/Cart";
 import "../css/home.css";
 import Haum from "../images/haum.png";
 import Kahf from "../images/kahf.png";
@@ -15,6 +16,7 @@ const Home = () => {
     <>
       <Navbar />
       <div className="bg-slate-900 ">
+        <Cart />
         <Hero />
       </div>
       <div className="max-w-7xl flex flex-col items-center justify-center mx-auto h-screen">

@@ -4,7 +4,7 @@ import "../css/hero.css";
 
 const Hero = () => {
   return (
-    <div className="flex max-w-7xl items-center mx-auto">
+    <div className="flex max-w-7xl items-center mx-auto mt-16">
       <div>
         <h1 className="tagline text-6xl font-extrabold text-white">
           UNLOCK YOUR HANDSOME POTENTIAL
