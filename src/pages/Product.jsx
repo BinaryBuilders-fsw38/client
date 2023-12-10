@@ -8,7 +8,7 @@ const Product = () => {
     <>
       <Navbar />
       <MiniNavbar />
-      <div className="flex justify-center  mx-auto flex-wrap mb-11">
+      <div className="flex justify-center max-w-7xl mx-auto flex-wrap mb-11">
         <CardProduct />
         <CardProduct />
         <CardProduct />

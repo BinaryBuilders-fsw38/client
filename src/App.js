@@ -4,6 +4,7 @@ import Register from "./pages/RegisterPage.jsx";
 import Product from "./pages/Product.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import OrderPage from "./pages/Order.jsx";
+import Wishlist from "./pages/Wishlist.jsx";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -16,8 +17,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/product" element={<Product />} />
-        <Route path="/cart" element={<CartPage/>} />
-        <Route path="/order" element={<OrderPage/>} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/order" element={<OrderPage />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
     </Router>
   );
