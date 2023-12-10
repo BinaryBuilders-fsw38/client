@@ -4,7 +4,7 @@ const CardWishlist = (props) => {
   return (
     <>
       <div className="card-product rounded-md border border-slate-300 flex mb-3">
-        <div className="flex align-middle justify-center flex-col w-24 md-28">
+        <div className="flex align-middle justify-center flex-col w-24 md:w-28">
           <img
             src="https://thumbor.sirclocdn.com/unsafe/500x500/filters:format(webp)/magento.bodypack.co.id/media/catalog/product/cache/9923e576b779a380a568c8c3f82e7a7d/9/2/920001810001_-_velixir_blk-1_1024_result.jpg"
             alt="product"
