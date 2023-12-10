@@ -1,4 +1,5 @@
 import "../css/index.css";
+import Logo from '../images/everglo-logo.png'
 
 const Navbar = () => {
   return (
@@ -48,10 +49,10 @@ const Navbar = () => {
             </button>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
+            <div className="flex w-auto h-9 items-center jutify-center">
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                className="h-16 w-56 object-cover mt-8"
+                src={Logo}
                 alt="Your Company"
               />
             </div>
