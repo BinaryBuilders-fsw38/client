@@ -1,7 +1,7 @@
 import CardProduct from "../components/CardProduct";
 import Footer from "../components/footer";
 import Navbar from "../components/Nav";
-import MiniNavbar from "../components/miniNavbar";
+import MiniNavbar from "../components/MiniNavbar";
 import Cart from "../components/Cart";
 
 const Product = () => {

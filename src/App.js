@@ -4,6 +4,7 @@ import Register from "./pages/RegisterPage.jsx";
 import Product from "./pages/Product.jsx";
 import OrderPage from "./pages/Order.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
+import AddArticle from "./pages/AddArticlePage.jsx";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -18,6 +19,7 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/admin/add-article" element={<AddArticle />} />
       </Routes>
     </Router>
   );
