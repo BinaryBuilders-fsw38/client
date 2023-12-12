@@ -1,4 +1,4 @@
-import Home from "./pages/Home.jsx";
+import Home from "./pages/home.jsx";
 import Login from "./pages/LoginPage.jsx";
 import Register from "./pages/RegisterPage.jsx";
 import Product from "./pages/Product.jsx";

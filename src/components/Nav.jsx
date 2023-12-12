@@ -63,19 +63,19 @@ const Navbar = () => {
                   href="/"
                   aria-current="page"
                 >
-                  Dashboard
+                  Home
                 </a>
                 <a
                   className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                  href="/"
+                  href="/product"
                 >
-                  Team
+                  Product
                 </a>
                 <a
                   className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                  href="/"
+                  href="/wishlist"
                 >
-                  Projects
+                  Wishlist
                 </a>
                 <a
                   className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
