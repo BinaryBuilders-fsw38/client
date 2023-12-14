@@ -3,7 +3,7 @@ import "../css/index.css";
 const MiniNavbar = () => {
   return (
     <>
-<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pt-8">
+<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pt-8 mt-16">
     <ul className="flex list-none p-0 w-96">
         <li className="flex items-center pr-2">
             <a href="#" ><p className="MuiTypography-root jss51 jss52 jss67 jss70 jss45 jss63 MuiTypography-body1 MuiTypography-alignLeft">Home</p> </a>  
@@ -18,7 +18,7 @@ const MiniNavbar = () => {
         </li>
     </ul>
         
-             </div> 
+    </div> 
     </>
   );
 };

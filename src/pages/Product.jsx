@@ -9,7 +9,7 @@ const Product = () => {
     <>
       <Navbar />
       <MiniNavbar />
-      <div className="mt-2">
+      <div className="absolute -mt-14">
         <Cart />
       </div>
       <div className="flex justify-center max-w-7xl mx-auto flex-wrap mb-11">

@@ -4,7 +4,7 @@ import Dropdown from './DropdownComponent.jsx'
 import DateSelector from './Date.jsx'
 import { FiMoreHorizontal } from "react-icons/fi"
 import FotoProduct from '../images/skincare.jpg'
-import Footer from './footer.jsx'
+import Footer from './Footer.jsx'
 import MiniNavbar from './MiniNavbar.jsx'
 
 const Order = () => {
