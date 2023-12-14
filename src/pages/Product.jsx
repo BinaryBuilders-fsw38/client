@@ -1,5 +1,5 @@
 import CardProduct from "../components/CardProduct";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import Navbar from "../components/Nav";
 import MiniNavbar from "../components/MiniNavbar";
 import Cart from "../components/Cart";

@@ -1,6 +1,6 @@
 import "../css/index.css";
 import Navbar from "../components/Nav";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import Hero from "../components/hero";
 import HomeCategory from "../components/HomeCategory";
 import Cart from "../components/Cart";
