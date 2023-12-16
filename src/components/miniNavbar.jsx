@@ -24,3 +24,5 @@ const MiniNavbar = () => {
 };
 
 export default MiniNavbar;
+
+//MiniNavbar
