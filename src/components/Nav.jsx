@@ -1,9 +1,12 @@
 import "../css/index.css";
 import Logo from "../images/everglo-logo.png";
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
+    const { toggleCart } = useCart()
+
   return (
-    <nav className="bg-slate-900 fixed w-full top-0 z-20">
+    <nav className="bg-slate-900 fixed w-full top-0 z-10">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -79,9 +82,9 @@ const Navbar = () => {
                 </a>
                 <a
                   className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                  href="/"
+                  href="/order"
                 >
-                  Calendar
+                  Order
                 </a>
               </div>
             </div>
@@ -108,9 +111,10 @@ const Navbar = () => {
                 />
               </svg>
             </button>
-            <button
+            <button 
               type="button"
               className="mx-2 w-8 h-8 bg-gray-800 rounded-full focus:ring-offset-2 focus:ring-offset-gray-800"
+              onClick={toggleCart}
             >
               <span>
                 <i class="fa-solid fa-cart-shopping text-gray-400 hover:text-white"></i>

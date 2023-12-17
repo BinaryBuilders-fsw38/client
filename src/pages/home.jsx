@@ -1,7 +1,7 @@
 import "../css/index.css";
 import Navbar from "../components/Nav";
 import Footer from "../components/Footer";
-import Hero from "../components/hero";
+import Hero from "../components/Hero";
 import HomeCategory from "../components/HomeCategory";
 import Cart from "../components/Cart";
 import "../css/home.css";
@@ -10,10 +10,12 @@ import Kahf from "../images/kahf.png";
 import Norm from "../images/norm.png";
 import Ustraa from "../images/ustraa.png";
 import Avoskin from "../images/avoskin.png";
+import { CartProvider } from '../context/CartContext';
 
 const Home = () => {
   return (
-    <>
+    
+    <CartProvider>
       <Navbar />
       <div className="bg-slate-900 ">
         <Cart />
@@ -72,7 +74,7 @@ const Home = () => {
       </div>
       <HomeCategory />
       <Footer />
-    </>
+      </CartProvider>
   );
 };
 

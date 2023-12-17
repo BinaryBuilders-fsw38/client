@@ -2,10 +2,12 @@ import CardWishlist from "../components/CardWishlist";
 import Navbar from "../components/Nav";
 import Cart from "../components/Cart";
 import "../css/index.css";
+import { CartProvider } from '../context/CartContext';
+
 
 const Wishlist = (Props) => {
   return (
-    <>
+    <CartProvider>
       <Navbar />
       <div className="-mt-4 absolute">
         <Cart />
@@ -39,7 +41,7 @@ const Wishlist = (Props) => {
           </button>
         </div>
       </div>
-    </>
+    </CartProvider>
   );
 };
 

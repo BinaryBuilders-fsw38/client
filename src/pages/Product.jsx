@@ -3,10 +3,12 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Nav";
 import MiniNavbar from "../components/MiniNavbar";
 import Cart from "../components/Cart";
+import { CartProvider } from '../context/CartContext';
+
 
 const Product = () => {
   return (
-    <>
+    <CartProvider>
       <Navbar />
       <MiniNavbar />
       <div className="absolute -mt-14">
@@ -31,7 +33,7 @@ const Product = () => {
         </button>
       </div>
       <Footer />
-    </>
+    </CartProvider>
   );
 };
 
