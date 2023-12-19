@@ -1,8 +1,16 @@
+import { useState } from "react";
 import "../css/index.css";
 import FotoProduct from "../images/skincare.jpg";
 import { FiMoreHorizontal } from "react-icons/fi";
+import TransactionDetails from "./TransactionDetails";
 
 const CardOrder = () => {
+  const [overlay, setOverlay] = useState(false);
+
+  const handleClick = () => {
+    setOverlay(true);
+  };
+
   return (
     <>
       <div className=" rounded-md mt-2 max-w-4xl mx-auto p-6 bg-white shadow-lg border mb-4">
@@ -43,11 +51,14 @@ const CardOrder = () => {
           </div>
         </div>
         <div className="max-w-full flex justify-end gap-3 items-center mt-10">
-          <a href="">
+          <button onClick={handleClick}>
             <h4 className="text-sm font-bold text-teal-400">
               Lihat Detail Transaksi
             </h4>
-          </a>
+            {overlay && (
+              <TransactionDetails onClose={() => setOverlay(false)} />
+            )}
+          </button>
           <div className="button flex gap-4 ">
             <button className="border-2 border-teal-300 text-sm px-16 font-semibold text-teal-300 py-1 rounded-md">
               Ulas
