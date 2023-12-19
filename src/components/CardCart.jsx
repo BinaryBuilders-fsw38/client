@@ -20,13 +20,13 @@ const CardCart = (params) => {
           <p>QTY</p>
           <button>
             <p>
-              <i class="fa-solid fa-less-than mx-2"></i>
+              <i className="fa-solid fa-less-than mx-2"></i>
             </p>
           </button>
           <p> 1 </p>
           <button>
             <p>
-              <i class="fa-solid fa-greater-than ml-2"></i>
+              <i className="fa-solid fa-greater-than ml-2"></i>
             </p>
           </button>
         </div>
@@ -35,7 +35,7 @@ const CardCart = (params) => {
         </div>
       </div>
       <button className="float-right">
-        <i class="fa-solid fa-x"></i>
+        <i className="fa-solid fa-x"></i>
       </button>
       <hr className="flex w-11/12 mx-auto mt-3" />
     </div>

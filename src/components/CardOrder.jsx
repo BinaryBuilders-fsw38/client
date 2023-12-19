@@ -55,9 +55,6 @@ const CardOrder = () => {
             <h4 className="text-sm font-bold text-teal-400">
               Lihat Detail Transaksi
             </h4>
-            {overlay && (
-              <TransactionDetails onClose={() => setOverlay(false)} />
-            )}
           </button>
           <div className="button flex gap-4 ">
             <button className="border-2 border-teal-300 text-sm px-16 font-semibold text-teal-300 py-1 rounded-md">
@@ -72,6 +69,7 @@ const CardOrder = () => {
           </button>
         </div>
       </div>
+      {overlay && <TransactionDetails onClose={() => setOverlay(false)} />}
     </>
   );
 };
