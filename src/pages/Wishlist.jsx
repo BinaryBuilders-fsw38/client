@@ -1,18 +1,21 @@
 import CardWishlist from "../components/CardWishlist";
 import Navbar from "../components/Nav";
 import Cart from "../components/Cart";
+import Footer from "../components/Footer";
 import "../css/index.css";
 import { CartProvider } from '../context/CartContext';
 
 
 const Wishlist = (Props) => {
   return (
+    <>
     <CartProvider>
       <Navbar />
       <div className="-mt-4 absolute">
         <Cart />
       </div>
-      <div className="mt-20 max-w-7xl py-3 rounded-md border border-slate-300 max-h-full mx-auto">
+      </CartProvider>
+      <div className="mt-20 max-w-7xl py-3 rounded-md border border-slate-300 max-h-full mx-auto mb-5">
         <h1 className="mx-4 mt-10 text-4xl">Wishlist</h1>
         <div className="my-5 flex justify-between mx-12 flex-wrap md:flex-row sm:flex-col">
           <CardWishlist />
@@ -41,7 +44,8 @@ const Wishlist = (Props) => {
           </button>
         </div>
       </div>
-    </CartProvider>
+    <Footer/>
+    </>
   );
 };
 

@@ -8,12 +8,14 @@ import { CartProvider } from '../context/CartContext';
 
 const Product = () => {
   return (
+    <>
     <CartProvider>
       <Navbar />
       <MiniNavbar />
       <div className="absolute -mt-14">
         <Cart />
       </div>
+      </CartProvider>
       <div className="flex justify-center max-w-7xl mx-auto flex-wrap mb-11">
         <CardProduct />
         <CardProduct />
@@ -33,7 +35,7 @@ const Product = () => {
         </button>
       </div>
       <Footer />
-    </CartProvider>
+    </>
   );
 };
 

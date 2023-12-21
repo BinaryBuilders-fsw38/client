@@ -14,13 +14,14 @@ import { CartProvider } from '../context/CartContext';
 
 const Home = () => {
   return (
-    
+    <>
     <CartProvider>
       <Navbar />
       <div className="bg-slate-900 ">
         <Cart />
         <Hero />
       </div>
+      </CartProvider>
       <div className="max-w-7xl flex flex-col items-center justify-center mx-auto h-screen">
         <h1 className="text-center text-6xl font-bold ">
           Allocating resources to your own self-care <br />
@@ -74,7 +75,7 @@ const Home = () => {
       </div>
       <HomeCategory />
       <Footer />
-      </CartProvider>
+      </>
   );
 };
 

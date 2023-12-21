@@ -6,6 +6,7 @@ import OrderPage from "./pages/Order.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
 import AddArticle from "./pages/AddArticlePage.jsx";
 import AddProduct from "./pages/AddProductPage.jsx";
+import ProductReview from "./pages/ProductReviewPage.jsx"
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/admin/add-article" element={<AddArticle />} />
         <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route path="/product-review" element={<ProductReview />} />
       </Routes>
     </Router>
   );
