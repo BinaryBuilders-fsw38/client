@@ -4,7 +4,7 @@
 
     const Review = ({ rating, percentage, totalReviews }) => {
     return (
-        <div className="max-w-md bg-white p-10 mt-5 ml-1 mb-5 border border-gray-300 shadow-lg rounded-lg">
+        <div className="max-w-md bg-white px-16 py-16 mt-5 ml-1 mb-5 border border-gray-300 shadow-lg rounded-lg">
         <h1 className="text-2xl font-bold mb-4 text-center">ULASAN PEMBELI</h1>
         <div className="flex items-center mb-4">
             <div className="flex mr-2">
