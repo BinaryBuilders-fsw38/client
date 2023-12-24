@@ -15,7 +15,7 @@ const LoginAdmin = () => {
                 <input
                   type="text"
                   className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                  placeholder="--"
+                  placeholder="username"
                 />
               </div>
             </div>
@@ -24,9 +24,9 @@ const LoginAdmin = () => {
               <p className="mb-1">Password</p>
               <div className="border-b-2 border-gray-200 py-2 mb-4">
                 <input
-                  type="text"
+                  type="password"
                   className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                  placeholder="*****"
+                  placeholder="password"
                 />
               </div>
             </div>

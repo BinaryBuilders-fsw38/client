@@ -5,7 +5,7 @@ const TransactionDetails = ({ onClose }) => {
   return (
     <>
       <div className="card-details pointer-events-auto rounded-lg bg-black fixed top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center z-50">
-        <div className="bg-white w-1/2 text-left">
+        <div className="bg-white w-1/2 text-left rounded-lg">
           <div className="card-title flex justify-between mb-4 p-5">
             <h1>Detail Transaksi</h1>
             <button onClick={onClose}>
