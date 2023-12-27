@@ -1,6 +1,38 @@
 import "../css/index.css";
+import React from "react";
+import { useState } from "react";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+const [username, setUsername] = useState("")
+const [password, setPassword] = useState("")
+const navigate = useNavigate()
+
+const handleAddData = function () {
+  const inputUser = {
+    username,
+    password,
+  }
+  userLogin(inputUser)
+}
+
+const userLogin = async function (inputUser) {
+  try {
+    const userLoginFromServer = await axios({
+      method: "POST",
+      url: "http://localhost:3000/user/login",
+      data: inputUser 
+    })
+    if (userLoginFromServer.data.status === "Success") {
+      console.log("okee login");
+      navigate('/')
+    }
+  } catch (error) {
+    console.log(error, '===> error catch');
+  }
+}
+
   return (
     <div className="flex mt-20">
       <div className="mx-auto w-full max-w-7xl sm:px-6 lg:px-8 md:px-10 xl:px-12">
@@ -18,12 +50,13 @@ const Login = () => {
             </div>
 
             <div className="email">
-              <p className="mb-1">Email</p>
+              <p className="mb-1">Username</p>
               <div className="border-b-2 border-gray-200 py-2 mb-4">
                 <input
                   type="text"
                   className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                  placeholder="john.doe@gmail.com"
+                  placeholder="username"
+                  onChange={(e) => {setUsername(e.target.value)}}
                 />
               </div>
             </div>
@@ -32,19 +65,20 @@ const Login = () => {
               <p className="mb-1">Password</p>
               <div className="border-b-2 border-gray-200 py-2 mb-4">
                 <input
-                  type="text"
+                  type="password"
                   className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                  placeholder="*****"
+                  placeholder="password"
+                  onChange={(e) => {setPassword(e.target.value)}}
                 />
               </div>
             </div>
 
-            <button className="bg-black text-white font-bold py-2 px-4 rounded mb-2">
+            <button className="bg-black text-white font-bold py-2 px-4 rounded mb-2" onClick={handleAddData}>
               MASUK
             </button>
 
             <div className="lupaPass">
-              <a href="#" className="text-sm text-black">
+              <a href="/" className="text-sm text-black">
                 Lupa Password
               </a>
             </div>

@@ -9,7 +9,7 @@ import AddProduct from "./pages/AddProductPage.jsx";
 import ProductReview from "./pages/ProductReviewPage.jsx"
 import LoginAdmin from "./pages/LoginPageAdmin.jsx";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
 import "./App.css";
 
 function App() {
