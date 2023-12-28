@@ -25,8 +25,9 @@ const userLogin = async function (inputUser) {
       data: inputUser 
     })
     if (userLoginFromServer.data.status === "Success") {
-      console.log("okee login");
-      navigate('/')
+      const name = userLoginFromServer.data.data[0].name
+      const email = userLoginFromServer.data.data[0].email
+      navigate('/', {state: {name, email}})
     }
   } catch (error) {
     console.log(error, '===> error catch');

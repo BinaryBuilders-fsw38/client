@@ -13,6 +13,7 @@ import Avoskin from "../images/avoskin.png";
 import { CartProvider } from '../context/CartContext';
 
 const Home = () => {
+  
   return (
     <>
     <CartProvider>
@@ -32,7 +33,7 @@ const Home = () => {
           Mengapa begitu? Tubuh kita adalah aset penting yg dibawa hingga tua
           <br />
           Maka dari itu aset ini harus kita jaga serta lindungi dengan cara
-          merawat, menjaga kesehatan dan kebersihannya
+          merawat, menjaga kesehatan dan kebersihannya 
         </h3>
       </div>
       <div className="bg-slate-900 text-center text-white py-10">
