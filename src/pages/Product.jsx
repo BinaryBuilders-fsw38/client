@@ -43,6 +43,12 @@ const Product = () => {
     // Fungsi untuk menangani klik tombol "Load More"
     setVisible((prevValue) => prevValue + 10);
   };
+  const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:3000/product/getBrands')
+      .then(response => response.json())
+      .then(data => setBrands(data.data));
+  }, []);
 
   return (
     <>
@@ -56,13 +62,9 @@ const Product = () => {
       <div className="flex justify-end max-w-7xl mx-auto flex-wrap mb-20">
         <select value={brand} onChange={handleBrandChange}>
           <option value="">Semua Product</option>
-          <option value="Ustraa">Ustraa</option>
-          <option value="Elvicto">Elvicto</option>
-          <option value="HMNS">HMNS</option>
-          <option value="CAVE">CAVE</option>
-          <option value="Elvicto">Elvicto</option>
-          <option value="Kelaya">Kelaya</option>
-          <option value="Yagi">Yagi</option>
+          {brands.map((item) => (
+  <option value={item.brand}>{item.brand}</option>
+))}
         </select>
       </div>
       <div className="flex justify-center max-w-7xl mx-auto flex-wrap mb-11">
@@ -70,14 +72,16 @@ const Product = () => {
       </div>
       <div className="flex flex-col items-center mb-11">
         {}
-        
+
         {visible < dataProduct.length && ( // Hanya menampilkan tombol jika masih ada produk yang belum ditampilkan
           <button
             onClick={loadMore}
             className="border border-gray-500 py-2 px-4 w-full"
           >
             <b>TAMPILKAN SEMUA</b>
-            <p className="mb-4">Menampilkan {visible} dari {dataProduct.length} Produk</p>
+            <p className="mb-4">
+              Menampilkan {visible} dari {dataProduct.length} Produk
+            </p>
           </button>
         )}
       </div>
