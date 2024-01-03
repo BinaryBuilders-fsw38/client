@@ -7,7 +7,7 @@ const AddArticle = () => {
   
   return (
     <form>
-      <div className="space-y-12 mx-auto w-full max-w-7xl sm:px-6 lg:px-8 md:px-10 xl:px-12">
+      <div className="space-y-12 mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
         <div className="border-b border-gray-900/10 pb-12 mt-20">
         <h1 className="text-3xl font-bold mb-10">Add Article</h1>
 

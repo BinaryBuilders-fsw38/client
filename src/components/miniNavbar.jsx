@@ -50,4 +50,4 @@ const MiniNavbar = () => {
 
 export default MiniNavbar;
 
-//MiniNavbar
+//mini -> Mini

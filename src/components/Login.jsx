@@ -36,7 +36,7 @@ const userLogin = async function (inputUser) {
 
   return (
     <div className="flex mt-20">
-      <div className="mx-auto w-full max-w-7xl sm:px-6 lg:px-8 md:px-10 xl:px-12">
+      <div className="mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
         <div className="flex flex-wrap -mx-2">
           {/* Bagian kiri */}
           <div className="login w-full md:w-1/2 px-2 text-left">
@@ -86,7 +86,7 @@ const userLogin = async function (inputUser) {
           </div>
 
           {/* Bagian kanan */}
-          <div className="w-full md:w-1/2 px-2 text-left">
+          <div className="w-full md:w-1/2 px-2 text-left pb-5">
             <div className="keterangan" style={{ marginTop: "76px" }}>
               <p className="mb-4">PELANGGAN BARU</p>
               <div className="border-t-2 border-gray-200 mb-4"></div>

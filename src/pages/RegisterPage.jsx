@@ -5,7 +5,7 @@ import Register from "../components/Register";
 const RegisterPage = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="RegisterPage">
         <Register />
       </div>

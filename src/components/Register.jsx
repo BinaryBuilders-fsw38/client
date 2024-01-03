@@ -2,8 +2,8 @@ import "../css/index.css";
 
 const Register = () => {
   return (
-    <div className="flex mt-20 max-w-7xl mx-auto">
-      <div className="m-auto w-full pl-10">
+    <div className="flex mt-20 max-w-7xl mx-auto max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
+      <div className="m-auto w-full">
         <div className="flex flex-wrap -mx-2">
           <div className="register w-full md:w-1/2 px-2 text-left">  
             <h1 className="text-3xl font-bold mb-10">Register pelanggan</h1>                      
@@ -12,7 +12,7 @@ const Register = () => {
               <div className="border-b-2 border-gray-200 py-2 mb-4">
                 <input
                   type="text"
-                  className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                  className="input appearance-none bg-transparent border-none w-full  mr-3 py-1 px-2 leading-tight focus:outline-none"
                   placeholder=""
                 />
               </div>
