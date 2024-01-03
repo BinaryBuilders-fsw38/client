@@ -6,11 +6,12 @@ import OrderPage from "./pages/Order.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
 import AddArticle from "./pages/AddArticlePage.jsx";
 import AddProduct from "./pages/AddProductPage.jsx";
-import ProductReview from "./pages/ProductReviewPage.jsx"
+import ProductReview from "./pages/ProductReviewPage.jsx";
 import LoginAdmin from "./pages/LoginPageAdmin.jsx";
 import Article from "./pages/Article.jsx";
+import ProductRecommendation from "./pages/ProductRecommendation.jsx";
 
-import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/product" element={<Product />} />
+        <Route path="/recommendation" element={<ProductRecommendation />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/admin/add-article" element={<AddArticle />} />
