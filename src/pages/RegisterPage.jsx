@@ -1,5 +1,5 @@
 import Footer from "../components/Footer";
-import Navbar from "../components/Nav";
+//import Navbar from "../components/Nav";
 import Register from "../components/Register";
 
 const RegisterPage = () => {

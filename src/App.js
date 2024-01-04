@@ -10,9 +10,11 @@ import ProductReview from "./pages/ProductReviewPage.jsx";
 import LoginAdmin from "./pages/LoginPageAdmin.jsx";
 import Article from "./pages/Article.jsx";
 import ProductRecommendation from "./pages/ProductRecommendation.jsx";
+import PaymentPage from "./pages/PaymentPage.jsx";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+
 
 function App() {
   return (
@@ -30,6 +32,7 @@ function App() {
         <Route path="/product-review" element={<ProductReview />} />
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/article" element={<Article />} />
+        <Route path="/payment" element={<PaymentPage/>}></Route>
       </Routes>
     </Router>
   );
