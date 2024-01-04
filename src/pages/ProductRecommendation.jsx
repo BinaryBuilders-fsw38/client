@@ -49,8 +49,8 @@ const ProductRecommendation = () => {
           <Cart />
         </div>
       </CartProvider>
-      <div className="mt-28 max-w-7xl mx-auto mb-20">
-        <h1 className="text-4xl text-transform: uppercase mb-5">
+      <div className="mt-24 max-w-7xl mx-auto mb-20 sm:mr-10 sm:ml-10  xl:mr-auto xl:ml-auto">
+        <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-2 text-transform: uppercase mb-5">
           Selamat Datang di Konsultasi Kulit Anda!
         </h1>
         <div className="flex items-center">
@@ -60,7 +60,10 @@ const ProductRecommendation = () => {
             alt="doctor"
           />
           <div>
-            <p className="text-2xl">
+            <p
+              className="mb-1 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl"
+              style={{ textAlign: "justify" }}
+            >
               👩‍⚕️ Dokter Kulit Virtual kami akan membantu Anda menemukan produk
               yang paling sesuai dengan jenis kulit Anda. Kami memahami betapa
               pentingnya memilih produk yang tepat untuk menjaga kesehatan dan
@@ -69,20 +72,29 @@ const ProductRecommendation = () => {
           </div>
         </div>
         <div className="instruction my-20">
-          <h1 className=" text-3xl">Instruksi:</h1>
+          <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-2">
+            Instruksi:
+          </h1>
           <ol className="text-xl">
             <li>
-              <span className="mr-7 text-center">1.</span>Pilih tipe kulit Anda
-              pada dropdown di bawah.
+              <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                <span className="mr-7 text-center">1.</span>
+                Pilih tipe kulit Andapada dropdown di bawah.
+              </p>
             </li>
             <li>
-              <span className="mr-4 text-center">2.</span> kami akan memberikan
-              rekomendasi produk berdasarkan tipe kulit yang Anda pilih.
+              <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                <span className="mr-4 text-center">2.</span> kami akan
+                memberikan rekomendasi produk berdasarkan tipe kulit yang Anda
+                pilih.
+              </p>
             </li>
             <li>
-              <span className="mr-4 text-center">3.</span> Temukan produk yang
-              sesuai dengan kebutuhan kulit Anda dan jadikan kulit Anda tampak
-              sehat dan bercahaya!
+              <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                <span className="mr-4 text-center">3.</span> Temukan produk yang
+                sesuai dengan kebutuhan kulit Anda dan jadikan kulit Anda tampak
+                sehat dan bercahaya!
+              </p>
             </li>
           </ol>
         </div>
