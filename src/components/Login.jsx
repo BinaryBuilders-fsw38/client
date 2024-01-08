@@ -34,6 +34,10 @@ const Login = () => {
     }
   };
 
+  const handleButtonDaftar = () => {
+    navigate('/register');
+  };
+
   return (
     <div className="flex mt-20">
       <div className="mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
@@ -114,7 +118,10 @@ const Login = () => {
               </p>
             </div>
 
-            <button className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md">
+            <button 
+                className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
+                onClick={handleButtonDaftar}
+            >
               DAFTAR
             </button>
           </div>
