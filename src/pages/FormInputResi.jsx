@@ -22,7 +22,7 @@ const FormInputResi = () => {
                 </div>
 
                 <div className="tanggal-kirim">
-                  <p className="mb-1">Tanggal Kirim</p>
+                  <p className="mb-1">Tanggal Pengiriman</p>
                   <div className="py-2 mb-4">
                     <Date />
                   </div>
