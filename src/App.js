@@ -11,6 +11,7 @@ import LoginAdmin from "./pages/LoginPageAdmin.jsx";
 import Article from "./pages/Article.jsx";
 import ProductRecommendation from "./pages/ProductRecommendation.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
+import FormInputResi from "./pages/FormInputResi.jsx";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -32,7 +33,8 @@ function App() {
         <Route path="/product-review" element={<ProductReview />} />
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/article" element={<Article />} />
-        <Route path="/payment" element={<PaymentPage/>}></Route>
+        <Route path="/payment" element={<PaymentPage/>} />
+        <Route path="/admin/input-resi" element={<FormInputResi/>} />
       </Routes>
     </Router>
   );

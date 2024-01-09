@@ -2,19 +2,15 @@ import "../css/index.css";
 
 const LoginAdmin = () => {
   return (
-    <div className="space-y-12 mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
-      <div className="border-b border-gray-900/10 pb-12 mt-20">
-        <div className="flex flex-wrap -mx-2">
+    <div className="flex mt-20">
+      <div className="mx-auto w-full max-w-7xl sm:px-6 lg:px-8 md:px-10 xl:px-12">
+        <div className="flex justify-center -mx-0">
           {/* Bagian kiri */}
           <div className="login w-full md:w-1/2 px-2 text-left">
-            <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-10">
-              Login Admin
-            </h1>
+            <h1 className="text-3xl font-bold mb-2 text-center">Login Admin</h1>
 
             <div className="username">
-              <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
-                Username
-              </p>
+              <p className="mb-1">Username</p>
               <div className="border-b-2 border-gray-200 py-2 mb-4">
                 <input
                   type="text"
@@ -25,9 +21,7 @@ const LoginAdmin = () => {
             </div>
 
             <div className="password">
-              <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
-                Password
-              </p>
+              <p className="mb-1">Password</p>
               <div className="border-b-2 border-gray-200 py-2 mb-4">
                 <input
                   type="password"
