@@ -19,7 +19,6 @@ const PaymentPage = () => {
       </CartProvider>
       <div className="PaymentPage">
         <Payment />
-        <h1>test ini adalah : {id}</h1>
       </div>
       <Footer />
     </>
