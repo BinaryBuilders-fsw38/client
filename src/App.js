@@ -16,7 +16,6 @@ import FormInputResi from "./pages/FormInputResi.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
-
 function App() {
   return (
     <Router>
@@ -33,8 +32,8 @@ function App() {
         <Route path="/product-review" element={<ProductReview />} />
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/article" element={<Article />} />
-        <Route path="/payment" element={<PaymentPage/>} />
-        <Route path="/admin/input-resi" element={<FormInputResi/>} />
+        <Route path="/payment/:id" element={<PaymentPage />} />
+        <Route path="/admin/input-resi" element={<FormInputResi />} />
       </Routes>
     </Router>
   );

@@ -18,10 +18,7 @@ const Cart = () => {
   const userID = 1; // Misalnya userID Anda adalah 1
 
   useEffect(() => {
-    console.log("useEffect dijalankan dengan nilai hasFetched:", hasFetched);
-
     const getCartData = async () => {
-      console.log("getCartData dipanggil");
       setIsFetching(true);
       try {
         const response = await axios.get(
@@ -29,8 +26,8 @@ const Cart = () => {
         );
 
         if (response.data.status === "success") {
-          console.log("Data berhasil diambil:", response.data.data);
           setCartData(response.data.data);
+          console.log(response.data.data, `ini sulton`);
           setHasFetched(true); // Setel hasFetched ke true setelah berhasil fetch
         }
       } catch (error) {
@@ -41,10 +38,7 @@ const Cart = () => {
     };
 
     if (!hasFetched) {
-      console.log("Memanggil getCartData karena hasFetched adalah false");
       getCartData();
-    } else {
-      console.log("Tidak memanggil getCartData karena hasFetched adalah true");
     }
   }, [hasFetched]); // Tambahkan hasFetched ke dalam array dependencies
 
@@ -69,6 +63,7 @@ const Cart = () => {
               productName={item.product_name}
               productPrice={item.price}
               productFile={item.product_file}
+              cart_id={item.cart_id}
             />
           ))
         ) : (
