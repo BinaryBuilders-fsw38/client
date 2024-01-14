@@ -2,8 +2,8 @@
 import CardProduct from "../components/CardProduct";
 import Footer from "../components/Footer";
 import Navbar from "../components/Nav";
-import MiniNavbar from "../components/MiniNavbar";
 import Cart from "../components/Cart";
+import MiniNavbar from "../components/MiniNavbar";
 import { CartProvider } from "../context/CartContext";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
@@ -64,7 +64,7 @@ const Product = () => {
     <>
       <CartProvider>
         <Navbar />
-        <MiniNavbar />
+        <div className="mb-20"></div>
         <div className="absolute">
           <Cart />
         </div>
