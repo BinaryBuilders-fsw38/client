@@ -19,15 +19,15 @@ const Faq = () => {
   
     return (
         <>
-      <div className="mt-20 p-3 bg-white rounded-xl shadow-md ml-16">
+      <div className="pointer-event-auto mt-20 p-3 bg-white rounded-xl shadow-md ml-16">
         <h1 className="mb-16 font-bold text-4xl">FAQ</h1>
         {sections.map((section, index) => (
           <details key={index} className="w-full">
-            <summary className="font-semibold  bg-gray-200 rounded-md py-2 px-4">
+            <summary className="pointer-event-auto font-semibold  bg-gray-200 rounded-md py-2 px-4">
               {section.title}
             </summary>
   
-            <span className="px-4 py-2">
+            <span className="pointer-event-auto px-4 py-2">
               {section.content}
             </span>
           </details>

@@ -1,45 +1,58 @@
-import Footer from "./Footer";
-import Navbar from "../components/Nav";
-import MiniNavbar from "./MiniNavbar";
-import Tracklist from "../components/Tracklist";
-import CardProduct from "../components/CardProduct";
-import Cart from "../components/Cart";
-import { CartProvider } from '../context/CartContext';
+import "../css/index.css";
 
-const Tracking = () => {
-    return (
+const Tracklist = ({ onClose }) => {
+    return(
         <>
-        <CartProvider>
-
-        <Navbar />
-        <MiniNavbar />
-        <div className="mt-2">
-          <Cart />
+      <div className="tracking pointer-events-auto rounded-lg bg-black fixed top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center z-50">
+        <div className="bg-white w-1/2 text-left rounded-lg">
+        <div className="card-title flex justify-between mb-4 p-5">
+            <h1 className="font-bold">Lacak</h1>
+            <button onClick={onClose}>
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        <div className="p-4 border bg-yellow-100 justify-center place-content-center">
+        <h2 className="text-lg font-bold mb-2 justify-center items-center">Detail Transaksi</h2>
+        <div className="w-100 space-y-4 justify-center place-content-center">
+          <div className="flex items-center space-x-5 justify-center place-content-center">
+              <p className="text-sm text-gray-500">1 Okt 2023, 17:01 WIB</p>
+            <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+            <div>
+              <p className="font-semibold">Transaksi Selesai</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-5 justify-center place-content-center">
+              <p className="text-sm text-gray-500">1 Okt 2023, 17:01 WIB</p>
+            <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+            <div>
+              <p className="font-semibold">Transaksi Selesai</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-5 justify-center place-content-center">
+              <p className="text-sm text-gray-500">1 Okt 2023, 17:01 WIB</p>
+            <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+            <div>
+              <p className="font-semibold">Transaksi Selesai</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-5 justify-center place-content-center">
+              <p className="text-sm text-gray-500">1 Okt 2023, 17:01 WIB</p>
+            <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+            <div>
+              <p className="font-semibold">Transaksi Selesai</p>
+            </div>
+          </div>
+          <div className="justify-between justify-center items-center ">
+            <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Beri Ulasan</button>
+            <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Chat Penjual</button>
+            <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Bantuan</button>
+          </div>
         </div>
-        </CartProvider>
-        <div className="flex">
-        <Tracklist />
-      <div className="w-1/4 p-4">
-        <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Beri Ulasan</button>
-        <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Chat Penjual</button>
-        <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Bantuan</button>
       </div>
-    </div>
-    <div className="w-1/3 p-4 border flex space-x-80">
-        <h1>No Invoice</h1>
-        <p>INV-10000/20/21</p>
       </div>
-    <div className="w-1/3 p-4 border flex space-x-72">
-        <h1>Tgl Pembelian</h1>
-        <p>29 - Sept - 2023</p>
       </div>
-      <div className="w-1/3 p-4 border">
-        <h1>Detail Produk</h1>
-        <CardProduct />
-      </div>
-      <Footer />
+  
         </>
     );
 };
-
-export default Tracking;
+export default Tracklist;

@@ -2,6 +2,7 @@ import Navbar from "../components/Nav";
 import Cart from "../components/Cart";
 import { CartProvider } from '../context/CartContext';
 import Faq from "../components/Faq"
+import CardArticle from "../components/CardArticle";
 
 
 const article = () => {
@@ -12,6 +13,9 @@ const article = () => {
         <Cart />
       </div>
         <Faq />
+        <CardArticle />
+        <CardArticle />
+        <CardArticle />
       </CartProvider>
     )
 }

@@ -1,8 +1,17 @@
 import "../css/index.css";
 import FotoProduct from "../images/skincare.jpg";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { useState } from "react";
+import Tracking from "./Tracking";
+
 
 const CardOrderTrack = () => {
+  const [overlay, setOverlay] = useState(false);
+
+  const handleClick = () => {
+    setOverlay(true);
+  };
+
   return (
     <>
       <div className=" rounded-md mt-2 max-w-4xl mx-auto p-6 bg-white shadow-lg border mb-4">
@@ -49,7 +58,7 @@ const CardOrderTrack = () => {
             </h4>
           </a>
           <div className="button flex gap-4 ">
-            <button className="border-2 border-none bg-teal-300 text-sm px-16 py-1 font-semibold text-white rounded-md">
+            <button className="border-2 border-none bg-teal-300 text-sm px-16 py-1 font-semibold text-white rounded-md" onClick={handleClick}>
               Lacak
             </button>
           </div>
@@ -58,6 +67,7 @@ const CardOrderTrack = () => {
           </button>
         </div>
       </div>
+      {overlay && <Tracking onClose={() => setOverlay(false)} />}
     </>
   );
 };
