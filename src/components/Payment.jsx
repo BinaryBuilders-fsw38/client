@@ -3,26 +3,28 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 const Payment = () => {
-  // const [quantity, setQuantity] = useState(1);
+  const location = useLocation()
+  const CartId  = location.pathname.split('/')[2]
+  console.log(CartId, "===>");
 
   const [metodePengiriman, setMetodePengiriman] = useState("");
   const [metodePembayaran, setMetodePembayaran] = useState("");
   const [dataCheckout, setDataCheckout] = useState([]);
   const [shipment, setShipment] = useState("");
-  const id_user = 5;
+  
 
   useEffect(() => {
     setMetodePengiriman("");
     setMetodePembayaran("");
 
     const fetchData = async () => {
-      const url = `http://localhost:3000/checkout/get/${id_user}`;
+      const url = `http://localhost:3000/checkout/get/${CartId}`;
       try {
         const dataProductFromServer = await axios.get(url);
         console.log(dataProductFromServer, "ini DATA");
         const result = dataProductFromServer.data.data;
         setDataCheckout(result);
-        console.log(result);
+        
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -48,7 +50,7 @@ const Payment = () => {
                       <div className="detail produk flex items-center border border-black rounded-md pb-5 mb-5">
                         <div className="w-1/4 pr-5">
                           <img
-                            src="https://thumbor.sirclocdn.com/unsafe/500x500/filters:format(webp)/magento.bodypack.co.id/media/catalog/product/cache/9923e576b779a380a568c8c3f82e7a7d/9/2/920001810001_-_velixir_blk-1_1024_result.jpg"
+                            src={item.product_file}
                             alt="product"
                             className="rounded-md"
                           />

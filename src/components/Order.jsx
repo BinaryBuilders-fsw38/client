@@ -2,8 +2,6 @@
     import SearchComponent from "./SearchComponent.jsx";
     import Dropdown from "./DropdownComponent.jsx";
     import DateSelector from "./Date.jsx";
-    import { FiMoreHorizontal } from "react-icons/fi";
-    import FotoProduct from "../images/skincare.jpg";
     import Footer from "./Footer.jsx";
     import MiniNavbar from "./MiniNavbar.jsx";
     import CardOrder from "./CardOrder.jsx";
@@ -46,7 +44,7 @@
     return (
         <div>
         <div className=" ml-60 text-2xl">
-            <h1 className="pt-10">Data Transaksi</h1>
+            <h1 className="pt-10 sm:-ml-20">Data Transaksi</h1>
         </div>
         <div className="max-w-5xl py-3 rounded-md bg-white border border-slate-300 max-h-full mx-auto">
             <div className="max-w-full flex gap-3 items-center">

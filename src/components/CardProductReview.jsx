@@ -2,6 +2,7 @@ import { RxDotFilled } from "react-icons/rx";
 import FotoProduct from "../images/haircare.jpg";
 import ProductRate from "./ProductReviewRate";
 import CardUserReview from "./UserReviewCard";
+import InputReview from "./InpurReviewComponent"
 import { FaStar } from "react-icons/fa6";
 import React, { useState } from "react";
 const CardProduct = function () {
@@ -53,7 +54,7 @@ const CardProduct = function () {
               </h2>
               <div className="flex md:gap-2 xl:gap-20 mt-10  border-y border-gray-300">
                 <button
-                  className={`text-xl font-semibold px-2 py-2 ml-10 hover:border-b-4 hover:border-yellow-300 ${
+                  className={`text-xl font-semibold px-2 py-2 ml-10 ${
                     activeTab === "detail" ? "bg-black text-white" : ""
                   }`}
                   onClick={() => openTab("detail")}
@@ -63,7 +64,7 @@ const CardProduct = function () {
                   </p>
                 </button>
                 <button
-                  className={`text-xl font-semibold px-2 py-2 ml-10 hover:border-b-4 hover:border-yellow-300 ${
+                  className={`text-xl font-semibold px-2 py-2 ml-10 ${
                     activeTab === "spesifikasi" ? "bg-black text-white" : ""
                   }`}
                   onClick={() => openTab("spesifikasi")}
@@ -73,7 +74,7 @@ const CardProduct = function () {
                   </p>
                 </button>
                 <button
-                  className={`text-xl font-semibold px-2 py-2 ml-10 hover:border-b-4 hover:border-yellow-300 ${
+                  className={`text-xl font-semibold px-2 py-2 ml-10 ${
                     activeTab === "info_penting" ? "bg-black text-white" : ""
                   }`}
                   onClick={() => openTab("info_penting")}
@@ -93,7 +94,7 @@ const CardProduct = function () {
                       Min. Pemesanan <span className="text-black"> 1 Buah</span>
                     </h2>
                     <p
-                      className="font-semibold text-sm mt-5 mb-2 text-sm sm:text-sm md:text-md lg:text-md xl:text-lg"
+                      className="font-semibold text-sm mt-5 mb-2 sm:text-sm md:text-md lg:text-md xl:text-lg"
                       style={{ textAlign: "justify" }}
                     >
                       Ini Detail Produk Lorem ipsum dolor sit amet consectetur
@@ -122,7 +123,7 @@ const CardProduct = function () {
                       Min. Pemesanan <span className="text-black"> 1 Buah</span>
                     </h2>
                     <p
-                      className="font-semibold text-sm mt-5 mb-2 text-sm sm:text-sm md:text-md lg:text-md xl:text-lg"
+                      className="font-semibold text-sm mt-5 mb-2  sm:text-sm md:text-md lg:text-md xl:text-lg"
                       style={{ textAlign: "justify" }}
                     >
                       Ini spesifikasi. Lorem ipsum dolor sit amet consectetur
@@ -151,7 +152,7 @@ const CardProduct = function () {
                       Min. Pemesanan <span className="text-black"> 1 Buah</span>
                     </h2>
                     <p
-                      className="font-semibold text-sm mt-5 mb-2 text-sm sm:text-sm md:text-md lg:text-md xl:text-lg"
+                      className="font-semibold text-sm mt-5 mb-2 sm:text-sm md:text-md lg:text-md xl:text-lg"
                       style={{ textAlign: "justify" }}
                     >
                       Ini info penting. Lorem ipsum dolor sit amet consectetur
@@ -180,6 +181,9 @@ const CardProduct = function () {
             totalReviews={totalReviews}
           />
           <CardUserReview />
+        </div>
+        <div className="w-full flex justify-center item-center">
+        <InputReview/>
         </div>
       </div>
     </>

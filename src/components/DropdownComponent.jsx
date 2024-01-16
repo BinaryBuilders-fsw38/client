@@ -10,11 +10,11 @@ const handleSelect = (product) => {
 }
 
 return (
-    <div className="relative inline-block">
+    <div className="relative inline-block " >
     <select
         value={selectedProduct}
         onChange={(e) => handleSelect(e.target.value)}
-        className="border-2 border-gray-300 py-1 px-20 bg-white rounded-md focus:outline-none focus:border-gray-500">
+        className="border-2 border-gray-300 py-1 px-20 bg-white rounded-md focus:outline-none focus:border-gray-500 sm:w-20 xl:max-w-3xl">
         <option value="" disabled hidden>
         Semua Produk
         </option>
