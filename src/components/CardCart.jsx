@@ -13,7 +13,7 @@ const CardCart = ({ productName, productPrice, productFile, cart_id }) => {
   const navigate = useNavigate();
 
   const handleCheckout = (cartID) => {
-    navigate(`/payment/${cartID}`);
+    navigate(`/checkout/${cartID}`);
   };
   return (
     <div className="my-4 px-4">
