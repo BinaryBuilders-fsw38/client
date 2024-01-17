@@ -64,12 +64,11 @@ const Product = () => {
     <>
       <CartProvider>
         <Navbar />
-        <div className="mb-20"></div>
         <div className="absolute">
           <Cart />
         </div>
       </CartProvider>
-      <div className="flex justify-end max-w-7xl mx-auto flex-wrap mb-20">
+      <div className="flex mt-12 justify-end max-w-7xl mx-auto flex-wrap mb-20">
         <select value={brand} onChange={handleBrandChange}>
           <option value="">Semua Product</option>
           {brands.map((item) => (
@@ -77,10 +76,10 @@ const Product = () => {
           ))}
         </select>
       </div>
-      <div className="flex justify-center max-w-7xl mx-auto flex-wrap mb-11">
+      <div className="flex justify-center max-w-7xl  mx-auto flex-wrap mb-11">
         <CardProduct products={dataProduct.slice(0, visible)} />
       </div>
-      <div className="flex flex-col items-center mb-11">
+      <div className="flex flex-col items-center ">
         {visible < dataProduct.length && (
           <button
             onClick={loadMore}
