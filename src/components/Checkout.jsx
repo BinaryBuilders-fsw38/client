@@ -9,7 +9,6 @@ const Checkout = () => {
   const [metodePengiriman, setMetodePengiriman] = useState("");
   const [dataCheckout, setDataCheckout] = useState([]);
   const [ongkir, setOngkir] = useState("");
-  const id_user = 6;
 
   useEffect(() => {
     setMetodePengiriman("");
@@ -41,24 +40,22 @@ const Checkout = () => {
     (total, item) => total + item.price * item.quantity,
     0
   );
-  let idCarts = dataCheckout.map((item) => item.cart_id);
   let alamat = dataCheckout?.[0]?.address;
-  console.log(idCarts, "ini id cartsss");
+  const userID = dataCheckout?.[0]?.user_id;
+
   // Tambahkan ongkir ke totalPrices
   let total = totalPrices + ongkir;
   const postCheckout = async () => {
-    const userID = id_user;
-    const url = `http://localhost:3000/checkout/add/${userID}`;
-    for (const cartId of idCarts) {
-      try {
-        const response = await axios.post(url, {
-          idCart: cartId, // Kirim di body req
-          shipment: ongkir,
-        });
-        window.location.href = `http://localhost:3006/payment/${userID}`;
-      } catch (error) {
-        console.error("Terjadi kesalahan saat melakukan pembayaran:", error);
-      }
+    const url = `http://localhost:3000/checkout/add/${CartId}`;
+
+    try {
+      const response = await axios.post(url, {
+        idUser: userID, // Kirim di body req
+        shipment: metodePengiriman,
+      });
+      window.location.href = `http://localhost:3006/payment/${CartId}`;
+    } catch (error) {
+      console.error("Terjadi kesalahan saat melakukan pembayaran:", error);
     }
   };
   return (
