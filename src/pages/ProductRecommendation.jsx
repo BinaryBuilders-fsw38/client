@@ -49,13 +49,13 @@ const ProductRecommendation = () => {
           <Cart />
         </div>
       </CartProvider>
-      <div className="mt-24 max-w-7xl mx-auto mb-20 sm:mr-10 sm:ml-10  xl:mr-auto xl:ml-auto">
+      <div className="mt-12 max-w-7xl mx-auto mb-20 sm:mr-10 mr-10 ml-10 sm:ml-10  xl:mr-auto xl:ml-auto">
         <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-2 text-transform: uppercase mb-5">
           Selamat Datang di Konsultasi Kulit Anda!
         </h1>
-        <div className="flex items-center">
+        <div className="xl:flex lg:flex md:flex items-center">
           <img
-            className=" w-1/3 mr-32"
+            className=" w-1/3 xl:mr-32 d-sm-block mx-auto sm:mr-auto"
             src="https://img.freepik.com/premium-vector/doctor-vector-illustration_488994-153.jpg?w=2000"
             alt="doctor"
           />

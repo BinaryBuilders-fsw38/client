@@ -14,7 +14,7 @@ return (
     <select
         value={selectedProduct}
         onChange={(e) => handleSelect(e.target.value)}
-        className="border-2 border-gray-300 py-1 px-20 bg-white rounded-md focus:outline-none focus:border-gray-500 sm:w-20 xl:max-w-3xl">
+        className="border-2 border-gray-300 py-1 px-20 bg-white rounded-md focus:outline-none focus:border-gray-500  w-full">
         <option value="" disabled hidden>
         Semua Produk
         </option>

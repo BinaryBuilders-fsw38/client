@@ -17,7 +17,7 @@ return (
         placeholder="Cari transaksi..."
         value={inputValue}
         onChange={handleChange}
-        className="border-2 align-left border-gray-300 focus:outline-none focus:border-gray-500 rounded-md py-1 px-20 sm:w-20 xl:w-full"
+        className="border-2 align-left border-gray-300 focus:outline-none focus:border-gray-500 rounded-md py-1 px-12  w-full"
     />
     </div>
 )
