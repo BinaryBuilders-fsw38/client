@@ -3,10 +3,16 @@ import FotoProduct from "../images/skincare.jpg";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { useState } from "react";
 import Tracking from "./Tracking";
+import TransactionDetails from "./TransactionDetails";
 
 
 const CardOrderTrack = () => {
   const [overlay, setOverlay] = useState(false);
+  const [overlay2, setOverlay2] = useState(false);
+
+  const handleClick2 = () => {
+    setOverlay2(true)
+  }
 
   const handleClick = () => {
     setOverlay(true);
@@ -52,11 +58,12 @@ const CardOrderTrack = () => {
           </div>
         </div>
         <div className="max-w-full flex justify-end gap-3 items-center mt-10">
-          <a href="">
-            <h4 className="text-sm font-bold text-teal-400">
+          <button>
+            <h4 className="text-sm font-bold text-teal-400"
+            onClick={handleClick2}>
               Lihat Detail Transaksi
             </h4>
-          </a>
+          </button>
           <div className="button flex gap-4 ">
             <button className="border-2 border-none bg-teal-300 text-sm px-16 py-1 font-semibold text-white rounded-md" onClick={handleClick}>
               Lacak
@@ -67,7 +74,8 @@ const CardOrderTrack = () => {
           </button>
         </div>
       </div>
-      {overlay && <Tracking onClose={() => setOverlay(false)} />}
+      {overlay &&  <Tracking onClose={() => setOverlay(false)} />}
+      {overlay2 &&  <TransactionDetails onClose={() => setOverlay2(false)} />}
     </>
   );
 };
