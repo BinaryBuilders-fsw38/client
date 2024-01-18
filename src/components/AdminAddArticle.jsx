@@ -1,9 +1,34 @@
 import "../css/index.css";
 import React, { useState } from "react";
 import { Editor } from "primereact/editor";
+import axios from "axios";
 
 const AddArticle = () => {
-  const [text, setText] = useState("");
+  const [title, setTitle] = useState("");
+  const [contain, setText] = useState("");
+
+  const handleArticle = (e) => {
+    e.preventDefault();
+    const inputArticle = {
+      title,
+      contain,
+    };
+    console.log(inputArticle);
+    addArticle(inputArticle);
+  };
+  const admin_id = 2;
+  const addArticle = async function (inputArticle) {
+    try {
+      const addArticleFromServer = await axios({
+        method: "POST",
+        url: `http://localhost:3000/article/add/${admin_id}`,
+        data: inputArticle,
+      });
+      console.log(addArticleFromServer);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <form>
@@ -26,9 +51,13 @@ const AddArticle = () => {
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     type="text"
-                    name="tittle"
-                    id="tittle"
-                    autoComplete="tittle"
+                    name="title"
+                    id="title"
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                      
+                    }}
+                    autoComplete="title"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -47,7 +76,8 @@ const AddArticle = () => {
               <div className="mt-2">
                 <div className="card">
                   <Editor
-                    value={text}
+                    value={contain}
+                    name= "contain"
                     onTextChange={(e) => setText(e.htmlValue)}
                     style={{ height: "320px" }}
                   />
@@ -60,6 +90,7 @@ const AddArticle = () => {
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="submit"
+            onClick={(e) => handleArticle(e)}
             className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  mb-10"
           >
             Save
