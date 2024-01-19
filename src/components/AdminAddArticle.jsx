@@ -5,26 +5,28 @@ import axios from "axios";
 
 const AddArticle = () => {
   const [title, setTitle] = useState("");
-  const [contain, setText] = useState("");
+  const [editorValue, setEditorValue] = useState("");
 
-  const handleArticle = (e) => {
-    e.preventDefault();
-    const inputArticle = {
-      title,
-      contain,
-    };
-    console.log(inputArticle);
-    addArticle(inputArticle);
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
   };
-  const admin_id = 2;
-  const addArticle = async function (inputArticle) {
+
+  const handleEditorChange = (e) => {
+    setEditorValue(e.htmlValue);
+  };
+
+  const handleSendData = async () => {
     try {
-      const addArticleFromServer = await axios({
-        method: "POST",
-        url: `http://localhost:3000/article/add/${admin_id}`,
-        data: inputArticle,
-      });
-      console.log(addArticleFromServer);
+      const admin_id = 2;
+      const response = await axios.post(
+        `http://localhost:3000/article/add/${admin_id}`,
+        {
+          title: title,
+          contain: editorValue,
+        }
+      );
+
+      console.log("Response Data dari Server", response.data);
     } catch (error) {
       console.log(error);
     }
@@ -53,10 +55,8 @@ const AddArticle = () => {
                     type="text"
                     name="title"
                     id="title"
-                    onChange={(e) => {
-                      setTitle(e.target.value);
-                      
-                    }}
+                    value={title}
+                    onChange={handleTitleChange}
                     autoComplete="title"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   />
@@ -76,9 +76,8 @@ const AddArticle = () => {
               <div className="mt-2">
                 <div className="card">
                   <Editor
-                    value={contain}
-                    name= "contain"
-                    onTextChange={(e) => setText(e.htmlValue)}
+                    name="contain"
+                    onTextChange={handleEditorChange}
                     style={{ height: "320px" }}
                   />
                 </div>
@@ -90,7 +89,7 @@ const AddArticle = () => {
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="submit"
-            onClick={(e) => handleArticle(e)}
+            onClick={handleSendData}
             className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  mb-10"
           >
             Save
