@@ -1,11 +1,13 @@
 import "../css/index.css";
 import React, { useState } from "react";
 import { Editor } from "primereact/editor";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AddArticle = () => {
   const [title, setTitle] = useState("");
   const [editorValue, setEditorValue] = useState("");
+  const navigate = useNavigate()
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -26,8 +28,12 @@ const AddArticle = () => {
           contain: editorValue,
         }
       );
-
-      console.log("Response Data dari Server", response.data);
+      if (response.data.status === "success") {
+        const title = response.data.data.title
+        const content = response.data.data.contain
+        navigate("/article")
+      }
+      
     } catch (error) {
       console.log(error);
     }
