@@ -1,12 +1,16 @@
 import "../css/index.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Editor } from "primereact/editor";
 import { useNavigate } from "react-router-dom";
+import { FiEdit, FiMoreHorizontal, FiMoreVertical, FiPenTool, FiTrash } from "react-icons/fi";
 import axios from "axios";
 
-const AddArticle = () => {
+const AddArticle = ({data}) => {
+  const [articleData, setArticleData] = useState([]);
+  const [showAll, setShowAll] = useState(false);
   const [title, setTitle] = useState("");
   const [editorValue, setEditorValue] = useState("");
+  const [articleIdToDelete, setArticleIdToDelete] = useState(null);
   const navigate = useNavigate()
 
   const handleTitleChange = (e) => {
@@ -39,7 +43,42 @@ const AddArticle = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchDataArticle = async () => {
+      const url = "http://localhost:3000/article/getall"
+      try {
+        const dataArticleFromServer = await axios.get(url)
+        const result = dataArticleFromServer.data.data;
+        setArticleData(result);
+      } catch (error) {
+        console.error("Error fetching data: ", error)
+      }
+    };
+
+    fetchDataArticle()
+  }, [articleIdToDelete])
+
+  const handleDelete = (id) => {
+   const articleId = id
+
+   const deleteArticle = async () => {
+    const url = `http://localhost:3000/article/delete/${articleId}`
+    try {
+      await axios.delete(url)
+      const newData = articleData.filter((article) => article.id !== id)
+      setArticleData(newData)
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+    setArticleIdToDelete(id)
+  }
+  deleteArticle()
+}
+
+  const displayedArticles = showAll ? articleData : articleData.slice(0, 5)
+
   return (
+    <>
     <form>
       <div className="space-y-12 mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
         <div className="border-b border-gray-900/10 pb-12 mt-20">
@@ -104,6 +143,40 @@ const AddArticle = () => {
         </div>
       </div>
     </form>
+
+    <div>
+        <h1 className=" text-center text-3xl">Article Dashboard</h1>
+        {displayedArticles.map((article) => (
+          <div
+            className="pointer-event-auto mt-20 p-3 bg-white rounded-xl shadow-md ml-16 border-4"
+            key={article.article_id}
+          >
+            <div className="flex justify-between items-center">
+              <h1 className="mb-5 font-bold text-4xl">{article.title}</h1>
+              <div className="flex gap-2">
+                <button onClick={() => handleDelete(article.article_id)} >
+              <FiTrash className="text-2xl font-bold" />
+                </button>
+                <button>
+              <FiEdit className="text-2xl font-bold" />            
+                </button>
+              </div>
+            </div>
+            <div dangerouslySetInnerHTML={{ __html: article.contain }} />
+          </div>
+        ))}
+      </div>
+      <div className="my-5 w-full flex justify-center">
+        {articleData.length > 5 && (
+          <button
+            className="bg-slate-900 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "Hide" : "Show All"}
+          </button>
+        )}
+      </div>
+</>
   );
 };
 
