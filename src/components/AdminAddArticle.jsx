@@ -4,6 +4,7 @@ import { Editor } from "primereact/editor";
 import { useNavigate } from "react-router-dom";
 import { FiEdit, FiMoreHorizontal, FiMoreVertical, FiPenTool, FiTrash } from "react-icons/fi";
 import axios from "axios";
+import { useRef } from "react";
 
 const AddArticle = ({data}) => {
   const [articleData, setArticleData] = useState([]);
@@ -11,6 +12,7 @@ const AddArticle = ({data}) => {
   const [title, setTitle] = useState("");
   const [editorValue, setEditorValue] = useState("");
   const [articleIdToDelete, setArticleIdToDelete] = useState(null);
+  const [articleId, setArticleId] = useState(0);
   const navigate = useNavigate()
 
   const handleTitleChange = (e) => {
@@ -50,7 +52,7 @@ const AddArticle = ({data}) => {
         const dataArticleFromServer = await axios.get(url)
         const result = dataArticleFromServer.data.data;
         setArticleData(result);
-      } catch (error) {
+      }catch (error) {
         console.error("Error fetching data: ", error)
       }
     };
@@ -74,12 +76,50 @@ const AddArticle = ({data}) => {
   }
   deleteArticle()
 }
+  const cobaRef = useRef(null)
+  const handleUpdate = async (id)=>{
+    const inputId = id;
+    console.log("input id ==>",inputId)
+    cobaRef.current?.scrollIntoView({behavior:'smooth'});
 
+    try {
+      const response = await axios.get(`http://localhost:3000/article/get/${inputId}`);
+      console.log(response);
+      setTitle(response.data.data[0].title);
+      setEditorValue(response.data.data[0].contain);
+      setArticleId(response.data.data[0].article_id);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  const handleUpdateData = async(e)=>{
+      e.preventDefault()
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/article/update/${articleId}`,
+        {
+          title: title,
+          contain: editorValue,
+        }
+      );
+      if (response.data.status === "success") {
+        const title = response.data.data.title
+        const content = response.data.data.contain
+        navigate("/article")
+      }
+      
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
   const displayedArticles = showAll ? articleData : articleData.slice(0, 5)
 
   return (
     <>
-    <form>
+    <form ref={cobaRef}>
       <div className="space-y-12 mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
         <div className="border-b border-gray-900/10 pb-12 mt-20">
           <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-2">
@@ -122,6 +162,7 @@ const AddArticle = ({data}) => {
               <div className="mt-2">
                 <div className="card">
                   <Editor
+                    value={editorValue}
                     name="contain"
                     onTextChange={handleEditorChange}
                     style={{ height: "320px" }}
@@ -140,6 +181,13 @@ const AddArticle = ({data}) => {
           >
             Save
           </button>
+          <button
+            type="submit"
+            onClick={(e) => handleUpdateData(e)}
+            className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  mb-10"
+          >
+            Update
+          </button>
         </div>
       </div>
     </form>
@@ -157,7 +205,9 @@ const AddArticle = ({data}) => {
                 <button onClick={() => handleDelete(article.article_id)} >
               <FiTrash className="text-2xl font-bold" />
                 </button>
-                <button>
+                <button
+                value={article.contain} 
+                onClick={()=> handleUpdate(article.article_id)}> 
               <FiEdit className="text-2xl font-bold" />            
                 </button>
               </div>
