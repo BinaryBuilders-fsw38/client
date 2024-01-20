@@ -5,6 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const [token, setToken] = useState("")
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -23,10 +25,14 @@ const Login = () => {
         method: "POST",
         url: "http://localhost:3000/user/login",
         data: inputUser,
-      });
-      if (userLoginFromServer.data.status === "Success") {
-        const name = userLoginFromServer.data.data[0].name;
-        const email = userLoginFromServer.data.data[0].email;
+      })
+      if (userLoginFromServer.data.message === "success") {
+        if (userLoginFromServer.data.data.token) {
+          localStorage.setItem("token", userLoginFromServer.data.data.token)
+          setToken(userLoginFromServer.data.data.token)
+        }
+        const name = userLoginFromServer.data.data.getUser[0].name;
+        const email = userLoginFromServer.data.data.getUser[0].email;
         navigate("/", { state: { name, email } });
       }
     } catch (error) {
