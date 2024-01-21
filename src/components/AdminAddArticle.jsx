@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FiEdit, FiMoreHorizontal, FiMoreVertical, FiPenTool, FiTrash } from "react-icons/fi";
 import axios from "axios";
 import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 const AddArticle = ({data}) => {
   const [articleData, setArticleData] = useState([]);
@@ -14,7 +15,8 @@ const AddArticle = ({data}) => {
   const [articleIdToDelete, setArticleIdToDelete] = useState(null);
   const [articleId, setArticleId] = useState(0);
   const navigate = useNavigate()
-
+  const location = useLocation()
+  const adminId = location.state && location.state.adminId
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -26,17 +28,15 @@ const AddArticle = ({data}) => {
   const handleSendData = async (e) => {
     e.preventDefault()
     try {
-      const admin_id = 2;
       const response = await axios.post(
-        `http://localhost:3000/article/add/${admin_id}`,
+        `http://localhost:3000/article/add/${adminId}`,
         {
           title: title,
           contain: editorValue,
         }
       );
+      console.log(response.data.status);
       if (response.data.status === "success") {
-        const title = response.data.data.title
-        const content = response.data.data.contain
         navigate("/article")
       }
       
