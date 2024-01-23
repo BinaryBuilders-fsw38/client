@@ -1,6 +1,7 @@
 import "../css/index.css";
 import React, { useState } from "react";
 import axios from "axios";
+import apiUrl from "../utils/apiConfig";
 
 function FormInputProduct() {
   const [productInfo, setProductInfo] = useState({
@@ -45,15 +46,11 @@ function FormInputProduct() {
     formData.append("product_file", productInfo.product_file);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/product/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${apiUrl}/product/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       console.log(response.data);
       setIsSubmitted(true); // Set isSubmitted jika success
@@ -85,9 +82,13 @@ function FormInputProduct() {
           <div className="border-b border-gray-900/10 pb-12 mt-20">
             <div className="flex flex-wrap -mx-2">
               <div className="register w-full md:w-1/2 px-2 text-left">
-                <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-10">Input Data Product</h1>
+                <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-10">
+                  Input Data Product
+                </h1>
                 <div className="dataDiri">
-                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">Product Name</p>
+                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
+                    Product Name
+                  </p>
                   <div className="border-b-2 border-gray-200 py-2 mb-4 focus-within:border-black hover:border-black">
                     <input
                       type="text"
@@ -102,7 +103,9 @@ function FormInputProduct() {
                 </div>
 
                 <div className="dataDiri">
-                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">Brand</p>
+                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
+                    Brand
+                  </p>
                   <div className="border-b-2 border-gray-200 py-2 mb-4 focus-within:border-black hover:border-black">
                     <input
                       type="text"
@@ -117,7 +120,9 @@ function FormInputProduct() {
                 </div>
 
                 <div className="dataDiri">
-                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">Price</p>
+                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
+                    Price
+                  </p>
                   <div className="border-b-2 border-gray-200 py-2 mb-4 focus-within:border-black hover:border-black">
                     <input
                       type="number"
@@ -134,7 +139,9 @@ function FormInputProduct() {
                 </div>
 
                 <div className="dataDiri">
-                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">Stock</p>
+                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
+                    Stock
+                  </p>
                   <div className="border-b-2 border-gray-200 py-2 mb-4 focus-within:border-black hover:border-black">
                     <input
                       type="number"
@@ -149,7 +156,9 @@ function FormInputProduct() {
                 </div>
 
                 <div className="dataDiri ">
-                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">Category</p>
+                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
+                    Category
+                  </p>
                   <div className="border-b-2 border-gray-200 py-2 mb-4 relative focus-within:border-black hover:border-black">
                     <select
                       value={productInfo.category_id}
@@ -174,7 +183,9 @@ function FormInputProduct() {
                   </div>
                 </div>
                 <div className="dataDiri ">
-                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">Type</p>
+                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
+                    Type
+                  </p>
                   <div className="border-b-2 border-gray-200 py-2 mb-4 relative focus-within:border-black hover:border-black">
                     <select
                       name="type_id"
@@ -200,7 +211,9 @@ function FormInputProduct() {
                   </div>
                 </div>
                 <div className="dataDiri mb-16">
-                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">Description Product</p>
+                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
+                    Description Product
+                  </p>
                   <div className="border-b-2 border-gray-200 py-2 mb-4 focus-within:border-black hover:border-black">
                     <input
                       type="text"
@@ -214,7 +227,9 @@ function FormInputProduct() {
                   </div>
                 </div>
                 <div className="dataDiri mb-16">
-                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">Upload Image Product</p>
+                  <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
+                    Upload Image Product
+                  </p>
                   <label className="flex flex-col items-center px-10 py-6 tracking-wide bg-gray-200 border border-blue cursor-pointer">
                     <div className="flex justify-between items-center w-full">
                       <div>

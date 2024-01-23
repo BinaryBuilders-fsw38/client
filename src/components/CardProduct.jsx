@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import apiUrl from "../utils/apiConfig";
 
 const CardProduct = ({ products, visible }) => {
   const [cart, setCart] = useState([]);
@@ -7,13 +8,10 @@ const CardProduct = ({ products, visible }) => {
   const handleClick = async (product) => {
     try {
       const userID = 1; //user yang sedang login (sementara)
-      const response = await axios.post(
-        `http://localhost:3000/cart/add/${userID}`,
-        {
-          product_id: product.product_id,
-          quantity: 1,
-        }
-      );
+      const response = await axios.post(`${apiUrl}/cart/add/${userID}`, {
+        product_id: product.product_id,
+        quantity: 1,
+      });
 
       if (response.status === 200) {
         setCart([...cart, product]);

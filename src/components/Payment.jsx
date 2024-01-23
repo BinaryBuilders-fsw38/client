@@ -2,29 +2,29 @@ import "../css/index.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
+
 const Payment = () => {
-  const location = useLocation()
-  const CartId  = location.pathname.split('/')[2]
+  const location = useLocation();
+  const CartId = location.pathname.split("/")[2];
   console.log(CartId, "===>");
 
   const [metodePengiriman, setMetodePengiriman] = useState("");
   const [metodePembayaran, setMetodePembayaran] = useState("");
   const [dataCheckout, setDataCheckout] = useState([]);
   const [shipment, setShipment] = useState("");
-  
 
   useEffect(() => {
     setMetodePengiriman("");
     setMetodePembayaran("");
 
     const fetchData = async () => {
-      const url = `http://localhost:3000/checkout/get/${CartId}`;
+      const url = `${apiUrl}/checkout/get/${CartId}`;
       try {
         const dataProductFromServer = await axios.get(url);
         console.log(dataProductFromServer, "ini DATA");
         const result = dataProductFromServer.data.data;
         setDataCheckout(result);
-        
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -127,10 +127,9 @@ const Payment = () => {
             <div className="w-1/4 pl-5 pt-10">
               <div className="totalBelanja mb-5">
                 <span className="font-bold">
-                  Total Belanja : 
-                  {" " + totalPrice}
+                  Total Belanja :{" " + totalPrice}
                 </span>
-                
+
                 {console.log(dataCheckout, "inidatachk")}
               </div>
               <div className="totalOngkir mb-5">

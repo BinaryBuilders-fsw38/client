@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import CardCart from "./CardCart";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import apiUrl from "../utils/apiConfig";
 
 const Cart = () => {
   const { isCartOpen, toggleCart } = useCart();
@@ -21,9 +22,7 @@ const Cart = () => {
     const getCartData = async () => {
       setIsFetching(true);
       try {
-        const response = await axios.get(
-          `http://localhost:3000/cart/view/${userID}`
-        );
+        const response = await axios.get(`${apiUrl}/cart/view/${userID}`);
 
         if (response.data.status === "success") {
           setCartData(response.data.data);

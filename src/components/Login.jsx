@@ -3,10 +3,10 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
 
 const Login = () => {
-
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -23,13 +23,13 @@ const Login = () => {
     try {
       const userLoginFromServer = await axios({
         method: "POST",
-        url: "http://localhost:3000/user/login",
+        url: `${apiUrl}/user/login`,
         data: inputUser,
-      })
+      });
       if (userLoginFromServer.data.message === "success") {
         if (userLoginFromServer.data.data.token) {
-          localStorage.setItem("token", userLoginFromServer.data.data.token)
-          setToken(userLoginFromServer.data.data.token)
+          localStorage.setItem("token", userLoginFromServer.data.data.token);
+          setToken(userLoginFromServer.data.data.token);
         }
         const name = userLoginFromServer.data.data.getUser[0].name;
         const email = userLoginFromServer.data.data.getUser[0].email;
@@ -41,7 +41,7 @@ const Login = () => {
   };
 
   const handleButtonDaftar = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
   return (
@@ -124,9 +124,9 @@ const Login = () => {
               </p>
             </div>
 
-            <button 
-                className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
-                onClick={handleButtonDaftar}
+            <button
+              className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
+              onClick={handleButtonDaftar}
             >
               DAFTAR
             </button>

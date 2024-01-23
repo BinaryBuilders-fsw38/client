@@ -6,6 +6,7 @@ import { CartProvider } from "../context/CartContext";
 import "../css/index.css";
 import axios from "axios";
 import CardProduct from "../components/CardProduct";
+import apiUrl from "../utils/apiConfig";
 
 const ProductRecommendation = () => {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
@@ -17,7 +18,7 @@ const ProductRecommendation = () => {
       setIsFetching(true);
       try {
         const response = await axios.get(
-          `http://localhost:3000/product/suggest/${skinType}`
+          `${apiUrl}/product/suggest/${skinType}`
         );
         if (response.data.status === "success") {
           setRecommendedProducts(response.data.data);
