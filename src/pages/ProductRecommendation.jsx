@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Footer from "../components/Footer";
-import Cart from "../components/Cart";
-import Navbar from "../components/Nav";
-import { CartProvider } from "../context/CartContext";
 import "../css/index.css";
 import axios from "axios";
 import CardProduct from "../components/CardProduct";
@@ -44,12 +40,6 @@ const ProductRecommendation = () => {
 
   return (
     <>
-      <CartProvider>
-        <Navbar />
-        <div className="absolute">
-          <Cart />
-        </div>
-      </CartProvider>
       <div className="mt-12 max-w-7xl mx-auto mb-20 sm:mr-10 mr-10 ml-10 sm:ml-10  xl:mr-auto xl:ml-auto">
         <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-2 text-transform: uppercase mb-5">
           Selamat Datang di Konsultasi Kulit Anda!
@@ -126,7 +116,6 @@ const ProductRecommendation = () => {
       <div className="flex justify-center max-w-7xl mx-auto flex-wrap mb-11">
         <CardProduct products={recommendedProducts} />
       </div>
-      <Footer />
     </>
   );
 };

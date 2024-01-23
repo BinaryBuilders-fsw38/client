@@ -1,21 +1,11 @@
-import Navbar from "../components/Nav";
-import Cart from "../components/Cart";
-import Card from "../components/CardProductReview"
-import Footer from "../components/Footer";
-import { CartProvider } from "../context/CartContext";
-
+import Card from "../components/CardProductReview";
 
 const ProductReview = () => {
-    return (
-        <>
-        <CartProvider>
-        <Navbar/>
-        <Cart/>
-        </CartProvider>
-        <Card/>
-        <Footer/>
-        </>
-    )
-}
+  return (
+    <>
+      <Card />
+    </>
+  );
+};
 
-export default ProductReview
+export default ProductReview;

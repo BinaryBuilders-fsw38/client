@@ -1,9 +1,5 @@
 // Import komponen dan library yang diperlukan
 import CardProduct from "../components/CardProduct";
-import Footer from "../components/Footer";
-import Navbar from "../components/Nav";
-import Cart from "../components/Cart";
-import { CartProvider } from "../context/CartContext";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import apiUrl from "../utils/apiConfig";
@@ -62,12 +58,6 @@ const Product = () => {
   // Render komponen
   return (
     <>
-      <CartProvider>
-        <Navbar />
-        <div className="absolute">
-          <Cart />
-        </div>
-      </CartProvider>
       <div className="flex mt-12 justify-end max-w-7xl mx-auto flex-wrap mb-20">
         <select value={brand} onChange={handleBrandChange}>
           <option value="">Semua Product</option>
@@ -92,7 +82,6 @@ const Product = () => {
           </button>
         )}
       </div>
-      <Footer />
     </>
   );
 };

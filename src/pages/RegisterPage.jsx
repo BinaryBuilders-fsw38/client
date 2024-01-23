@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import NavbarUser from "../components/NavbarLoginRgist";
 import Register from "../components/Register";
 
@@ -9,7 +8,6 @@ const RegisterPage = () => {
       <div className="RegisterPage">
         <Register />
       </div>
-      <Footer />
     </>
   );
 };

@@ -13,13 +13,29 @@ import ProductRecommendation from "./pages/ProductRecommendation.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import CheckoutPage from "./pages/CheckoutPage.jsx";
 import FormInputResi from "./pages/FormInputResi.jsx";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Nav.jsx";
+import { CartProvider } from "./context/CartContext.jsx";
+import Cart from "./components/Cart.jsx";
+import { useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import NavbarLG from "./components/NavbarLoginRgist.jsx";
 import "./App.css";
+import Footer from "./components/Footer.jsx";
 
 function App() {
+  const location = useLocation();
   return (
-    <Router>
+    <>
+      {location.pathname === "/login" || location.pathname === "/register" ? (
+        <NavbarLG />
+      ) : (
+        <CartProvider>
+          <Navbar />
+          <div className="bg-slate-900 ">
+            <Cart />
+          </div>
+        </CartProvider>
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -37,7 +53,8 @@ function App() {
         <Route path="/checkout/:id" element={<CheckoutPage />} />
         <Route path="/admin/input-resi" element={<FormInputResi />} />
       </Routes>
-    </Router>
+      <Footer />
+    </>
   );
 }
 

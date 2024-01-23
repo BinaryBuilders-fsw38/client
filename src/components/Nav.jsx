@@ -1,15 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import "../css/index.css";
 import Logo from "../images/everglo-logo.png";
 import ProfilePitc from "../images/bannerlulus.png";
 import { useCart } from "../context/CartContext";
-// import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
-//npm install @headlessui/react
-//npm install @heroicons/react
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -28,7 +24,7 @@ const Navbar = () => {
   const name = location.state && location.state.name;
   const email = location.state && location.state.email;
   return (
-    <Disclosure as="nav" className="bg-slate-900">
+    <Disclosure as="nav" className="bg-slate-900 fixed w-full top-0 z-10">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

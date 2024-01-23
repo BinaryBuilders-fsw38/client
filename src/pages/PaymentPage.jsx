@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import Navbar from "../components/Nav";
 import Payment from "../components/Payment";
 import { CartProvider } from "../context/CartContext";
@@ -20,7 +19,6 @@ const PaymentPage = () => {
       <div className="PaymentPage">
         <Payment />
       </div>
-      <Footer />
     </>
   );
 };

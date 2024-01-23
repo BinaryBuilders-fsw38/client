@@ -1,7 +1,6 @@
 import CardWishlist from "../components/CardWishlist";
 import Navbar from "../components/Nav";
 import Cart from "../components/Cart";
-import Footer from "../components/Footer";
 import "../css/index.css";
 import { CartProvider } from "../context/CartContext";
 import React, { useState, useEffect, useCallback } from "react";
@@ -84,7 +83,6 @@ const Wishlist = (props) => {
           )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

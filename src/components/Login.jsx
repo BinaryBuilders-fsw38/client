@@ -1,15 +1,29 @@
 import "../css/index.css";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
 
 const Login = () => {
-  const [token, setToken] = useState("");
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({
+    token: "",
+    user: {
+      user_id: 0,
+      name: "",
+      username: "",
+      email: "",
+      address: "",
+      phone_number: "",
+      created_at: "",
+      updated_at: "",
+    },
+  });
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleAddData = function () {
     const inputUser = {
@@ -21,19 +35,46 @@ const Login = () => {
 
   const userLogin = async function (inputUser) {
     try {
-      const userLoginFromServer = await axios({
+      const dbUser = await axios({
         method: "POST",
         url: `${apiUrl}/user/login`,
         data: inputUser,
       });
-      if (userLoginFromServer.data.message === "success") {
-        if (userLoginFromServer.data.data.token) {
-          localStorage.setItem("token", userLoginFromServer.data.data.token);
-          setToken(userLoginFromServer.data.data.token);
-        }
-        const name = userLoginFromServer.data.data.getUser[0].name;
-        const email = userLoginFromServer.data.data.getUser[0].email;
-        navigate("/", { state: { name, email } });
+
+      if (dbUser.data.message === "success") {
+        console.log(dbUser, `ini db user`);
+        const { token, getUser } = dbUser.data.data;
+        const userObject = getUser[0];
+
+        // Set userData in localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("userInfo", JSON.stringify(userObject));
+
+        console.log("Token in localStorage:", localStorage.getItem("token"));
+        console.log(
+          "UserInfo in localStorage:",
+          localStorage.getItem("userInfo")
+        );
+
+        // Memperbarui state userData dengan data yang baru
+        setUserData({
+          token,
+          user: {
+            user_id: userObject.user_id,
+            name: userObject.name,
+            username: userObject.username,
+            email: userObject.email,
+            address: userObject.address,
+            phone_number: userObject.phone_number,
+            created_at: userObject.created_at,
+            updated_at: userObject.updated_at,
+          },
+        });
+
+        // Redirect to the home page or another appropriate page
+        navigate("/");
+      } else {
+        console.error("Login failed:", dbUser.data.message);
       }
     } catch (error) {
       console.log(error, "===> error catch");
