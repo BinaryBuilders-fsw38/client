@@ -24,10 +24,10 @@ const Navbar = () => {
   const name = location.state && location.state.name;
   const email = location.state && location.state.email;
   return (
-    <Disclosure as="nav" className="bg-slate-900 fixed w-full top-0 z-10">
+    <Disclosure as="nav" className="bg-slate-900 fixed w-full top-0 z-10 relative">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}

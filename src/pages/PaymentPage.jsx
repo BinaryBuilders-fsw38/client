@@ -11,7 +11,6 @@ const PaymentPage = () => {
   return (
     <>
       <CartProvider>
-        <Navbar />
         <div className="absolute">
           <Cart />
         </div>
