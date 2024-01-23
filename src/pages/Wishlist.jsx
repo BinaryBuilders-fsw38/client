@@ -42,7 +42,6 @@ const Wishlist = (props) => {
   return (
     <>
       <CartProvider>
-        <Navbar />
         <div className="-mt-4 absolute">
           <Cart />
         </div>
