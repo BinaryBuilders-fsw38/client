@@ -6,6 +6,10 @@ import TransactionDetails from "./TransactionDetails";
 const CardOrder = ({ dataOrder }) => {
   const [overlay, setOverlay] = useState(false);
   const [selectedData, setSelectedData] = useState();
+  if (!dataOrder || !Array.isArray(dataOrder) || dataOrder === undefined) {
+    // Handle the case when dataOrder is not defined or not an array
+    return <div>No orders available.</div>;
+  }
 
   const handleClick = (item) => {
     setOverlay(true);
@@ -30,6 +34,8 @@ const CardOrder = ({ dataOrder }) => {
     }).format(dateObj);
     return newData;
   }
+
+
   return (
     <>
       {
@@ -47,8 +53,8 @@ const CardOrder = ({ dataOrder }) => {
                   IVR/20230101/XXIII/XII/1298378
                 </h4>
               </div>
-              {/* <h1 className="font-bold mt-2">Hrny official store</h1> */}
-              <div className="w-full flex mt-10 justify-between">
+              <h1 className="font-bold mt-2">Hrny official store</h1>
+              <div className="w-full flex mt-1 justify-between">
                 <div className="w-20 ml-4 flex gap-3">
                   <img src={item.product_file} alt="" />
                   <div className="w-auto">
