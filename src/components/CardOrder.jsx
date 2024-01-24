@@ -47,8 +47,8 @@ const CardOrder = ({ dataOrder }) => {
                   IVR/20230101/XXIII/XII/1298378
                 </h4>
               </div>
-              <h1 className="font-bold mt-2">Hrny official store</h1>
-              <div className="w-full flex mt-1 justify-between">
+              {/* <h1 className="font-bold mt-2">Hrny official store</h1> */}
+              <div className="w-full flex mt-10 justify-between">
                 <div className="w-20 ml-4 flex gap-3">
                   <img src={item.product_file} alt="" />
                   <div className="w-auto">
