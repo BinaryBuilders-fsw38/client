@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
 
-export default function FormReview({dataReview}) {
+export default function FormReview({ dataReview }) {
   const userID = 1; //user ID sementara
   const location = useLocation();
   const productID = location.pathname.split("/")[2];
@@ -23,12 +24,15 @@ export default function FormReview({dataReview}) {
       comment: text,
     };
     try {
-      const response = await axios.post(`http://localhost:3000/review/add/${productID}`, inputData);
+      const response = await axios.post(
+        `${apiUrl}/review/add/${productID}`,
+        inputData
+      );
       console.log(response.data);
-      dataReview(prevData => [...prevData, inputData]);
-     
-      setRating('');
-      setText('');
+      dataReview((prevData) => [...prevData, inputData]);
+
+      setRating("");
+      setText("");
     } catch (error) {
       console.log(error);
     }
