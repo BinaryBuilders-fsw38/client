@@ -6,6 +6,7 @@ import { FaStar } from "react-icons/fa6";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
 
 const CardProduct = function () {
   const location = useLocation();
@@ -16,9 +17,9 @@ const CardProduct = function () {
   const [dataAverage, setDataAverage] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const url1 = `http://localhost:3000/product/get-product/${ProductId}`;
-      const url2 = `http://localhost:3000/review/get/${ProductId}`;
-      const url3 = `http://localhost:3000/review/getAverage/${ProductId}`;
+      const url1 = `${apiUrl}/product/get-product/${ProductId}`;
+      const url2 = `${apiUrl}/review/get/${ProductId}`;
+      const url3 = `${apiUrl}/review/getAverage/${ProductId}`;
       try {
         const getDataProduct = await axios.get(url1);
         const result = getDataProduct.data.data;
@@ -228,7 +229,7 @@ const CardProduct = function () {
           <CardUserReview dataReview={dataProductReview} />
         </div>
         <div className="w-full flex justify-center item-center">
-          <InputReview dataReview={setDataProductReview}/>
+          <InputReview dataReview={setDataProductReview} />
         </div>
       </div>
     </>
