@@ -1,87 +1,31 @@
 import "../css/index.css";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
+import { useAuth } from "../utils/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  const [userData, setUserData] = useState({
-    token: "",
-    user: {
-      user_id: 0,
-      name: "",
-      username: "",
-      email: "",
-      address: "",
-      phone_number: "",
-      created_at: "",
-      updated_at: "",
-    },
-  });
+  const { login } = useAuth();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleAddData = function () {
-    const inputUser = {
-      username,
-      password,
-    };
-    userLogin(inputUser);
-  };
+  const handleLogin = async () => {
+    const result = await login(username, password);
+    console.log(username, password, `data untuk axios`);
+    console.log(result, `ini result`);
 
-  const userLogin = async function (inputUser) {
-    try {
-      const dbUser = await axios({
-        method: "POST",
-        url: `${apiUrl}/user/login`,
-        data: inputUser,
-      });
-
-      if (dbUser.data.message === "success") {
-        console.log(dbUser, `ini db user`);
-        const { token, getUser } = dbUser.data.data;
-        const userObject = getUser[0];
-
-        // Set userData in localStorage
-        localStorage.setItem("token", token);
-        localStorage.setItem("userInfo", JSON.stringify(userObject));
-
-        console.log("Token in localStorage:", localStorage.getItem("token"));
-        console.log(
-          "UserInfo in localStorage:",
-          localStorage.getItem("userInfo")
-        );
-
-        // Memperbarui state userData dengan data yang baru
-        setUserData({
-          token,
-          user: {
-            user_id: userObject.user_id,
-            name: userObject.name,
-            username: userObject.username,
-            email: userObject.email,
-            address: userObject.address,
-            phone_number: userObject.phone_number,
-            created_at: userObject.created_at,
-            updated_at: userObject.updated_at,
-          },
-        });
-
-        // Redirect to the home page or another appropriate page
-        navigate("/");
-      } else {
-        console.error("Login failed:", dbUser.data.message);
-      }
-    } catch (error) {
-      console.log(error, "===> error catch");
+    if (result.success) {
+      navigate("/");
+    } else {
+      console.error("Login failed:", result.error);
     }
   };
 
-  const handleButtonDaftar = () => {
+  const handleRegister = () => {
     navigate("/register");
   };
 
@@ -139,7 +83,7 @@ const Login = () => {
 
             <button
               className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
-              onClick={handleAddData}
+              onClick={handleLogin}
             >
               MASUK
             </button>
@@ -167,7 +111,7 @@ const Login = () => {
 
             <button
               className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
-              onClick={handleButtonDaftar}
+              onClick={handleRegister}
             >
               DAFTAR
             </button>

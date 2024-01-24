@@ -1,11 +1,12 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import "../css/index.css";
 import Logo from "../images/everglo-logo.png";
 import ProfilePitc from "../images/bannerlulus.png";
 import { useCart } from "../context/CartContext";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "../utils/useAuth";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -20,11 +21,26 @@ function classNames(...classes) {
 
 const Navbar = () => {
   const { toggleCart } = useCart();
-  const location = useLocation();
-  const name = location.state && location.state.name;
-  const email = location.state && location.state.email;
+  const { isLogin, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Panggil fungsi logout dari context
+    logout();
+
+    // Redirect ke halaman login setelah logout
+    navigate("/");
+  };
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const name = userInfo && userInfo.name;
+  const email = userInfo && userInfo.email;
+
   return (
-    <Disclosure as="nav" className="bg-slate-900 fixed w-full top-0 z-10 relative">
+    <Disclosure
+      as="nav"
+      className="bg-slate-900 fixed w-full top-0 z-10 relative"
+    >
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
@@ -128,7 +144,7 @@ const Navbar = () => {
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href="#"
+                                href="/login"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
@@ -142,7 +158,8 @@ const Navbar = () => {
                             {({ active }) => (
                               <div>
                                 <a
-                                  href="#"
+                                  href="/"
+                                  onClick={handleLogout}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
