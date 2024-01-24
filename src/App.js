@@ -22,14 +22,17 @@ import "./App.css";
 import Footer from "./components/Footer.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import NavbarAdmin from "./components/NavbarAdmin.jsx";
+import { AuthProvider } from "./utils/useAuth.jsx";
 
 function App() {
   const location = useLocation();
   return (
-    <>
+    <AuthProvider>
       {location.pathname === "/login" || location.pathname === "/register" ? (
-        <NavbarLG />)
-          : location.pathname.startsWith("/admin") ? (<NavbarAdmin/>) : (
+        <NavbarLG />
+      ) : location.pathname.startsWith("/admin") ? (
+        <NavbarAdmin />
+      ) : (
         <CartProvider>
           <Navbar />
           <div className="bg-slate-900 ">
@@ -55,7 +58,7 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
       <Footer />
-    </>
+    </AuthProvider>
   );
 }
 
