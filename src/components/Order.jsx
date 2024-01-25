@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SearchComponent from "./SearchComponent.jsx";
 import Dropdown from "./DropdownComponent.jsx";
 import DateSelector from "./Date.jsx";
@@ -8,24 +8,18 @@ import CardOrder from "./CardOrder.jsx";
 import CardOrderTrack from "./CardOrderTrack.jsx";
 import apiUrl from "../utils/apiConfig.js";
 import axios from "axios";
+import { useAuth } from "../utils/useAuth.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Order = () => {
+    const navigate = useNavigate();
+    const { isLogin } = useAuth();
     const [dataOrder, setDataOrder] = useState([]);
-    useEffect(() => {
-        const fetchData = async () => {
-          const idForNow = 1
-          try {
-            const response = await axios.get(`${apiUrl}/checkout/getByUser/${idForNow}`);
-            const result = response.data.data;
-            console.log(result);
-            setDataOrder(result);
-          } catch (error) {
-            console.log(error);
-            throw error;
-          }
-        }
-        fetchData();
-      }, [])
+    const [selectedDateOrder, setSelectedDateOrder] = useState();
+    const [flag, setFlag] = useState(false);
+    const [activeStatus, setActiveStatus] = useState('all');
+    const [filteredOrder, setFilteredOrder] = useState();
+    const [tempState, setTempState] = useState([]);
     const [formData, setFormData] = useState({
         product: "",
         date: "",
@@ -33,6 +27,48 @@ const Order = () => {
         price: "",
         quantity: "",
     });
+
+    // useEffect(() => {
+    //     if (flag) {
+    //         console.log('current value of date order ==>', selectedDateOrder);
+    //         setFilteredOrder(selectedDateOrder || []);
+    //     }
+    // }, [flag, selectedDateOrder]);
+
+    useEffect(() => {
+        // if (!isLogin) {
+        //     // Jika belum login, redirect ke halaman login
+        //     navigate("/login");
+        //     return null; // Pastikan untuk mengembalikan null atau tampilan pesan login di sini
+        // } else {
+
+        // }
+        const fetchData = async () => {
+            // const userInfo = localStorage.getItem("userInfo");
+            // const userInfoObject = JSON.parse(userInfo);
+            // const user_id = userInfoObject.user_id;
+            const user_id = 1
+            console.log(user_id);
+            if (!user_id) {
+                return <div>Anda belum login</div>
+            } else {
+                // const userID = 1
+                try {
+                    const response = await axios.get(`${apiUrl}/checkout/getByUser/${user_id}`);
+                    const result = response.data.data;
+                    console.log(result);
+                    setDataOrder(result);
+                } catch (error) {
+                    console.log(error);
+                    throw error;
+                }
+            }
+
+        }
+        fetchData();
+    }, [])
+    // Periksa apakah pengguna telah login
+
 
     // untuk handle submit data
     const handleInputChange = (e) => {
@@ -54,10 +90,63 @@ const Order = () => {
         console.log(selectedProduct);
     };
 
-    const handleDateChange = (selectedDate) => {
+    const handleDateChange = (tanggal) => {
         // tanggal yang dipilih kirim ke backend atau perbarui data lokal
-        console.log("Selected Date:", selectedDate);
+        if (tanggal != null) {
+            const filteredData = dataOrder.filter((item) => {
+                const orderDate = new Date(item.created_at)
+                if (!isNaN(orderDate.getTime())) {
+                    return orderDate.toISOString().split('T')[0] === tanggal.toISOString().split("T")[0];
+                }
+                return false;
+            });
+            setFlag(true);
+            setSelectedDateOrder(filteredData);
+            console.log("filtered data:", filteredData);
+            console.log("Selected Date:", tanggal);
+        } else {
+            setFlag(false);
+        }
+
     };
+
+    const handleActiveStatus = (status) => {
+        setActiveStatus(status);
+    }
+
+    const handlePaidStatus = (status) => {
+        if (!dataOrder || !Array.isArray(dataOrder)) {
+            // Handle the case when dataOrder is not defined or not an array
+            console.error('Data order is undefined or not an array');
+            return;
+        }
+        // let filteredData = dataOrder;
+        // console.log("filtered data now ==> ",filteredData)
+        if (flag) {
+            setTempState(selectedDateOrder);
+            console.log('current value of date order == > ', selectedDateOrder)
+            let filteredSelectedDateOrder;
+            if (status.toLowerCase() === "paid" || status.toLowerCase() === "unpaid") {
+                console.log(`masuk ke ${status.toLowerCase()}`);
+                filteredSelectedDateOrder = tempState.filter((item) => item.payment_status === status);
+            }
+
+            setSelectedDateOrder(filteredSelectedDateOrder !== undefined ? filteredSelectedDateOrder : []);
+            console.log("if flag is true ==> ", selectedDateOrder);
+        } else {
+            if (status.toLowerCase()  === 'paid') {
+                setFilteredOrder(dataOrder.filter((item) => item.payment_status === status));
+            } else if (status.toLowerCase() === 'unpaid') {
+                setFilteredOrder(dataOrder.filter((item) => item.payment_status === status))
+            } else {
+                setFilteredOrder(dataOrder);
+            }
+        }
+
+        // console.log("filtered orders ==>", filteredData);
+        console.log(flag)
+    }
+
 
     return (
         <div>
@@ -72,20 +161,35 @@ const Order = () => {
                 </div>
                 <div className="max-w-full flex gap-3 items-center ml-16 my-4">
                     <h1 className="font-bold text-sm">Status</h1>
-                    <button className="border-2 bg-teal-300 rounded-lg font-semibold  px-2 py-1 text-sm">
+                    <button
+                        className={`border-2 ${activeStatus === 'all' ? 'bg-teal-300' : 'bg-white'} rounded-lg font-semibold  px-2 py-1 text-sm`}
+                        onClick={() => {
+                            setDataOrder(dataOrder);
+                            setFlag(false);
+                            handleActiveStatus('all');
+                            handlePaidStatus('all');
+                        }}
+                    >
                         Semua
                     </button>
-                    <button className="border-2 rounded-lg font-semibold px-2 py-1 text-sm">
-                        Berlangsung
+                    <button className={`border-2 ${activeStatus === 'Paid' ? 'bg-teal-300' : 'bg-white'} rounded-lg font-semibold px-2 py-1 text-sm`}
+                        onClick={() => {
+                            handleActiveStatus('Paid');
+                            handlePaidStatus('Paid');
+                        }}
+                    >
+                        Paid
                     </button>
-                    <button className="border-2 rounded-lg font-semibold px-2 py-1 text-sm">
-                        Berhasil
-                    </button>
-                    <button className="border-2 rounded-lg font-semibold px-2 py-1 text-sm">
-                        Tidak berhasil
+                    <button className={`border-2 ${activeStatus === 'Unpaid' ? 'bg-teal-300' : 'bg-white'} rounded-lg font-semibold px-2 py-1 text-sm`}
+                        onClick={() => {
+                            handleActiveStatus('Unpaid');
+                            handlePaidStatus('Unpaid');
+                        }}
+                    >
+                        Unpaid
                     </button>
                 </div>
-                <CardOrder dataOrder={dataOrder}/>
+                <CardOrder dataOrder={flag ? selectedDateOrder : (filteredOrder || dataOrder)} />
                 <CardOrderTrack />
             </div>
             <Footer />
