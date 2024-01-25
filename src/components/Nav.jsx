@@ -3,16 +3,16 @@ import "../css/index.css";
 import Logo from "../images/everglo-logo.png";
 import ProfilePitc from "../images/bannerlulus.png";
 import { useCart } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/useAuth";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Product", href: "/product", current: false },
   { name: "Wishlist", href: "/wishlist", current: false },
-  { name: "Order", href: "/order", current: false },
+  { name: "Order", href: "/order", current: false }, //gak jadi make
 ];
 
 function classNames(...classes) {
@@ -20,9 +20,14 @@ function classNames(...classes) {
 }
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { toggleCart } = useCart();
   const { isLogin, logout } = useAuth();
-  const navigate = useNavigate();
+
+  function handleNavigate(e, params) {
+    e.preventDefault();
+    navigate(`/${params}`);
+  }
 
   const handleLogout = () => {
     // Panggil fungsi logout dari context
@@ -67,7 +72,31 @@ const Navbar = () => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    <button
+                      onClick={(e) => handleNavigate(e, "")}
+                      className="bg-gray-90 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    >
+                      Home
+                    </button>
+                    <button
+                      onClick={(e) => handleNavigate(e, "product")}
+                      className="bg-gray-90 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    >
+                      Product
+                    </button>
+                    <button
+                      onClick={(e) => handleNavigate(e, "wishlist")}
+                      className="bg-gray-90 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    >
+                      Wishlist
+                    </button>
+                    <button
+                      onClick={(e) => handleNavigate(e, "order")}
+                      className="bg-gray-90 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    >
+                      Order
+                    </button>
+                    {/* {navigation.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -81,7 +110,7 @@ const Navbar = () => {
                       >
                         {item.name}
                       </a>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
               </div>
