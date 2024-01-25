@@ -1,27 +1,19 @@
 import "../css/index.css";
-import Navbar from "../components/Nav";
-import Footer from "../components/Footer";
-import Hero from "../components/Hero";
 import HomeCategory from "../components/HomeCategory";
-import Cart from "../components/Cart";
 import "../css/home.css";
 import Haum from "../images/haum.png";
 import Kahf from "../images/kahf.png";
 import Norm from "../images/norm.png";
 import Ustraa from "../images/ustraa.png";
 import Avoskin from "../images/avoskin.png";
-import { CartProvider } from "../context/CartContext";
+import Hero from "../components/Hero";
 
 const Home = () => {
   return (
     <>
-      <CartProvider>
-        <Navbar />
-        <div className="bg-slate-900 ">
-          <Cart />
-          <Hero />
-        </div>
-      </CartProvider>
+      <div className="bg-slate-900">
+        <Hero />
+      </div>
       <div className="max-w-7xl flex flex-col items-center justify-center mx-auto h-80 sm:h-80 md:h-80 lg:h-screen xl:h-screen">
         <h1 className="text-center text-1xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-6xl font-bold ">
           Allocating resources to your own self-care <br />
@@ -76,7 +68,6 @@ const Home = () => {
         </div>
       </div>
       <HomeCategory />
-      <Footer />
     </>
   );
 };

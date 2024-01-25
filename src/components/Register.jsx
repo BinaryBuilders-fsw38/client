@@ -2,9 +2,9 @@ import "../css/index.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
 
 const Register = () => {
-
   const [name, setName] = useState("");
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,30 +16,29 @@ const Register = () => {
 
   const handleAddData = function () {
     const inputUser = {
-      username:username,
-      password:password,
-      email:email,
-      name:name,
-      address:address,
-      phone_number:phone_number,
+      username: username,
+      password: password,
+      email: email,
+      name: name,
+      address: address,
+      phone_number: phone_number,
     };
     userRegister(inputUser);
     console.log(inputUser, " => input user");
   };
-  
 
   const userRegister = async function (inputUser) {
     try {
       const userRegisterFromServer = await axios({
         method: "POST",
-        url: "http://localhost:3000/user/register",
+        url: `${apiUrl}/user/register`,
         data: inputUser,
       });
       if (userRegisterFromServer.data.status === "success") {
         // console.log(userRegisterFromServer.data.status);
         const name = userRegisterFromServer.data.data[0].name;
         const email = userRegisterFromServer.data.data[0].email;
-        navigate("/order", { state: { name, email } });
+        navigate("/login", { state: { name, email } });
       }
     } catch (error) {
       console.log(error, "===> error catch");
@@ -111,7 +110,7 @@ const Register = () => {
                   type="text"
                   className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                   placeholder="harus mengandung huruf besar, angka, dan symbol"
-                  style={{ fontSize: '0.875rem' }}
+                  style={{ fontSize: "0.875rem" }}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -151,9 +150,9 @@ const Register = () => {
               </div>
             </div>
 
-            <button 
-                className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
-                onClick={handleAddData}
+            <button
+              className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
+              onClick={handleAddData}
             >
               BUAT AKUN
             </button>

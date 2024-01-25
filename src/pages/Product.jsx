@@ -1,12 +1,8 @@
 // Import komponen dan library yang diperlukan
 import CardProduct from "../components/CardProduct";
-import Footer from "../components/Footer";
-import Navbar from "../components/Nav";
-import Cart from "../components/Cart";
-import MiniNavbar from "../components/MiniNavbar";
-import { CartProvider } from "../context/CartContext";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import apiUrl from "../utils/apiConfig";
 
 // Komponen Product
 const Product = () => {
@@ -19,8 +15,8 @@ const Product = () => {
   const getDataProduct = useCallback(async () => {
     try {
       const url = brand
-        ? `http://localhost:3000/product/get/${brand}`
-        : `http://localhost:3000/product/get`;
+        ? `${apiUrl}/product/get/${brand}`
+        : `${apiUrl}/product/get`;
       const dataProductFromServer = await axios({
         method: "GET",
         url: url,
@@ -54,7 +50,7 @@ const Product = () => {
 
   // Mendapatkan daftar brand dari server
   useEffect(() => {
-    fetch("http://localhost:3000/product/getBrands")
+    fetch(`${apiUrl}/product/getBrands`)
       .then((response) => response.json())
       .then((data) => setBrands(data.data));
   }, []);
@@ -62,12 +58,6 @@ const Product = () => {
   // Render komponen
   return (
     <>
-      <CartProvider>
-        <Navbar />
-        <div className="absolute">
-          <Cart />
-        </div>
-      </CartProvider>
       <div className="flex mt-12 justify-end max-w-7xl mx-auto flex-wrap mb-20">
         <select value={brand} onChange={handleBrandChange}>
           <option value="">Semua Product</option>
@@ -92,7 +82,6 @@ const Product = () => {
           </button>
         )}
       </div>
-      <Footer />
     </>
   );
 };

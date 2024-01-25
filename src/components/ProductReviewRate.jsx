@@ -19,9 +19,7 @@ const Review = ({ rating, percentage, totalReviews }) => {
             </span>
           ))}
         </div>
-        <span className="text-gray-600">{`${rating.toFixed(
-          1
-        )} (${totalReviews} reviews)`}</span>
+        <span className="text-gray-600">{`${rating} (${totalReviews} reviews)`}</span>
       </div>
       <div className="mb-4">
         <div className="flex items-center">

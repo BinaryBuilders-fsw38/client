@@ -1,58 +1,95 @@
 import CardWishlist from "../components/CardWishlist";
-import Navbar from "../components/Nav";
-import Cart from "../components/Cart";
-import Footer from "../components/Footer";
 import "../css/index.css";
-import { CartProvider } from "../context/CartContext";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import apiUrl from "../utils/apiConfig";
 
-const Wishlist = (props) => {
-  const [dataWishlist, setDataWishlist] = useState([1]);
-  const [visible, setVisible] = useState(6);
+// const Wishlist = () => {
+//   const [dataWishlist, setDataWishlist] = useState([]);
+//   const [isFetching, setIsFetching] = useState(false);
+//   const [hasFetched, setHasFetched] = useState(false);
+//   const userInfo = localStorage.getItem("userInfo")
+//   const userInfoObject = JSON.parse(userInfo);
+//   const userId = userInfoObject.user_id 
 
-  const getDataWishlist = useCallback(async () => {
-    try {
-      const url = dataWishlist
-      ? `http://localhost:3000/wishlist/get/${dataWishlist}`
-      : `http://localhost:3000/wishlist/get`
+  
+//   useEffect(() => {
+//     const getWishlistData = async() => {
+//       setIsFetching(true)
+//       try {
+//         const response = await axios.get(`${apiUrl}/wishlist/get/${userId}`)
+//         if (response.data.status === "success") {
+//           console.log(response.data.data);
+//           setDataWishlist(response.data.data)
+          
+//           setHasFetched(true)
+//         }
+//       } catch {
+//         // console.error("error fetching wishlist data", error)
+//       } finally {
+//         setIsFetching(false);
+//       }
+//     }
+//     if(!hasFetched){
+//       getWishlistData()
+//       console.log(dataWishlist, "====================> data wishlist");
+//     } 
+//   },[hasFetched])
 
-      const dataWishlistFromServer = await axios({
-        method: "GET",
-        url: url,
-      });
-    console.log(dataWishlistFromServer.data.data, "ini DATA");
-    const wishlist = dataWishlistFromServer.data.data;
-    setDataWishlist(wishlist);
-  } catch(error) {
-    console.log("---------------> TIDAK BISA");
-    console.log(error, "GAGAL");
-  }
-}, []);
-useEffect(() => {
-  getDataWishlist();
-}, []);
+const Wishlist = () => {
+  const [dataWishlist, setDataWishlist] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
-useEffect(() => {}, [dataWishlist])
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsFetching(true);
 
-const loadMore = () => {
-  setVisible((prevValue) => prevValue + 10);
-};
+      try {
+        const userInfo = localStorage.getItem("userInfo");
+        const userInfoObject = JSON.parse(userInfo);
+        const userId = userInfoObject?.user_id || null;
+
+        if (userId !== null) {
+          const response = await axios.get(`${apiUrl}/wishlist/get/${userId}`);
+          const result = response.data.data;
+          if (response.data.status === "success") {
+            setDataWishlist(result);
+            setHasFetched(true);
+          }
+        } else {
+          // Handle the case where userId is null (user_id not found in userInfoObject)
+          console.error("User ID not found in userInfoObject");
+        }
+      } catch (error) {
+        console.error("Error fetching wishlist data", error);
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    if (!hasFetched) {
+      fetchData();
+    }
+  }, [hasFetched]);
 
   return (
     <>
-      <CartProvider>
-        <Navbar />
-        <div className="-mt-4 absolute">
-          <Cart />
+      <div className="mt-10 max-w-7xl py-3 max-h-full mx-auto md:mx-5 lg:mx-5 xl:mx-5 mb-5">
+        <h1 className="mx-4 text-4xl">WISHLIST</h1>
+        <div className="my-20 flex justify-between mx-4 flex-wrap md:flex-row sm:flex-col">
+        {dataWishlist && dataWishlist.length > 0 ? (
+          dataWishlist.map((item) => (
+            <CardWishlist 
+                key={item.wishlist_id}
+                productName={item.product_name}
+                productPrice={item.price}
+                productFile={item.product_file}
+              />
+          ))
+        ) : (<p>Wishlist Anda Kosong</p>)}
         </div>
-      </CartProvider>
-      <div className="mt-20 max-w-7xl py-3 rounded-md border border-slate-300 max-h-full mx-auto mb-5">
-        <h1 className="mx-4 mt-10 text-4xl">PRODUCT REVIEW</h1>
-        <div className="my-5 flex justify-between mx-12 flex-wrap md:flex-row sm:flex-col">
-          <CardWishlist wishlist={dataWishlist.slice(0, visible)} />
-        </div>
-        <div className="mx-14">
+        <div className="mx-4">
           <button
             type="button"
             className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
@@ -66,21 +103,12 @@ const loadMore = () => {
             className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
           >
             <span>
-              <i className="fa-solid fa-cart-plus"></i> Tambahkan Semua Item ke Cart
+              <i className="fa-solid fa-cart-plus"></i> Tambahkan Semua Item ke
+              Cart
             </span>
           </button>
-          {visible < dataWishlist.length && (
-          <button
-            onClick={loadMore}
-            className="border border-gray-500 py-2 px-4 w-full"
-          >
-            <b>TAMPILKAN SEMUA</b>
-            <p className="mb-4">Menampilkan {visible} dari {dataWishlist.length} Produk</p>
-          </button>
-        )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

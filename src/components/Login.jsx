@@ -3,45 +3,30 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
+import { useAuth } from "../utils/useAuth";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const [token, setToken] = useState("")
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  const handleAddData = function () {
-    const inputUser = {
-      username,
-      password,
-    };
-    userLogin(inputUser);
-  };
+  const handleLogin = async () => {
+    const result = await login(username, password);
+    console.log(username, password, `data untuk axios`);
+    console.log(result, `ini result`);
 
-  const userLogin = async function (inputUser) {
-    try {
-      const userLoginFromServer = await axios({
-        method: "POST",
-        url: "http://localhost:3000/user/login",
-        data: inputUser,
-      })
-      if (userLoginFromServer.data.message === "success") {
-        if (userLoginFromServer.data.data.token) {
-          localStorage.setItem("token", userLoginFromServer.data.data.token)
-          setToken(userLoginFromServer.data.data.token)
-        }
-        const name = userLoginFromServer.data.data.getUser[0].name;
-        const email = userLoginFromServer.data.data.getUser[0].email;
-        navigate("/", { state: { name, email } });
-      }
-    } catch (error) {
-      console.log(error, "===> error catch");
+    if (result.success) {
+      navigate("/");
+    } else {
+      console.error("Login failed:", result.error);
     }
   };
 
-  const handleButtonDaftar = () => {
-    navigate('/register');
+  const handleRegister = () => {
+    navigate("/register");
   };
 
   return (
@@ -98,7 +83,7 @@ const Login = () => {
 
             <button
               className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
-              onClick={handleAddData}
+              onClick={handleLogin}
             >
               MASUK
             </button>
@@ -124,9 +109,9 @@ const Login = () => {
               </p>
             </div>
 
-            <button 
-                className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
-                onClick={handleButtonDaftar}
+            <button
+              className="bg-black text-white font-bold py-1 sm:py-1 md:py-2 lg:py-2 xl:py-2 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-3 rounded mb-2 text-sm sm:text-base md:text-md lg:text-md xl:text-md"
+              onClick={handleRegister}
             >
               DAFTAR
             </button>

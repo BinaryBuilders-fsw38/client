@@ -1,10 +1,10 @@
 import "../css/index.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import apiUrl from "../utils/apiConfig";
 
-const FormInputProduct = ({ onClose }) => {
-  const [productInfo, setProductInfo] = useState({
+const EditModal = ({ data, onClose }) => {
+  const [editedProductInfo, setEditedProductInfo] = useState({
     product_name: "",
     description: "",
     brand: "",
@@ -18,67 +18,77 @@ const FormInputProduct = ({ onClose }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
+  useEffect(() => {
+    if (data) {
+      setEditedProductInfo({
+        product_name: data.product_name,
+        description: data.description,
+        brand: data.brand,
+        price: data.price,
+        stock: data.stock,
+        category_id: data.category_id,
+        type_id: data.type_id,
+
+        product_file: null,
+      });
+    }
+  }, [data]);
+
   const handleInputChange = (e) => {
-    setProductInfo({
-      ...productInfo,
+    setEditedProductInfo({
+      ...editedProductInfo,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleFileChange = (e) => {
-    setProductInfo({
-      ...productInfo,
+    setEditedProductInfo({
+      ...editedProductInfo,
       product_file: e.target.files[0],
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("product_name", productInfo.product_name);
-    formData.append("description", productInfo.description);
-    formData.append("brand", productInfo.brand);
-    formData.append("price", productInfo.price);
-    formData.append("stock", productInfo.stock);
-    formData.append("category_id", productInfo.category_id);
-    formData.append("type_id", productInfo.type_id);
-    formData.append("product_file", productInfo.product_file);
+    formData.append("product_name", editedProductInfo.product_name);
+    formData.append("description", editedProductInfo.description);
+    formData.append("brand", editedProductInfo.brand);
+    formData.append("price", editedProductInfo.price);
+    formData.append("stock", editedProductInfo.stock);
+    formData.append("category_id", editedProductInfo.category_id);
+    formData.append("type_id", editedProductInfo.type_id);
+    formData.append("product_file", editedProductInfo.product_file);
 
     try {
-      const response = await axios.post(`${apiUrl}/product/upload`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.put(
+        `${apiUrl}/product/update/${data.product_id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       console.log(response.data);
-      setIsSubmitted(true); // Set isSubmitted jika success
+      setIsSubmitted(true);
       setResponseMessage(response.data.message);
-      setProductInfo({
-        // hapus form
-        product_name: "",
-        description: "",
-        brand: "",
-        price: "",
-        stock: "",
-        category_id: "",
-        type_id: "",
-        product_file: null,
-      });
-      alert("Product uploaded successfully!");
+      // Close the modal or handle success as needed
+      onClose();
+      alert("Product updated successfully!");
     } catch (error) {
-      console.error("Error uploading product:", error);
-      setIsSubmitted(true); // Set isSubmitted jika gagal
-      setResponseMessage("Error uploading product. Please try again.");
-      alert("Error uploading product. Please try again.");
+      console.error("Error updating product:", error);
+      setIsSubmitted(true);
+      setResponseMessage("Error updating product. Please try again.");
+      alert("Error updating product. Please try again.");
     }
   };
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 ">
       <div className="bg-white p-4 rounded relative  overflow-y-auto max-h-screen w-full mt-32">
-        {" "}
         <button
           onClick={onClose}
           className="absolute right-0 top-0 m-2 text-gray-800 hover:text-gray-600"
@@ -98,14 +108,15 @@ const FormInputProduct = ({ onClose }) => {
             />
           </svg>
         </button>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleEdit}>
           <div className="space-y-12 mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
             <div className="border-b border-gray-900/10 pb-12 mt-20">
               <div className="flex flex-wrap -mx-2">
                 <div className="register w-full md:w-1/2 px-2 text-left">
                   <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-10">
-                    Input Data Product
+                    Edit Data Product
                   </h1>
+
                   <div className="dataDiri">
                     <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
                       Product Name
@@ -117,7 +128,8 @@ const FormInputProduct = ({ onClose }) => {
                         placeholder=""
                         required
                         name="product_name"
-                        value={productInfo.product_name}
+                        value={editedProductInfo.product_name}
+                        editedProductInfo
                         onChange={handleInputChange}
                       />
                     </div>
@@ -134,7 +146,7 @@ const FormInputProduct = ({ onClose }) => {
                         placeholder=""
                         required
                         name="brand"
-                        value={productInfo.brand}
+                        value={editedProductInfo.brand}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -153,7 +165,7 @@ const FormInputProduct = ({ onClose }) => {
                         placeholder=""
                         required
                         name="price"
-                        value={productInfo.price}
+                        value={editedProductInfo.price}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -170,7 +182,7 @@ const FormInputProduct = ({ onClose }) => {
                         className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                         placeholder=""
                         name="stock"
-                        value={productInfo.stock}
+                        value={editedProductInfo.stock}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -182,7 +194,7 @@ const FormInputProduct = ({ onClose }) => {
                     </p>
                     <div className="border-b-2 border-gray-200 py-2 mb-4 relative focus-within:border-black hover:border-black">
                       <select
-                        value={productInfo.category_id}
+                        value={editedProductInfo.category_id}
                         onChange={handleInputChange}
                         name="category_id"
                         className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
@@ -210,7 +222,7 @@ const FormInputProduct = ({ onClose }) => {
                     <div className="border-b-2 border-gray-200 py-2 mb-4 relative focus-within:border-black hover:border-black">
                       <select
                         name="type_id"
-                        value={productInfo.type_id}
+                        value={editedProductInfo.type_id}
                         onChange={handleInputChange}
                         className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                       >
@@ -242,11 +254,12 @@ const FormInputProduct = ({ onClose }) => {
                         placeholder=""
                         required
                         name="description"
-                        value={productInfo.description}
+                        value={editedProductInfo.description}
                         onChange={handleInputChange}
                       />
                     </div>
                   </div>
+
                   <div className="dataDiri mb-16">
                     <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
                       Upload Image Product
@@ -265,12 +278,12 @@ const FormInputProduct = ({ onClose }) => {
                           </label>
                         </div>
                         <div>
-                          {productInfo.product_file && (
+                          {editedProductInfo.product_file && (
                             <img
                               alt=""
                               className="w-20"
                               src={URL.createObjectURL(
-                                productInfo.product_file
+                                editedProductInfo.product_file
                               )}
                             />
                           )}
@@ -297,4 +310,4 @@ const FormInputProduct = ({ onClose }) => {
   );
 };
 
-export default FormInputProduct;
+export default EditModal;

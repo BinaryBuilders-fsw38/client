@@ -2,29 +2,29 @@ import "../css/index.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
+
 const Payment = () => {
-  const location = useLocation()
-  const CartId  = location.pathname.split('/')[2]
+  const location = useLocation();
+  const CartId = location.pathname.split("/")[2];
   console.log(CartId, "===>");
 
   const [metodePengiriman, setMetodePengiriman] = useState("");
   const [metodePembayaran, setMetodePembayaran] = useState("");
   const [dataCheckout, setDataCheckout] = useState([]);
   const [shipment, setShipment] = useState("");
-  
 
   useEffect(() => {
     setMetodePengiriman("");
     setMetodePembayaran("");
 
     const fetchData = async () => {
-      const url = `http://localhost:3000/checkout/get/${CartId}`;
+      const url = `${apiUrl}/checkout/get/${CartId}`;
       try {
         const dataProductFromServer = await axios.get(url);
         console.log(dataProductFromServer, "ini DATA");
         const result = dataProductFromServer.data.data;
         setDataCheckout(result);
-        
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -41,7 +41,7 @@ const Payment = () => {
           <div className="flex flex-wrap -mx-2">
             {/* Bagian kiri */}
             <div className="w-3/4 pr-5 pl-10">
-              <h1 className="text-2xl font-bold mb-2">Detail Product</h1>
+              <h1 className="text-2xl font-bold mb-2">Pembayaran</h1>
               <div>
                 {dataCheckout ? (
                   dataCheckout.map((item, index) => (
@@ -75,9 +75,6 @@ const Payment = () => {
 
               {/* Metode Pembayaran dan Pengiriman */}
               <div className="mb-5">
-                <h1 className="text-2xl font-bold mb-2">
-                  Pengiriman dan Pembayaran
-                </h1>
                 <div className="alamat mb-2">
                   <label htmlFor="alamat" className="block">
                     Alamat:
@@ -87,7 +84,7 @@ const Payment = () => {
                 <div className="flex mb-2 pt-5">
                   <div className="w-1/2 pr-2">
                     <label htmlFor="metodePengiriman" className="block">
-                      Metode Pengiriman:
+                      Metode Pembayaran:
                     </label>
                     <select
                       id="metodePengiriman"
@@ -96,27 +93,10 @@ const Payment = () => {
                       onChange={(e) => setMetodePengiriman(e.target.value)}
                     >
                       <option value="" disabled hidden>
-                        Pilih metode pengiriman
-                      </option>
-                      <option value="reguler">Reguler</option>
-                      <option value="instant">Instant</option>
-                    </select>
-                  </div>
-                  <div className="w-1/2 pl-2">
-                    <label htmlFor="metodePembayaran" className="block">
-                      Metode Pembayaran:
-                    </label>
-                    <select
-                      id="metodePembayaran"
-                      className="w-full p-2 border rounded"
-                      value={metodePembayaran}
-                      onChange={(e) => setMetodePembayaran(e.target.value)}
-                    >
-                      <option value="" disabled hidden>
                         Pilih metode pembayaran
                       </option>
-                      <option value="gopay">Gopay</option>
-                      <option value="virtual">Virtual Account</option>
+                      <option value="reguler">Gopay</option>
+                      <option value="instant">Virtual Account</option>
                     </select>
                   </div>
                 </div>
@@ -127,10 +107,9 @@ const Payment = () => {
             <div className="w-1/4 pl-5 pt-10">
               <div className="totalBelanja mb-5">
                 <span className="font-bold">
-                  Total Belanja : 
-                  {" " + totalPrice}
+                  Total Belanja :{" " + totalPrice}
                 </span>
-                
+
                 {console.log(dataCheckout, "inidatachk")}
               </div>
               <div className="totalOngkir mb-5">

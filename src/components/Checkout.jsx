@@ -2,6 +2,7 @@ import "../css/index.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
 const Checkout = () => {
   const location = useLocation();
   const CartId = location.pathname.split("/")[2];
@@ -14,7 +15,7 @@ const Checkout = () => {
     setMetodePengiriman("");
 
     const fetchData = async () => {
-      const url = `http://localhost:3000/checkout/get/${CartId}`;
+      const url = `${apiUrl}/checkout/get/${CartId}`;
       try {
         const dataCheckoutFromServer = await axios.get(url);
         console.log(dataCheckoutFromServer, "ini DATA");
@@ -46,7 +47,7 @@ const Checkout = () => {
   // Tambahkan ongkir ke totalPrices
   let total = totalPrices + ongkir;
   const postCheckout = async () => {
-    const url = `http://localhost:3000/checkout/add/${CartId}`;
+    const url = `${apiUrl}/checkout/add/${CartId}`;
 
     try {
       const response = await axios.post(url, {
@@ -125,23 +126,6 @@ const Checkout = () => {
                       <option value="express">Express</option>
                     </select>
                   </div>
-                  {/* <div className="w-1/2 pl-2">
-                    <label htmlFor="metodePembayaran" className="block">
-                      Metode Pembayaran:
-                    </label>
-                    <select
-                      id="metodePembayaran"
-                      className="w-full p-2 border rounded"
-                      value={metodePembayaran}
-                      onChange={(e) => setMetodePembayaran(e.target.value)}
-                    >
-                      <option value="" disabled hidden>
-                        Pilih metode pembayaran
-                      </option>
-                      <option value="gopay">Gopay</option>
-                      <option value="virtual">Virtual Account</option>
-                    </select>
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -166,7 +150,7 @@ const Checkout = () => {
                 onClick={postCheckout}
                 className="bg-slate-900 text-white px-4 py-2 rounded-md"
               >
-                Bayar
+                Checkout
               </button>
             </div>
           </div>

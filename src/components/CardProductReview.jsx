@@ -1,20 +1,77 @@
 import { RxDotFilled } from "react-icons/rx";
-import FotoProduct from "../images/haircare.jpg";
 import ProductRate from "./ProductReviewRate";
 import CardUserReview from "./UserReviewCard";
-import InputReview from "./InpurReviewComponent"
+import InputReview from "./InpurReviewComponent";
 import { FaStar } from "react-icons/fa6";
-import React, { useState } from "react";
-const CardProduct = function () {
-  const rating = 4.5;
-  const totalReviews = 200;
-  const percentage = [10, 100, 45, 10, 25];
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
 
+const CardProduct = function () {
+  const location = useLocation();
+  const ProductId = location.pathname.split("/")[2];
+
+  const [dataProduct, setDataProduct] = useState([]);
+  const [dataProductReview, setDataProductReview] = useState([]);
+  const [dataAverage, setDataAverage] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const url1 = `${apiUrl}/product/get-product/${ProductId}`;
+      const url2 = `${apiUrl}/review/get/${ProductId}`;
+      const url3 = `${apiUrl}/review/getAverage/${ProductId}`;
+      try {
+        const getDataProduct = await axios.get(url1);
+        const result = getDataProduct.data.data;
+        setDataProduct(result);
+        const getDataProductReview = await axios.get(url2);
+        const result2 = getDataProductReview.data.data;
+        setDataProductReview(result2);
+        const getAverage = await axios.get(url3);
+        const result3 = getAverage.data.data;
+        setDataAverage(result3);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  let rating = parseFloat(dataAverage);
+  if (isNaN(rating)) {
+    rating = 0;
+  } else {
+    rating = rating.toFixed(1);
+  }
+  const totalReviews = dataProductReview.length;
+
+  //menghitung nilai rata2 dari setiap score 1-5
+  function jumlah_review_dengan_skor(skor) {
+    let jumlah = 0;
+    for (let i = 0; i < totalReviews; i++) {
+      if (dataProductReview[i].score === skor) {
+        jumlah++;
+      }
+    }
+    return jumlah;
+  }
+  let percentage = [];
+  if (!totalReviews) {
+    percentage.push(0, 0, 0, 0, 0);
+  } else {
+    for (let i = 1; i <= 5; i++) {
+      const jumlah_review_skor_i = jumlah_review_dengan_skor(i);
+      const presentase_skor_i = (jumlah_review_skor_i / totalReviews) * 100;
+      percentage.push(presentase_skor_i.toFixed(2));
+    }
+  }
   const [activeTab, setActiveTab] = useState("detail");
 
   const openTab = (tabId) => {
     setActiveTab(tabId);
   };
+
   return (
     <>
       <div className="mt-16 ">
@@ -26,14 +83,13 @@ const CardProduct = function () {
           <div className="lg:w-90 w-full">
             <img
               className="mx-2 my-2 rounded-sm md:w-2/3 sm:w-1/2 md:mx-auto sm:mx-auto w-1/2 mx-auto"
-              src={FotoProduct}
+              src={dataProduct?.[0]?.product_file}
               alt="product"
             />
           </div>
           <div className="w-full ml-5">
             <h1 className="text-xl sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl font-bold mb-2">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Voluptate,
+              {dataProduct?.[0]?.product_name}
             </h1>
             <div className="flex  gap-3 items-center">
               <h4 className="font-bold">
@@ -42,12 +98,13 @@ const CardProduct = function () {
               <RxDotFilled className="mt-2" />
               <FaStar className="text-yellow-400" />
               <h2 className="font-bold">
-                4.7 <span className="text-gray-600">(91 rating)</span>
+                {rating}{" "}
+                <span className="text-gray-600">({totalReviews} rating)</span>
               </h2>
             </div>
             <div className="mt-4">
               <h1 className="text-xl sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl font-bold mb-2">
-                280.000
+                IDR {dataProduct?.[0]?.price.toLocaleString("id-ID")}
               </h1>
               <h2 className="bg-red-200 w-8 text-sm font-black text-red-600 rounded-sm px-1 flex gap-2">
                 20% <span className="text-gray-600 line-through">Rp35.000</span>
@@ -97,18 +154,7 @@ const CardProduct = function () {
                       className="font-semibold text-sm mt-5 mb-2 sm:text-sm md:text-md lg:text-md xl:text-lg"
                       style={{ textAlign: "justify" }}
                     >
-                      Ini Detail Produk Lorem ipsum dolor sit amet consectetur
-                      adipisicing elit. Voluptas veritatis possimus,
-                      voluptatibus impedit at consequatur incidunt minus
-                      consectetur, ab autem iure error saepe natus soluta vero
-                      esse repellendus explicabo alias quis. Vel natus eos
-                      doloribus aspernatur excepturi voluptatum, ipsum neque
-                      sapiente asperiores praesentium dicta velit laboriosam
-                      esse nisi sint ea id illum quod recusandae! Aliquid quod
-                      sed excepturi ducimus adipisci. Est, deleniti totam
-                      aspernatur suscipit mollitia placeat facere magni ullam.
-                      Quod similique ut provident iusto necessitatibus veritatis
-                      nesciunt.
+                      {dataProduct?.[0]?.description}
                     </p>
                   </div>
                 </div>
@@ -180,10 +226,10 @@ const CardProduct = function () {
             percentage={percentage}
             totalReviews={totalReviews}
           />
-          <CardUserReview />
+          <CardUserReview dataReview={dataProductReview} />
         </div>
         <div className="w-full flex justify-center item-center">
-        <InputReview/>
+          <InputReview dataReview={setDataProductReview} />
         </div>
       </div>
     </>

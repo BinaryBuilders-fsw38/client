@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import Navbar from "../components/Nav";
 import Payment from "../components/Payment";
 import { CartProvider } from "../context/CartContext";
@@ -12,7 +11,6 @@ const PaymentPage = () => {
   return (
     <>
       <CartProvider>
-        <Navbar />
         <div className="absolute">
           <Cart />
         </div>
@@ -20,7 +18,6 @@ const PaymentPage = () => {
       <div className="PaymentPage">
         <Payment />
       </div>
-      <Footer />
     </>
   );
 };

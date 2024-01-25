@@ -1,4 +1,5 @@
 import "../css/index.css";
+import Logo from "../images/everglo-logo.png"
 
 const Footer = () => {
   return (
@@ -6,35 +7,32 @@ const Footer = () => {
       <div className="mx-auto w-full p-4 py-6 lg:py-8 px-16">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
-            <a href="https://flowbite.com/" className="flex items-center">
+            <a href="/home" className="flex items-center">
               <img
-                src="https://flowbite.com/docs/images/logo.svg"
-                className="h-8 me-3"
+                src={Logo}
+                className="h-40"
                 alt="FlowBite Logo"
               />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                Flowbite
-              </span>
             </a>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Resources
+                Bantuan
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a href="https://flowbite.com/" className="hover:underline">
-                    Flowbite
+                  <a href="/article" className="hover:underline">
+                    FAQ
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://tailwindcss.com/"
+                    href="/article"
                     className="hover:underline"
                   >
-                    Tailwind CSS
+                    Article
                   </a>
                 </li>
               </ul>
@@ -84,13 +82,6 @@ const Footer = () => {
       </div>
       <hr className="mt-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:mt-8" />
       <div className="mx-16 sm:flex sm:items-center sm:justify-between">
-        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-          © 2023{" "}
-          <a href="https://flowbite.com/" className="hover:underline">
-            Flowbite™
-          </a>
-          . All Rights Reserved.
-        </span>
         <div className="flex my-8">
           <a
             href="/"

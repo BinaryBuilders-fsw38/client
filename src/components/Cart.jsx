@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import CardCart from "./CardCart";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import apiUrl from "../utils/apiConfig";
 
 const Cart = () => {
   const { isCartOpen, toggleCart } = useCart();
@@ -15,15 +16,15 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
-  const userID = 1; // Misalnya userID Anda adalah 1
+  const userInfo = localStorage.getItem("userInfo");
+  const userInfoObject = JSON.parse(userInfo);
+  const userID = userInfoObject?.user_id || null;
 
   useEffect(() => {
     const getCartData = async () => {
       setIsFetching(true);
       try {
-        const response = await axios.get(
-          `http://localhost:3000/cart/view/${userID}`
-        );
+        const response = await axios.get(`${apiUrl}/cart/view/${userID}`);
 
         if (response.data.status === "success") {
           setCartData(response.data.data);

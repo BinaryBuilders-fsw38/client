@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
 
 const AddArticle = ({ data }) => {
   const [articleData, setArticleData] = useState([]);
@@ -34,13 +35,10 @@ const AddArticle = ({ data }) => {
   const handleSendData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `http://localhost:3000/article/add/${adminId}`,
-        {
-          title: title,
-          contain: editorValue,
-        }
-      );
+      const response = await axios.post(`${apiUrl}/article/add/${adminId}`, {
+        title: title,
+        contain: editorValue,
+      });
       console.log(response.data.status);
       if (response.data.status === "success") {
         navigate("/article");
@@ -52,7 +50,7 @@ const AddArticle = ({ data }) => {
 
   useEffect(() => {
     const fetchDataArticle = async () => {
-      const url = "http://localhost:3000/article/getall";
+      const url = `${apiUrl}/article/getall`;
       try {
         const dataArticleFromServer = await axios.get(url);
         const result = dataArticleFromServer.data.data;
@@ -69,7 +67,7 @@ const AddArticle = ({ data }) => {
     const articleId = id;
 
     const deleteArticle = async () => {
-      const url = `http://localhost:3000/article/delete/${articleId}`;
+      const url = `${apiUrl} /article/delete/${articleId}`;
       try {
         await axios.delete(url);
         const newData = articleData.filter((article) => article.id !== id);
@@ -88,9 +86,7 @@ const AddArticle = ({ data }) => {
     cobaRef.current?.scrollIntoView({ behavior: "smooth" });
 
     try {
-      const response = await axios.get(
-        `http://localhost:3000/article/get/${inputId}`
-      );
+      const response = await axios.get(`${apiUrl}/article/get/${inputId}`);
       console.log(response);
       setTitle(response.data.data[0].title);
       setEditorValue(response.data.data[0].contain);
@@ -105,7 +101,7 @@ const AddArticle = ({ data }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:3000/article/update/${articleId}`,
+        `${apiUrl}/article/update/${articleId}`,
         {
           title: title,
           contain: editorValue,
