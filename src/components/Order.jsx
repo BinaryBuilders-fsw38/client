@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import SearchComponent from "./SearchComponent.jsx";
 import Dropdown from "./DropdownComponent.jsx";
 import DateSelector from "./Date.jsx";
-import Footer from "./Footer.jsx";
-import MiniNavbar from "./MiniNavbar.jsx";
 import CardOrder from "./CardOrder.jsx";
 import CardOrderTrack from "./CardOrderTrack.jsx";
 import apiUrl from "../utils/apiConfig.js";
@@ -28,44 +26,40 @@ const Order = () => {
         quantity: "",
     });
 
-    // useEffect(() => {
-    //     if (flag) {
-    //         console.log('current value of date order ==>', selectedDateOrder);
-    //         setFilteredOrder(selectedDateOrder || []);
-    //     }
-    // }, [flag, selectedDateOrder]);
-
     useEffect(() => {
-        // if (!isLogin) {
-        //     // Jika belum login, redirect ke halaman login
-        //     navigate("/login");
-        //     return null; // Pastikan untuk mengembalikan null atau tampilan pesan login di sini
-        // } else {
+        if (!isLogin) {
+            // Jika belum login, redirect ke halaman login
+            navigate("/login");
+            return null; // Pastikan untuk mengembalikan null atau tampilan pesan login di sini
+        } else {
+            const fetchData = async () => {
+                const userInfo = localStorage.getItem("userInfo");
+                const userInfoObject = JSON.parse(userInfo);
+                const user_id = userInfoObject.user_id;
+                if (!user_id) {
+                    return <div>Anda belum login</div>
+                } else {
+                    // const userID = 1
+                    try {
+                        const response = await axios.get(`${apiUrl}/checkout/getByUser/${user_id}`);
+                        const result = response.data.data;
+                        if (result.length === 0) {
+                            console.log(result);
+                            setDataOrder([]);
+                        } else {
+                            console.log(result);
+                            setDataOrder(result);
+                        }
 
-        // }
-        const fetchData = async () => {
-            // const userInfo = localStorage.getItem("userInfo");
-            // const userInfoObject = JSON.parse(userInfo);
-            // const user_id = userInfoObject.user_id;
-            const user_id = 1
-            console.log(user_id);
-            if (!user_id) {
-                return <div>Anda belum login</div>
-            } else {
-                // const userID = 1
-                try {
-                    const response = await axios.get(`${apiUrl}/checkout/getByUser/${user_id}`);
-                    const result = response.data.data;
-                    console.log(result);
-                    setDataOrder(result);
-                } catch (error) {
-                    console.log(error);
-                    throw error;
+                    } catch (error) {
+                        console.log(error);
+                        throw error;
+                    }
                 }
-            }
 
+            }
+            fetchData();
         }
-        fetchData();
     }, [])
     // Periksa apakah pengguna telah login
 
@@ -128,16 +122,16 @@ const Order = () => {
             let filteredSelectedDateOrder;
             if (status.toLowerCase() === "paid" || status.toLowerCase() === "unpaid") {
                 console.log(`masuk ke ${status.toLowerCase()}`);
-                filteredSelectedDateOrder = tempState.filter((item) => item.payment_status === status);
+                filteredSelectedDateOrder = Array.isArray(tempState) ? tempState.filter((item) => item.payment_status.toLowerCase() === status.toLowerCase()) : [];
             }
 
             setSelectedDateOrder(filteredSelectedDateOrder !== undefined ? filteredSelectedDateOrder : []);
             console.log("if flag is true ==> ", selectedDateOrder);
         } else {
-            if (status.toLowerCase()  === 'paid') {
-                setFilteredOrder(dataOrder.filter((item) => item.payment_status === status));
+            if (status.toLowerCase() === 'paid') {
+                setFilteredOrder(dataOrder.filter((item) => item.payment_status.toLowerCase() === status.toLowerCase()));
             } else if (status.toLowerCase() === 'unpaid') {
-                setFilteredOrder(dataOrder.filter((item) => item.payment_status === status))
+                setFilteredOrder(dataOrder.filter((item) => item.payment_status.toLowerCase() === status.toLowerCase()))
             } else {
                 setFilteredOrder(dataOrder);
             }
@@ -150,6 +144,7 @@ const Order = () => {
 
     return (
         <div>
+
             <div className=" ml-60 text-2xl">
                 <h1 className="pt-10 sm:-ml-20">Data Transaksi</h1>
             </div>
@@ -189,11 +184,14 @@ const Order = () => {
                         Unpaid
                     </button>
                 </div>
-                <CardOrder dataOrder={flag ? selectedDateOrder : (filteredOrder || dataOrder)} />
-                <CardOrderTrack />
+                {dataOrder.length === 0 ? (<div className="text-center font-bold">You don't have any checkouts yet</div>) : (
+                    <>
+                        <CardOrder dataOrder={flag ? selectedDateOrder : (filteredOrder || dataOrder)} />
+                        <CardOrderTrack />
+                    </>
+
+                )}
             </div>
-            <Footer />
-            <MiniNavbar />
         </div>
     );
 };
