@@ -126,23 +126,6 @@ const Checkout = () => {
                       <option value="express">Express</option>
                     </select>
                   </div>
-                  {/* <div className="w-1/2 pl-2">
-                    <label htmlFor="metodePembayaran" className="block">
-                      Metode Pembayaran:
-                    </label>
-                    <select
-                      id="metodePembayaran"
-                      className="w-full p-2 border rounded"
-                      value={metodePembayaran}
-                      onChange={(e) => setMetodePembayaran(e.target.value)}
-                    >
-                      <option value="" disabled hidden>
-                        Pilih metode pembayaran
-                      </option>
-                      <option value="gopay">Gopay</option>
-                      <option value="virtual">Virtual Account</option>
-                    </select>
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -167,7 +150,7 @@ const Checkout = () => {
                 onClick={postCheckout}
                 className="bg-slate-900 text-white px-4 py-2 rounded-md"
               >
-                Bayar
+                Checkout
               </button>
             </div>
           </div>

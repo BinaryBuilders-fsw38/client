@@ -19,20 +19,20 @@ const Footer = () => {
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Resources
+                Bantuan
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a href="" className="hover:underline">
-                    Flowbite
+                  <a href="/article" className="hover:underline">
+                    FAQ
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://tailwindcss.com/"
+                    href="/article"
                     className="hover:underline"
                   >
-                    Tailwind CSS
+                    Article
                   </a>
                 </li>
               </ul>
