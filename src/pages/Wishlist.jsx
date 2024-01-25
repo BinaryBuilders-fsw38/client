@@ -52,8 +52,9 @@ const Wishlist = () => {
 
         if (userId !== null) {
           const response = await axios.get(`${apiUrl}/wishlist/get/${userId}`);
+          const result = response.data.data;
           if (response.data.status === "success") {
-            setDataWishlist(response.data.data);
+            setDataWishlist(result);
             setHasFetched(true);
           }
         } else {

@@ -1,9 +1,8 @@
 import "../css/index.css";
-import React, { useCallback, useEffect, useState } from "react";
-import axios from "axios";
-import apiUrl from "../utils/apiConfig";
+import React from "react";
 
-const CardWishlist = ({ wishlist_id, product_name, price, product_file }) => {
+
+const CardWishlist = ({ wishlist_id, productName, productPrice, productFile }) => {
   const formatCurrency = (amount) => {
     // Menggunakan fungsi Intl.NumberFormat untuk mengubah format angka ke format mata uang
     return new Intl.NumberFormat("id-ID", {
@@ -16,15 +15,15 @@ const CardWishlist = ({ wishlist_id, product_name, price, product_file }) => {
     <div className="card-product rounded-md border border-slate-300 flex mb-3">
       <div className="flex align-middle justify-center flex-col w-28">
         <img
-          src={product_file}
-          alt={product_name}
+          src={productFile}
+          alt={productName}
         />
       </div>
       <div className="flex align-middle justify-center flex-col w-48">
         <a className="my-2" href="/">
-          {product_name}
+          {productName}
         </a>
-        <p className="mb-2">{formatCurrency(price)}</p>
+        <p className="mb-2">{formatCurrency(productPrice)}</p>
         <button
           type="button"
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
