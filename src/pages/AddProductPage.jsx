@@ -1,12 +1,11 @@
 import "../css/index.css";
-import FormInputProduct from "../components/FormInputProduct";
+import DataTable from "../components/AdminTableProduct";
 
 const AddProduct = () => {
   return (
     <>
-      <div className="RegisterPage">
-        <FormInputProduct />
-      </div>
+      <DataTable />
+      <div className="RegisterPage"></div>
     </>
   );
 };
