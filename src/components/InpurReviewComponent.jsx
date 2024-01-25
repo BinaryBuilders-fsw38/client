@@ -5,7 +5,9 @@ import { useLocation } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
 
 export default function FormReview({ dataReview }) {
-  const userID = 1; //user ID sementara
+  const userInfo = localStorage.getItem("userInfo");
+  const userInfoObject = JSON.parse(userInfo);
+  const userID = userInfoObject?.user_id || null;
   const location = useLocation();
   const productID = location.pathname.split("/")[2];
 
