@@ -1,5 +1,5 @@
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
     { name: "Dashboard", href: "/admin/dashboard", current: false },
@@ -14,7 +14,7 @@ const NavbarAdmin = () => {
     return(
     <Disclosure
     as="nav"
-    className="bg-slate-900 fixed w-ful top-0 z-10 relative">
+    className="bg-slate-900 w-ful top-0 z-10 relative">
         
         {({ open }) => (
         <>
