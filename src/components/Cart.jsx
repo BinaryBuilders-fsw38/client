@@ -16,7 +16,9 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
-  const userID = 1; // Misalnya userID Anda adalah 1
+  const userInfo = localStorage.getItem("userInfo");
+  const userInfoObject = JSON.parse(userInfo);
+  const userID = userInfoObject?.user_id || null;
 
   useEffect(() => {
     const getCartData = async () => {

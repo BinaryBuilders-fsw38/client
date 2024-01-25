@@ -38,7 +38,7 @@ const Register = () => {
         // console.log(userRegisterFromServer.data.status);
         const name = userRegisterFromServer.data.data[0].name;
         const email = userRegisterFromServer.data.data[0].email;
-        navigate("/order", { state: { name, email } });
+        navigate("/login", { state: { name, email } });
       }
     } catch (error) {
       console.log(error, "===> error catch");

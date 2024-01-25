@@ -4,10 +4,12 @@ import apiUrl from "../utils/apiConfig";
 
 const CardProduct = ({ products, visible }) => {
   const [cart, setCart] = useState([]);
+  const userInfo = localStorage.getItem("userInfo");
+  const userInfoObject = JSON.parse(userInfo);
+  const userID = userInfoObject?.user_id || null;
 
   const handleClick = async (product) => {
     try {
-      const userID = 1; //user yang sedang login (sementara)
       const response = await axios.post(`${apiUrl}/cart/add/${userID}`, {
         product_id: product.product_id,
         quantity: 1,
