@@ -5,9 +5,6 @@ import { useLocation } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
 
 export default function FormReview({ dataReview }) {
-  const userInfo = localStorage.getItem("userInfo");
-  const userInfoObject = JSON.parse(userInfo);
-  const userID = userInfoObject?.user_id || null;
   const location = useLocation();
   const productID = location.pathname.split("/")[2];
 
@@ -19,27 +16,33 @@ export default function FormReview({ dataReview }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const inputData = {
-      user_id: userID,
-      score: rating,
-      comment: text,
-    };
-    try {
-      const response = await axios.post(
-        `${apiUrl}/review/add/${productID}`,
-        inputData
-      );
-      console.log(response.data);
-      dataReview((prevData) => [...prevData, inputData]);
+    const userInfo = localStorage.getItem("userInfo");
+    const userInfoObject = JSON.parse(userInfo);
+    const userID = userInfoObject?.user_id || null;
+    if (!userID) {
+      return alert("Anda belum login!");
+    } else {
+      e.preventDefault();
+      const inputData = {
+        user_id: userID,
+        score: rating,
+        comment: text,
+      };
+      try {
+        const response = await axios.post(
+          `${apiUrl}/review/add/${productID}`,
+          inputData
+        );
+        console.log(response.data);
+        dataReview((prevData) => [...prevData, inputData]);
 
-      setRating("");
-      setText("");
-    } catch (error) {
-      console.log(error);
+        setRating("");
+        setText("");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
-
   return (
     <>
       <div className="w-1/2 ml-44">
