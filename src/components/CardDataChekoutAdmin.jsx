@@ -1,20 +1,20 @@
-                import React from "react";
-            import { FiMoreHorizontal } from "react-icons/fi";
+            import React from "react";
             import { useEffect, useState } from "react";
             import FormInputResi from "./InputResi";
             import axios from "axios";
 
             const CardDataChekout = () => {
                 const [dataChekout, setDataChekout] = useState([])
+                const [selectedData, setSelectedData] = useState(null)
                 const [overlay, setOverlay] = useState(false);
 
-                const handleClick = () => {
+                const handleClick = (uId, cId) => {
+                    const userId = uId
+                    const checkoutId = cId
+                    setSelectedData({userId, checkoutId})
                     setOverlay(true);
-                    console.log("button clicked");
-                    console.log(overlay);
                 }
 
-                
                 useEffect(() => {
                     const fatchingDataChekout = async () => {
                         const url = "http://localhost:3000/checkout/getall"
@@ -60,7 +60,7 @@
                                 {item.payment_status}
                             </h4>
                             <h4 className="font-bold text-sm text-slate-500">
-                                IVR/20230101/XXIII/XII/1298378
+                                {item.tracking_number}
                             </h4>
                             </div>
                             {/* <h1 className="font-bold mt-2">Hrny official store</h1> */}
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div className="max-w-full flex justify-end gap-3 items-center mt-10">
-                        <button onClick={handleClick} className="border-2 border-none bg-teal-300 text-sm px-16 py-1 font-semibold text-white rounded-md">
+                        <button onClick={() => handleClick(item.user_id, item.checkout_id)} className="border-2 border-none bg-teal-300 text-sm px-16 py-1 font-semibold text-white rounded-md">
                         Input No Resi
                         </button>
                         </div>
@@ -96,10 +96,10 @@
                     ))
                     }
                     {overlay && <FormInputResi
-                    // orders={selectedData}
+                    selectedData={selectedData}
                     onClose={() => {
                         setOverlay(false);
-                        // setSelectedData(null);
+                        setSelectedData(null);
                     }} />}
                 </>
                 )

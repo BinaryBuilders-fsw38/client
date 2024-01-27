@@ -50,7 +50,11 @@ const DataTable = () => {
     setModalAddOpen(false);
     setModalEditOpen(false);
   };
-
+  const handleDataUpdate = async () => {
+    // Ambil data produk yang diperbarui setelah review baru dikirimkan
+    const result = await axios(`${apiUrl}/product/get`);
+    setData(result.data.data);
+  };
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
@@ -58,7 +62,7 @@ const DataTable = () => {
   const renderItems = currentItems.map((item, index) => {
     return (
       <tr key={index} className="border-b border-gray-200">
-        <td className="px-4 py-2">{item.product_id}</td>
+        <td className="px-4 py-2">{indexOfFirstItem + index+1}</td>
         <td className="px-4 py-2">{item.product_name}</td>
         <td className="px-4 py-2">{item.price}</td>
         <td className="px-4 py-2">
@@ -133,10 +137,10 @@ const DataTable = () => {
         {modalEditOpen && <EditModal 
           onClose={handleFormClose}
           data={selectedData}
-          
+          onDataUpdate={handleDataUpdate}
         />}
         
-        {modalAddOpen && <FormInputProduct onClose={handleFormClose} />}
+        {modalAddOpen && <FormInputProduct onClose={handleFormClose} onDataUpdate={handleDataUpdate}/>}
       </div>
     </>
   );

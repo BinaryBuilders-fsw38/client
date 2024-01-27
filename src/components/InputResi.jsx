@@ -1,22 +1,63 @@
+    import axios from "axios";
     import "../css/index.css";
     import DateSelector from "./Date.jsx";
-    import React, {useState} from 'react';
+    import React, { useState} from 'react';
+    import apiUrl from "../utils/apiConfig";
+    import { useNavigate } from "react-router-dom";
 
-    const FormInputResi = ({onClose}) => {
+    const FormInputResi = ({selectedData, onClose}) => {
         const [shipmentStatus, setShipmentStstus] = useState("");
+        const [trackingNumber, setTrackingNumber] = useState("");
+        const [date, setDate] = useState("")
+        const Navigate = useNavigate()
+
 
         const handleDateChange = (selectedDate) => {
-            // tanggal yang dipilih kirim ke backend atau perbarui data lokal
-            console.log("Selected Date:", selectedDate);
+            setDate(selectedDate)
+            console.log(date);
         };
+
         const handleShipmentChange = (e) =>{
             setShipmentStstus(e.target.value);
             if(e.target.value === "belum-kirim"){
-                shipmentStatus("Belum Dikirim");
+                setShipmentStstus("Belum Dikirim");
             }else if(e.target.value === "kirim"){
-                shipmentStatus("Dikirim");
+                setShipmentStstus("Dikirim");
             }
         }
+
+        const userId = selectedData.userId
+        const checkoutId = selectedData.checkoutId
+        console.log(userId, "ini dia");
+        console.log(checkoutId, "ini checkout");
+        const handleInputResi = () => {
+            const inputData = {
+                user_id: userId,
+                checkout_id: checkoutId,
+                shipment_status: shipmentStatus,
+                tracking_number: trackingNumber,
+                updated_at: date,
+
+            }
+            inputResi(inputData)
+        }
+
+        const inputResi = async (inputData) => {
+            try {
+                const resiFromServer = await axios({
+                    method: "PATCH",
+                    url: `${apiUrl}/admin/order/update`,
+                    data: inputData
+                })
+                if (resiFromServer.data.status === "success") {
+                    Navigate("/order")
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        
     return (
         <>
             <div className="bg-black fixed top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center z-50">
@@ -35,6 +76,7 @@
                     <input
                         type="text"
                         className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                        onChange={(e) => {setTrackingNumber(e.target.value)}}
                     />
                     </div>
                 </div>
@@ -63,7 +105,9 @@
                     </div>
                 </div>
 
-                <button className="bg-black text-white font-bold py-2 px-4 rounded mb-2">
+                <button className="bg-black text-white font-bold py-2 px-4 rounded mb-2"
+                onClick={handleInputResi}
+                >
                     Input Resi
                 </button>
                 </div>

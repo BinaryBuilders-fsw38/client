@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
+import { useNavigate } from "react-router-dom";
+
 const Checkout = () => {
   const location = useLocation();
   const CartId = location.pathname.split("/")[2];
@@ -27,7 +29,7 @@ const Checkout = () => {
     };
 
     fetchData();
-  }, []);
+  }, [CartId]);
 
   const handlePengirimanChange = (e) => {
     setMetodePengiriman(e.target.value);
@@ -44,17 +46,18 @@ const Checkout = () => {
   let alamat = dataCheckout?.[0]?.address;
   const userID = dataCheckout?.[0]?.user_id;
 
+  const navigate = useNavigate();
   // Tambahkan ongkir ke totalPrices
   let total = totalPrices + ongkir;
-  const postCheckout = async () => {
+  const postCheckout = async (cart_id) => {
     const url = `${apiUrl}/checkout/add/${CartId}`;
 
     try {
-      const response = await axios.post(url, {
+      await axios.post(url, {
         idUser: userID, // Kirim di body req
         shipment: metodePengiriman,
       });
-      window.location.href = `${apiUrl}/payment/${CartId}`;
+      navigate(`/payment/${CartId}`);
     } catch (error) {
       console.error("Terjadi kesalahan saat melakukan pembayaran:", error);
     }

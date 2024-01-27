@@ -67,7 +67,7 @@ const AddArticle = ({ data }) => {
     const articleId = id;
 
     const deleteArticle = async () => {
-      const url = `${apiUrl} /article/delete/${articleId}`;
+      const url = `${apiUrl}/article/delete/${articleId}`;
       try {
         await axios.delete(url);
         const newData = articleData.filter((article) => article.id !== id);

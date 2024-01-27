@@ -50,7 +50,7 @@ const CardOrder = ({ dataOrder }) => {
                   {item.payment_status}
                 </h4>
                 <h4 className="font-bold text-sm text-slate-500">
-                  IVR/20230101/XXIII/XII/1298378
+                  {item.tracking_number}
                 </h4>
               </div>
               <h1 className="font-bold mt-2">Hrny official store</h1>
