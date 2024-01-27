@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
+import { useNavigate } from "react-router-dom";
 
 const CardProduct = ({ products, visible }) => {
   const [cart, setCart] = useState([]);
-
 
   const handleClick = async (product) => {
     try {
@@ -24,14 +25,18 @@ const CardProduct = ({ products, visible }) => {
       console.error(error);
     }
   };
+  const navigate = useNavigate();
+  const handleDetail = (product_id) => {
+    navigate(`/product-review/${product_id}`);
+  };
   return (
     <>
       {products?.slice(0, visible).map((el, id) => {
         return (
           <React.Fragment key={id}>
             <div className="mt-5 max-w-xs md:w-1/5 sm:w-1/5 lg:w-1/5 xl:w-1/4 xl:w-1/5 rounded  px-2 py-2 mb-4 mx-2 h-46 lg:h-78 xl:h-90">
-              <a
-                href="#"
+              <Link
+                to=""
                 className=" hover:opacity-75 transition duration-300 w-32 md:w-25  lg:w-15 xl:w-20 h-32 lg:h-25 xl:h-48"
               >
                 <img
@@ -39,9 +44,9 @@ const CardProduct = ({ products, visible }) => {
                   src={el.product_file}
                   alt="Product"
                 />
-              </a>
+              </Link>
               <div className="w-32 md:w-25  lg:w-13 xl:w-48 h-20">
-                <a
+                <Link
                   className="MuiTypography-root text-xs sm:text-sm md:text-base lg:text-lg md:text-md w-13 lg:w-15 xl:w-48 h-32 lg:h-25 xl:h-48"
                   id="plugin-productTitle-typography"
                 >
@@ -50,7 +55,7 @@ const CardProduct = ({ products, visible }) => {
                       ? el.product_name.slice(0, 15) + ". . ."
                       : el.product_name}
                   </div>
-                </a>
+                </Link>
                 <div className="mt-2">
                   <p className="MuiTypography-root MuiTypography-alignLeft text-xs sm:text-sm md:text-base lg:text-lg w-22 md:w-30  lg:w-15 xl:w-48 h-32 lg:h-25 xl:h-48">
                     {" "}
@@ -64,12 +69,9 @@ const CardProduct = ({ products, visible }) => {
               >
                 <i className="fa fa-shopping-cart"></i> Cart
               </button>
-
               <button
                 className="hover:bg-black hover:text-white"
-                onClick={() =>
-                  (window.location.href = `http://localhost:3006/product-review/${el.product_id}`)
-                }
+                onClick={() => handleDetail(el.product_id)}
               >
                 <i className="fa fa-info-circle"></i> Detail
               </button>
