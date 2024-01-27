@@ -15,8 +15,8 @@ const Product = () => {
   const getDataProduct = useCallback(async () => {
     try {
       const url = brand
-        ? `${apiUrl}/product/get/${brand}`
-        : `${apiUrl}/product/get`;
+        ? `http://localhost:3000/product/get/${brand}`
+        : `http://localhost:3000/product/get`;
       const dataProductFromServer = await axios({
         method: "GET",
         url: url,
