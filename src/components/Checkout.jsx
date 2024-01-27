@@ -54,7 +54,7 @@ const Checkout = () => {
         idUser: userID, // Kirim di body req
         shipment: metodePengiriman,
       });
-      window.location.href = `http://localhost:3006/payment/${CartId}`;
+      window.location.href = `${apiUrl}/payment/${CartId}`;
     } catch (error) {
       console.error("Terjadi kesalahan saat melakukan pembayaran:", error);
     }

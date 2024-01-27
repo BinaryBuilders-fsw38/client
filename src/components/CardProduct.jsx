@@ -5,7 +5,6 @@ import apiUrl from "../utils/apiConfig";
 const CardProduct = ({ products, visible }) => {
   const [cart, setCart] = useState([]);
 
-
   const handleClick = async (product) => {
     try {
       const userInfo = localStorage.getItem("userInfo");
@@ -68,7 +67,7 @@ const CardProduct = ({ products, visible }) => {
               <button
                 className="hover:bg-black hover:text-white"
                 onClick={() =>
-                  (window.location.href = `http://localhost:3006/product-review/${el.product_id}`)
+                  (window.location.href = `${apiUrl}/product-review/${el.product_id}`)
                 }
               >
                 <i className="fa fa-info-circle"></i> Detail
