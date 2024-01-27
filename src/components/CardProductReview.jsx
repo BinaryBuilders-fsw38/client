@@ -10,16 +10,16 @@ import apiUrl from "../utils/apiConfig";
 
 const CardProduct = function () {
   const location = useLocation();
-  const ProductId = location.pathname.split("/")[2];
+  const productId = location.pathname.split("/")[2];
 
   const [dataProduct, setDataProduct] = useState([]);
   const [dataProductReview, setDataProductReview] = useState([]);
   const [dataAverage, setDataAverage] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const url1 = `${apiUrl}/product/get-product/${ProductId}`;
-      const url2 = `${apiUrl}/review/get/${ProductId}`;
-      const url3 = `${apiUrl}/review/getAverage/${ProductId}`;
+      const url1 = `${apiUrl}/product/get-product/${productId}`;
+      const url2 = `${apiUrl}/review/get/${productId}`;
+      const url3 = `${apiUrl}/review/getAverage/${productId}`;
       try {
         const getDataProduct = await axios.get(url1);
         const result = getDataProduct.data.data;
@@ -36,13 +36,13 @@ const CardProduct = function () {
     };
 
     fetchData();
-  }, []);
+  }, [productId]);
 
   let rating = parseFloat(dataAverage);
   if (isNaN(rating)) {
     rating = 0;
   } else {
-    rating = rating.toFixed(1);
+    rating = Math.round(rating * 10) / 10;
   }
   const totalReviews = dataProductReview.length;
 
@@ -63,7 +63,7 @@ const CardProduct = function () {
     for (let i = 1; i <= 5; i++) {
       const jumlah_review_skor_i = jumlah_review_dengan_skor(i);
       const presentase_skor_i = (jumlah_review_skor_i / totalReviews) * 100;
-      percentage.push(presentase_skor_i.toFixed(2));
+      percentage.push(Number(presentase_skor_i.toFixed(2)));
     }
   }
   const [activeTab, setActiveTab] = useState("detail");

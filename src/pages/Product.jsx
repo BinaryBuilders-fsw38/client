@@ -61,8 +61,10 @@ const Product = () => {
       <div className="flex mt-12 justify-end max-w-7xl mx-auto flex-wrap mb-20">
         <select value={brand} onChange={handleBrandChange}>
           <option value="">Semua Product</option>
-          {brands.map((item) => (
-            <option value={item.brand}>{item.brand}</option>
+          {brands.map((item, index) => (
+            <option key={index} value={item.brand}>
+              {item.brand}
+            </option>
           ))}
         </select>
       </div>
