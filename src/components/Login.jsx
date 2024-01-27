@@ -1,9 +1,7 @@
 import "../css/index.css";
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import apiUrl from "../utils/apiConfig";
 import { useAuth } from "../utils/useAuth";
 
 const Login = () => {
