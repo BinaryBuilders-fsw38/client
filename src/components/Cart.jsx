@@ -18,21 +18,26 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
-  const userInfo = localStorage.getItem("userInfo");
-  const userInfoObject = JSON.parse(userInfo);
-  const userID = userInfoObject?.user_id || null;
 
   useEffect(() => {
     const getCartData = async () => {
       if (isLogin) {
         setIsFetching(true);
-
         try {
-          const response = await axios.get(`${apiUrl}/cart/view/${userID}`);
+          const userInfo = localStorage.getItem("userInfo");
+          const userInfoObject = JSON.parse(userInfo);
+          const userID = userInfoObject?.user_id || null;
+          if (userID !== null) {
+            const response = await axios.get(`${apiUrl}/cart/view/${userID}`);
 
-          if (response.data.status === "success") {
-            setCartData(response.data.data);
-            setHasFetched(true); // Setel hasFetched ke true setelah berhasil fetch
+            if (response.data.status === "success") {
+              setCartData(response.data.data);
+              console.log(response.data.data, `ini sulton`);
+              setHasFetched(true); // Setel hasFetched ke true setelah berhasil fetch
+            }
+          } else {
+            // Handle the case where userId is null (user_id not found in userInfoObject)
+            console.error("User ID not found in userInfoObject");
           }
         } catch (error) {
           console.error("Error fetching cart data:", error);
