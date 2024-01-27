@@ -1,4 +1,0 @@
-[[redirects]]
-  from = "https://3.106.253.144/*"
-  to = "http://3.106.253.144/:splat"
-  
