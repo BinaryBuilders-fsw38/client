@@ -1,22 +1,51 @@
-import Navbar from "../components/Nav";
+import { useLocation } from "react-router-dom";
 import Payment from "../components/Payment";
-import { CartProvider } from "../context/CartContext";
-import Cart from "../components/Cart";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import apiUrl from "../utils/apiConfig";
+import axios from "axios";
 
 const PaymentPage = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const cartID = location.pathname.split("/")[2];
+  const [dataCheckout, setDataCheckout] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const url = `${apiUrl}/payment/get/${cartID}`;
+      try {
+        const dataCheckoutFromServer = await axios.get(url);
+        console.log(dataCheckoutFromServer, "ini DATA");
+
+        const result = dataCheckoutFromServer.data.data;
+        setDataCheckout(result);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
-      <CartProvider>
-        <div className="absolute">
-          <Cart />
-        </div>
-      </CartProvider>
       <div className="PaymentPage">
-        <Payment />
+        {dataCheckout ? (
+          dataCheckout.map((item) => (
+            <Payment
+              key={item.checkout_id}
+              productName={item.product_name}
+              productPrice={item.price}
+              productFile={item.product_file}
+              quantity={item.quantity}
+              totalPrice={item.total_price}
+              address={item.address}
+              checkoutID={item.checkout_id}
+              userID={item.user_id}
+            />
+          ))
+        ) : (
+          <p>Keranjang Anda kosong.</p>
+        )}
       </div>
     </>
   );

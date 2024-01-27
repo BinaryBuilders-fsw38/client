@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import apiUrl from "./apiConfig";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -12,12 +13,11 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUserData = localStorage.getItem("userInfo");
 
-    if (storedUserData) {
-      // Jika ada, set isLogin menjadi true
-      setIsLogin(true);
+    if (storedUserData && isLogin) {
       setUser(JSON.parse(storedUserData));
+      console.log(user.user_id, `dari auth`);
     }
-  }, []);
+  }, [isLogin]);
 
   const login = async (username, password) => {
     try {

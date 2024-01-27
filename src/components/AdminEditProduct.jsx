@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import apiUrl from "../utils/apiConfig";
 
-const EditModal = ({ data, onClose }) => {
+const EditModal = ({ data, onClose, onDataUpdate }) => {
   const [editedProductInfo, setEditedProductInfo] = useState({
     product_name: "",
     description: "",
@@ -71,7 +71,7 @@ const EditModal = ({ data, onClose }) => {
           },
         }
       );
-
+      onDataUpdate((prevData) => [...prevData, response.data]);
       console.log(response.data);
       setIsSubmitted(true);
       setResponseMessage(response.data.message);

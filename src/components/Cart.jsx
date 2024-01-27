@@ -4,9 +4,11 @@ import CardCart from "./CardCart";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import apiUrl from "../utils/apiConfig";
+import { useAuth } from "../utils/useAuth";
 
 const Cart = () => {
   const { isCartOpen, toggleCart } = useCart();
+  const { isLogin } = useAuth();
 
   const HandleClose = () => {
     "-h-full";
@@ -16,32 +18,39 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
-  const userInfo = localStorage.getItem("userInfo");
-  const userInfoObject = JSON.parse(userInfo);
-  const userID = userInfoObject?.user_id || null;
 
   useEffect(() => {
     const getCartData = async () => {
-      setIsFetching(true);
-      try {
-        const response = await axios.get(`${apiUrl}/cart/view/${userID}`);
+      if (isLogin) {
+        setIsFetching(true);
+        try {
+          const userInfo = localStorage.getItem("userInfo");
+          const userInfoObject = JSON.parse(userInfo);
+          const userID = userInfoObject?.user_id || null;
+          if (userID !== null) {
+            const response = await axios.get(`${apiUrl}/cart/view/${userID}`);
 
-        if (response.data.status === "success") {
-          setCartData(response.data.data);
-          console.log(response.data.data, `ini sulton`);
-          setHasFetched(true); // Setel hasFetched ke true setelah berhasil fetch
+            if (response.data.status === "success") {
+              setCartData(response.data.data);
+              console.log(response.data.data, `ini sulton`);
+              setHasFetched(true); // Setel hasFetched ke true setelah berhasil fetch
+            }
+          } else {
+            // Handle the case where userId is null (user_id not found in userInfoObject)
+            console.error("User ID not found in userInfoObject");
+          }
+        } catch (error) {
+          console.error("Error fetching cart data:", error);
+        } finally {
+          setIsFetching(false);
         }
-      } catch (error) {
-        console.error("Error fetching cart data:", error);
-      } finally {
-        setIsFetching(false);
       }
     };
 
-    if (!hasFetched) {
+    if (!hasFetched && isLogin) {
       getCartData();
     }
-  }, [hasFetched]); // Tambahkan hasFetched ke dalam array dependencies
+  }, [isLogin, hasFetched]); // Tambahkan hasFetched ke dalam array dependencies
 
   return (
     <div

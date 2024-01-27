@@ -1,39 +1,38 @@
 import "../css/index.css";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { formatCurrency } from "../utils/formatPricing";
 import apiUrl from "../utils/apiConfig";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const Payment = () => {
-  const location = useLocation();
-  const CartId = location.pathname.split("/")[2];
-  console.log(CartId, "===>");
-
-  const [metodePengiriman, setMetodePengiriman] = useState("");
+const Payment = ({
+  cart_id,
+  productName,
+  productPrice,
+  productFile,
+  quantity,
+  totalPrice,
+  address,
+  checkoutID,
+  userID,
+}) => {
   const [metodePembayaran, setMetodePembayaran] = useState("");
-  const [dataCheckout, setDataCheckout] = useState([]);
-  const [shipment, setShipment] = useState("");
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    setMetodePengiriman("");
-    setMetodePembayaran("");
+  const insertPayment = async () => {
+    const url = `${apiUrl}/payment/process-payment/${userID} `;
+    console.log(metodePembayaran);
+    try {
+      const response = await axios.post(url, {
+        payment_method: metodePembayaran,
+        checkout_id: checkoutID,
+      });
+      navigate("/order");
+    } catch (error) {
+      console.error("Terjadi kesalahan saat melakukan pembayaran:", error);
+    }
+  };
 
-    const fetchData = async () => {
-      const url = `${apiUrl}/checkout/get/${CartId}`;
-      try {
-        const dataProductFromServer = await axios.get(url);
-        console.log(dataProductFromServer, "ini DATA");
-        const result = dataProductFromServer.data.data;
-        setDataCheckout(result);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-  let totalPrice = dataCheckout?.[0]?.total_price;
-  let alamat = dataCheckout?.[0]?.address;
   return (
     <>
       <div className="flex mt-20">
@@ -43,34 +42,26 @@ const Payment = () => {
             <div className="w-3/4 pr-5 pl-10">
               <h1 className="text-2xl font-bold mb-2">Pembayaran</h1>
               <div>
-                {dataCheckout ? (
-                  dataCheckout.map((item, index) => (
-                    <div key={index}>
-                      {/* Detail Produk */}
-                      <div className="detail produk flex items-center border border-black rounded-md pb-5 mb-5">
-                        <div className="w-1/4 pr-5">
-                          <img
-                            src={item.product_file}
-                            alt="product"
-                            className="rounded-md"
-                          />
-                        </div>
-
-                        <div className="w-3/4">
-                          <div className="namaProduct mb-2">
-                            {item.product_name}
-                          </div>
-                          <div className="harga mb-2">Harga: {item.price}</div>
-                          <div className="quantity mb-2">
-                            Quantity: {item.quantity}
-                          </div>
-                        </div>
-                      </div>
+                <div key={checkoutID}>
+                  {/* Detail Produk */}
+                  <div className="detail produk flex items-center border border-black rounded-md pb-5 mb-5">
+                    <div className="w-1/4 pr-5">
+                      <img
+                        src={productFile}
+                        alt="product"
+                        className="rounded-md"
+                      />
                     </div>
-                  ))
-                ) : (
-                  <p>Tidak ada data Checkout</p>
-                )}
+
+                    <div className="w-3/4">
+                      <div className="namaProduct mb-2">{productName}</div>
+                      <div className="harga mb-2">
+                        Harga: {formatCurrency(productPrice)}
+                      </div>
+                      <div className="quantity mb-2">Quantity: {quantity}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Metode Pembayaran dan Pengiriman */}
@@ -79,7 +70,7 @@ const Payment = () => {
                   <label htmlFor="alamat" className="block">
                     Alamat:
                   </label>
-                  <p>{alamat}</p>
+                  <p>{address}</p>
                 </div>
                 <div className="flex mb-2 pt-5">
                   <div className="w-1/2 pr-2">
@@ -87,16 +78,16 @@ const Payment = () => {
                       Metode Pembayaran:
                     </label>
                     <select
-                      id="metodePengiriman"
+                      id="metodePembayaran"
                       className="w-full p-2 border rounded"
-                      value={metodePengiriman}
-                      onChange={(e) => setMetodePengiriman(e.target.value)}
+                      value={metodePembayaran}
+                      onChange={(e) => setMetodePembayaran(e.target.value)}
                     >
                       <option value="" disabled hidden>
                         Pilih metode pembayaran
                       </option>
-                      <option value="reguler">Gopay</option>
-                      <option value="instant">Virtual Account</option>
+                      <option value="gopay">Gopay</option>
+                      <option value="va">Virtual Account</option>
                     </select>
                   </div>
                 </div>
@@ -107,18 +98,20 @@ const Payment = () => {
             <div className="w-1/4 pl-5 pt-10">
               <div className="totalBelanja mb-5">
                 <span className="font-bold">
-                  Total Belanja :{" " + totalPrice}
+                  Total Belanja :{" " + formatCurrency(productPrice)}
                 </span>
-
-                {console.log(dataCheckout, "inidatachk")}
               </div>
               <div className="totalOngkir mb-5">
-                <span className="font-bold">Total Ongkir :</span> 50,000
+                <span className="font-bold">Total Ongkir :</span>{" "}
+                {formatCurrency(totalPrice - productPrice)}
               </div>
               <div className="totalHarga mb-5 font-extrabold text-lg">
-                Total : 1,547,000
+                Total : {formatCurrency(totalPrice)}
               </div>
-              <button className="bg-slate-900 text-white px-4 py-2 rounded-md">
+              <button
+                onClick={insertPayment}
+                className="bg-slate-900 text-white px-4 py-2 rounded-md"
+              >
                 Bayar
               </button>
             </div>
