@@ -14,7 +14,6 @@ export default function FormReview({ dataReview }) {
   const handleText = (e) => {
     setText(e.target.value);
   };
-
   const handleSubmit = async (e) => {
     const userInfo = localStorage.getItem("userInfo");
     const userInfoObject = JSON.parse(userInfo);
@@ -43,6 +42,7 @@ export default function FormReview({ dataReview }) {
       }
     }
   };
+
   return (
     <>
       <div className="w-1/2 ml-44">
@@ -54,15 +54,13 @@ export default function FormReview({ dataReview }) {
             const ratingValue = i + 1;
 
             return (
-              <>
-                <div key={i} className="inline-block">
-                  <FaStar
-                    className="star w-10 h-10"
-                    color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"}
-                    onClick={() => setRating(ratingValue)}
-                  />
-                </div>
-              </>
+              <div key={i} className="inline-block">
+                <FaStar
+                  className="star w-10 h-10"
+                  color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"}
+                  onClick={() => setRating(ratingValue)}
+                />
+              </div>
             );
           })}
         </div>
@@ -73,7 +71,6 @@ export default function FormReview({ dataReview }) {
           onChange={handleText}
           rows={4}
           className="block w-full mt-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-4"
-          defaultValue={""}
         />
         <div className="flex flex-row-reverse w-full">
           <button

@@ -15,8 +15,8 @@ const Product = () => {
   const getDataProduct = useCallback(async () => {
     try {
       const url = brand
-        ? `${apiUrl}/product/get/${brand}`
-        : `${apiUrl}/product/get`;
+        ? `http://localhost:3000/product/get/${brand}`
+        : `http://localhost:3000/product/get`;
       const dataProductFromServer = await axios({
         method: "GET",
         url: url,
@@ -61,8 +61,10 @@ const Product = () => {
       <div className="flex mt-12 justify-end max-w-7xl mx-auto flex-wrap mb-20">
         <select value={brand} onChange={handleBrandChange}>
           <option value="">Semua Product</option>
-          {brands.map((item) => (
-            <option value={item.brand}>{item.brand}</option>
+          {brands.map((item, index) => (
+            <option key={index} value={item.brand}>
+              {item.brand}
+            </option>
           ))}
         </select>
       </div>
