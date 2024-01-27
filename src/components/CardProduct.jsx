@@ -69,15 +69,10 @@ const CardProduct = ({ products, visible }) => {
               >
                 <i className="fa fa-shopping-cart"></i> Cart
               </button>
+
               <button
                 className="hover:bg-black hover:text-white"
-<<<<<<< HEAD
-                onClick={() =>
-                  (window.location.href = `${apiUrl}/product-review/${el.product_id}`)
-                }
-=======
                 onClick={() => handleDetail(el.product_id)}
->>>>>>> b6f67cbb0d066848d98275ba624de6dde6fa63ab
               >
                 <i className="fa fa-info-circle"></i> Detail
               </button>
