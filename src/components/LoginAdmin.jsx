@@ -19,7 +19,6 @@ const LoginAdmin = () => {
 
   const adminLogin = async (inputAdmin) => {
     try {
-      console.log("admin");
       const adminFromServer = await axios({
         method: "POST",
         url: `${apiUrl}/admin/login`,

@@ -41,7 +41,7 @@ const AddArticle = ({ data }) => {
       });
       console.log(response.data.status);
       if (response.data.status === "success") {
-        navigate("/article");
+        navigate(0);
       }
     } catch (error) {
       console.log(error);

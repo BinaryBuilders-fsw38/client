@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
 
     if (storedUserData && isLogin) {
       setUser(JSON.parse(storedUserData));
-      console.log(user.user_id, `dari auth`);
     }
   }, [isLogin]);
 

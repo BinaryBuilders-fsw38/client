@@ -4,7 +4,7 @@ import CardDetails from "./CardDetails";
 const TransactionDetails = ({ orders, onClose }) => {
   const handleShippingMethod =(method)=>{
     if(method === "standard"){
-      console.log(orders.total_price + 10000)
+      // console.log(orders.total_price + 10000)
       const price = orders.total_price + 10000
      return formatCurrency(price)
     }else{
@@ -32,7 +32,7 @@ const TransactionDetails = ({ orders, onClose }) => {
 
   return (
     <>
-    {console.log(orders)}
+    {/* {console.log(orders)} */}
       <div className="card-details pointer-events-auto rounded-lg bg-black fixed top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center z-50">
         <div className="bg-white w-1/2 text-left rounded-lg">
           <div className="card-title flex justify-between mb-4 p-5">
