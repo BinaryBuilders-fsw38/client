@@ -12,9 +12,9 @@
         const Navigate = useNavigate()
 
 
+
         const handleDateChange = (selectedDate) => {
             setDate(selectedDate)
-            console.log(date);
         };
 
         const handleShipmentChange = (e) =>{
@@ -28,8 +28,6 @@
 
         const userId = selectedData.userId
         const checkoutId = selectedData.checkoutId
-        console.log(userId, "ini dia");
-        console.log(checkoutId, "ini checkout");
         const handleInputResi = () => {
             const inputData = {
                 user_id: userId,
@@ -40,6 +38,7 @@
 
             }
             inputResi(inputData)
+            onClose()
         }
 
         const inputResi = async (inputData) => {
@@ -50,7 +49,7 @@
                     data: inputData
                 })
                 if (resiFromServer.data.status === "success") {
-                    Navigate("/order")
+                    Navigate(0)
                 }
             } catch (error) {
                 console.log(error);

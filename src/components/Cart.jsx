@@ -32,7 +32,6 @@ const Cart = () => {
 
             if (response.data.status === "success") {
               setCartData(response.data.data);
-              console.log(response.data.data, `ini sulton`);
               setHasFetched(true); // Setel hasFetched ke true setelah berhasil fetch
             }
           } else {

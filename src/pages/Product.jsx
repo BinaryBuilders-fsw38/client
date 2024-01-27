@@ -21,7 +21,6 @@ const Product = () => {
         method: "GET",
         url: url,
       });
-      console.log(dataProductFromServer, "ini DATA");
       const result = dataProductFromServer.data.data;
       setDataProduct(result);
     } catch (error) {

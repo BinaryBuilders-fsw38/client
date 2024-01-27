@@ -12,7 +12,7 @@ const CardDetails = (data) => {
   }
   return (
     <>
-    {console.log(data.data)}
+    {/* {console.log(data.data)} */}
       <div className="card-product rounded-md border border-slate-300 my-4 p-4">
         <div className="wrapper-product flex justify-between">
           <div className="product-info flex">
