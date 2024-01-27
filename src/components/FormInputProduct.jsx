@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import apiUrl from "../utils/apiConfig";
 
-const FormInputProduct = ({ onClose }) => {
+const FormInputProduct = ({ onClose, onDataUpdate }) => {
   const [productInfo, setProductInfo] = useState({
     product_name: "",
     description: "",
@@ -51,10 +51,11 @@ const FormInputProduct = ({ onClose }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-
+      onDataUpdate((prevData) => [...prevData, response.data]);
       console.log(response.data);
       setIsSubmitted(true); // Set isSubmitted jika success
       setResponseMessage(response.data.message);
+      
       setProductInfo({
         // hapus form
         product_name: "",
@@ -66,6 +67,7 @@ const FormInputProduct = ({ onClose }) => {
         type_id: "",
         product_file: null,
       });
+
       alert("Product uploaded successfully!");
     } catch (error) {
       console.error("Error uploading product:", error);
