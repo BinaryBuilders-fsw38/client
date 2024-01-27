@@ -47,7 +47,7 @@ const Order = () => {
                             console.log(result);
                             setDataOrder([]);
                         } else {
-                            console.log(result);
+                            // console.log(result);
                             setDataOrder(result);
                         }
 
