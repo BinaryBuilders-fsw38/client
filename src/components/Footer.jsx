@@ -20,12 +20,20 @@ const Footer = () => {
             </button>
           </div>
 
-          <div >
-            <div>
+          <div>
+            <div className="text-left">
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Bantuan
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <li className="mb-4">
+                  <button
+                    onClick={(e) => handleNavigate(e, "recommendation")}
+                    className="hover:underline"
+                  >
+                    Recomendation
+                  </button>
+                </li>
                 <li className="mb-4">
                   <button
                     onClick={(e) => handleNavigate(e, "article")}
@@ -45,7 +53,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div>
+          <div className="text-left">
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white xl:mt-0 lg:mt-0 md:mt-0 mt-7">
               Follow us
             </h2>
@@ -68,7 +76,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="text-left">
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white xl:mt-0 lg:mt-0 md:mt-0 mt-7">
               Legal
             </h2>
