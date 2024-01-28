@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const CardProduct = ({ products, visible }) => {
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
 
   const handleClick = async (product) => {
     try {
@@ -20,12 +21,12 @@ const CardProduct = ({ products, visible }) => {
       if (response.status === 200) {
         setCart([...cart, product]);
         alert(response.data.message);
+        navigate(0)
       }
     } catch (error) {
       console.error(error);
     }
   };
-  const navigate = useNavigate();
   const handleDetail = (product_id) => {
     navigate(`/product-review/${product_id}`);
   };

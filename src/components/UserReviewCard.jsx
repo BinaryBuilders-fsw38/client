@@ -31,7 +31,7 @@ const CardUserReview = function ({ dataReview }) {
                   src={UserPict}
                   alt="user-pict"
                 />
-                <h1 className="text-xl ml-5 mt-1">{item.username}</h1>
+                <h1 className="text-xl ml-5 mt-1">{item.name}</h1>
               </div>
               <h2 className="text-sm ml-2 mb-2 font-semibold text-gray-400">
                 Product: haircare

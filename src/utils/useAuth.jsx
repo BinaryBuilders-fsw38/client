@@ -30,7 +30,6 @@ export const AuthProvider = ({ children }) => {
         data: inputUser,
       });
 
-      console.log("Server Response:", response);
 
       const { data } = response;
 
