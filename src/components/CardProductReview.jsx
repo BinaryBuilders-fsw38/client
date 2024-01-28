@@ -228,7 +228,7 @@ const CardProduct = function () {
           />
           <CardUserReview dataReview={dataProductReview} />
         </div>
-        <div className="w-full flex justify-center item-center">
+        <div className=" flex justify-center item-center ml-20">
           <InputReview dataReview={setDataProductReview} />
         </div>
       </div>

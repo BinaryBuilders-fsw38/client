@@ -9,7 +9,7 @@ const Product = () => {
   // State untuk menyimpan data produk, brand, dan jumlah produk yang ditampilkan
   const [dataProduct, setDataProduct] = useState([]);
   const [brand, setBrand] = useState("");
-  const [visible, setVisible] = useState(6);
+  const [visible, setVisible] = useState(8);
 
   // Fungsi untuk mendapatkan data produk dari server
   const getDataProduct = useCallback(async () => {
@@ -57,16 +57,17 @@ const Product = () => {
   // Render komponen
   return (
     <>
-      <div className="flex mt-12 justify-end max-w-7xl mx-auto flex-wrap mb-20">
-        <select value={brand} onChange={handleBrandChange}>
-          <option value="">Semua Product</option>
-          {brands.map((item, index) => (
-            <option key={index} value={item.brand}>
-              {item.brand}
-            </option>
-          ))}
-        </select>
-      </div>
+      <div className="flex mt-12 justify-end max-w-7xl  flex-wrap mb-20 ">
+  <select value={brand} onChange={handleBrandChange} className=" text-sm md:text-base lg:text-lg">
+    <option value="">Semua Product</option>
+    {brands.map((item, index) => (
+      <option key={index} value={item.brand} className="text-sm md:text-base lg:text-lg">
+        {item.brand}
+      </option>
+    ))}
+  </select>
+</div>
+
       <div className="flex justify-center max-w-7xl  mx-auto flex-wrap mb-11">
         <CardProduct products={dataProduct.slice(0, visible)} />
       </div>

@@ -46,7 +46,7 @@ const CardOrder = ({ dataOrder }) => {
                 {/* <h2 className="text-2xl font-semibold mb-4">Order Form</h2> */}
                 <h1 className="font-bold text-sm ">Belanja</h1>
                 <h4 className="font-bold text-sm text-gray-500">{convertDate(item.created_at)}</h4>
-                <h4 className={`font-bold text-sm text-gray-500  ${item.payment_status === 'unpaid' ? 'bg-yellow-300' : 'bg-teal-300'} h-5 rounded-md px-2`}>
+                <h4 className={`font-bold text-sm text-gray-500  ${item.payment_status === 'unpaid' ? 'bg-yellow-300' : 'bg-slate-600 text-white'} h-5 rounded-md px-2`}>
                   {item.payment_status}
                 </h4>
                 <h4 className="font-bold text-sm text-slate-500">
@@ -54,7 +54,7 @@ const CardOrder = ({ dataOrder }) => {
                 </h4>
               </div>
               <h1 className="font-bold mt-2">Hrny official store</h1>
-              <div className="w-full flex mt-1 justify-between">
+              <div className="w-full xl:flex lg:flex md:flex mt-1 justify-between">
                 <div className="w-20 ml-4 flex gap-3">
                   <img src={item.product_file} alt="" />
                   <div className="w-auto">
@@ -79,15 +79,15 @@ const CardOrder = ({ dataOrder }) => {
             </div>
             <div className="max-w-full flex justify-end gap-3 items-center mt-10">
               <button onClick={() => handleClick(item)}>
-                <h4 className="text-sm font-bold text-teal-400">
+                <h4 className="text-sm font-bold text-slate-900">
                   Lihat Detail Transaksi
                 </h4>
               </button>
               <div className="button flex gap-4 ">
-                <button className="border-2 border-teal-300 text-sm px-16 font-semibold text-teal-300 py-1 rounded-md">
+                <button className="border-2 border-slate-900 rounded-md text-sm px-2 py-0 sm:px-3 sm:py-1 sm:text-base md:px-3 md:py-2 md:text-md lg:px-3 lg:py-1 xl:px-4 xl:py-0 lg:text-md xl:text-md ">
                   Ulas
                 </button>
-                <button className="border-2 border-none bg-teal-300 text-sm px-16 py-1 font-semibold text-white rounded-md">
+                <button className="bg-slate-900 text-white px-4 py-2 rounded-md text-sm px-2 py-0 sm:px-3 sm:py-1 sm:text-base md:px-3 md:py-2 md:text-md lg:px-3 lg:py-1 xl:px-4 xl:py-0 lg:text-md xl:text-md">
                   Beli lagi
                 </button>
               </div>

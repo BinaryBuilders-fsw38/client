@@ -11,7 +11,7 @@ const Tracklist = ({ onClose }) => {
               <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
-        <div className="p-4 border bg-yellow-100 justify-center place-content-center">
+        <div className="p-4 border bg-slate-900 text-white justify-center place-content-center">
         <h2 className="text-lg font-bold mb-2 justify-center items-center">Detail Transaksi</h2>
         <div className="w-100 space-y-4 justify-center place-content-center">
           <div className="flex items-center space-x-5 justify-center place-content-center">
@@ -43,9 +43,9 @@ const Tracklist = ({ onClose }) => {
             </div>
           </div>
           <div className="justify-between justify-center items-center ">
-            <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Beri Ulasan</button>
-            <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Chat Penjual</button>
-            <button className="w-full rounded bg-blue-800 text-white font-bold mb-2">Bantuan</button>
+            <button className="w-full rounded bg-green-800 text-white font-bold mb-2">Beri Ulasan</button>
+            <button className="w-full rounded bg-green-800 text-white font-bold mb-2">Chat Penjual</button>
+            <button className="w-full rounded bg-green-800 text-white font-bold mb-2">Bantuan</button>
           </div>
         </div>
       </div>

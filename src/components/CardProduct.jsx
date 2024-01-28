@@ -64,14 +64,14 @@ const CardProduct = ({ products, visible }) => {
                 </div>
               </div>
               <button
-                className="hover:bg-black hover:text-white mr-4"
+                className="hover:bg-black hover:text-white mr-4 text-sm md:text-base lg:text-lg"
                 onClick={() => handleClick(el)}
               >
                 <i className="fa fa-shopping-cart"></i> Cart
               </button>
 
               <button
-                className="hover:bg-black hover:text-white"
+                className="hover:bg-black hover:text-white text-sm md:text-base lg:text-lg"
                 onClick={() => handleDetail(el.product_id)}
               >
                 <i className="fa fa-info-circle"></i> Detail

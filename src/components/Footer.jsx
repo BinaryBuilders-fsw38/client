@@ -8,10 +8,10 @@ const Footer = () => {
     navigate(`/${params}`);
   }
   return (
-    <footer className="bg-gray-900 sm:mt-10">
+    <footer className="bg-gray-900  mt-10 text-center">
       <div className="mx-auto w-full p-4 py-6 lg:py-8 px-16">
         <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0">
+          <div className="mb-6 md:mb-0 flex justify-center">
             <button
               onClick={(e) => handleNavigate(e, "")}
               className="flex items-center"
@@ -20,7 +20,7 @@ const Footer = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div >
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Bantuan
@@ -46,7 +46,7 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white xl:mt-0 lg:mt-0 md:mt-0 mt-7">
               Follow us
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium">
@@ -69,7 +69,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white xl:mt-0 lg:mt-0 md:mt-0 mt-7">
               Legal
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium">
