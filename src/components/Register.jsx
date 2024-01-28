@@ -2,6 +2,8 @@ import "../css/index.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import apiUrl from "../utils/apiConfig";
 
 const Register = () => {
@@ -24,7 +26,6 @@ const Register = () => {
       phone_number: phone_number,
     };
     userRegister(inputUser);
-    console.log(inputUser, " => input user");
   };
 
   const userRegister = async function (inputUser) {
@@ -34,19 +35,27 @@ const Register = () => {
         url: `${apiUrl}/user/register`,
         data: inputUser,
       });
+
       if (userRegisterFromServer.data.status === "success") {
         // console.log(userRegisterFromServer.data.status);
         const name = userRegisterFromServer.data.data[0].name;
         const email = userRegisterFromServer.data.data[0].email;
-        navigate("/login", { state: { name, email } });
+
+        toast.success("Registrasi berhasil! Silakan login untuk melanjutkan.");
+
+        setTimeout(() => {
+          navigate("/login", { state: { name, email } });
+        }, 1000); // Ubah jumlah milidetik sesuai kebutuhan Anda
       }
     } catch (error) {
       console.log(error, "===> error catch");
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <div className="flex mt-20 max-w-7xl mx-auto max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
+      <ToastContainer />
       <div className="m-auto w-full">
         <div className="flex flex-wrap -mx-2">
           <div className="register w-full md:w-1/2 px-2 text-left">
@@ -107,7 +116,7 @@ const Register = () => {
               </p>
               <div className="border-b-2 border-gray-200 py-2 mb-4">
                 <input
-                  type="text"
+                  type="password"
                   className="input appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                   placeholder="harus mengandung huruf besar, angka, dan symbol"
                   style={{ fontSize: "0.875rem" }}
@@ -118,7 +127,7 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="confrimPassword">
+            <div className="adress">
               <p className="mb-1 text-sm sm:text-base md:text-md lg:text-lg xl:text-lg">
                 Alamat
               </p>
