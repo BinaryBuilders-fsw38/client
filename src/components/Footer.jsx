@@ -8,7 +8,7 @@ const Footer = () => {
     navigate(`/${params}`);
   }
   return (
-    <footer className="bg-gray-900  mt-10 text-center">
+    <footer className="bg-gray-900  mt-10 text-center absolute w-full bottom-0">
       <div className="mx-auto w-full p-4 py-6 lg:py-8 px-16">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0 flex justify-center">
@@ -26,7 +26,7 @@ const Footer = () => {
                 Bantuan
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
-              <li className="mb-4">
+                <li className="mb-4">
                   <button
                     onClick={(e) => handleNavigate(e, "recommendation")}
                     className="hover:underline"
