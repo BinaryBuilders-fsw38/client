@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CardProduct = ({ products, visible }) => {
   const [cart, setCart] = useState([]);
@@ -20,8 +22,8 @@ const CardProduct = ({ products, visible }) => {
 
       if (response.status === 200) {
         setCart([...cart, product]);
-        alert(response.data.message);
-        navigate(0)
+        toast.success("Berhasil Menambahkan Barang ke Keranjang");
+        navigate(0);
       }
     } catch (error) {
       console.error(error);
@@ -32,6 +34,7 @@ const CardProduct = ({ products, visible }) => {
   };
   return (
     <>
+      <ToastContainer />
       {products?.slice(0, visible).map((el, id) => {
         return (
           <React.Fragment key={id}>

@@ -7,36 +7,62 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CardProduct = function () {
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
+  console.log(productId);
+  const userInfo = localStorage.getItem("userInfo");
+  const userInfoObject = JSON.parse(userInfo);
+  const userID = userInfoObject?.user_id || null;
 
   const [dataProduct, setDataProduct] = useState([]);
   const [dataProductReview, setDataProductReview] = useState([]);
   const [dataAverage, setDataAverage] = useState([]);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [wishlistId, setWishlistId] = useState(""); // State untuk menyimpan ID wishlist
+
   useEffect(() => {
     const fetchData = async () => {
       const url1 = `${apiUrl}/product/get-product/${productId}`;
       const url2 = `${apiUrl}/review/get/${productId}`;
       const url3 = `${apiUrl}/review/getAverage/${productId}`;
+      const url4 = `${apiUrl}/wishlist/get/${userID}`;
       try {
         const getDataProduct = await axios.get(url1);
         const result = getDataProduct.data.data;
         setDataProduct(result);
+
         const getDataProductReview = await axios.get(url2);
         const result2 = getDataProductReview.data.data;
         setDataProductReview(result2);
+
         const getAverage = await axios.get(url3);
         const result3 = getAverage.data.data;
         setDataAverage(result3);
+
+        const getDataWishlist = await axios.get(url4);
+        const result4 = getDataWishlist.data.data;
+        setIsInWishlist(
+          result4.some((item) => item.product_id === parseInt(productId))
+        );
+        // Mengatur wishlistId jika produk ada dalam wishlist
+        const item = result4.find(
+          (item) => item.product_id === parseInt(productId)
+        );
+        console.log(item, `====> log item`);
+        if (item) {
+          setWishlistId(item.wishlist_id);
+        }
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
 
     fetchData();
-  }, [productId]);
+  }, [productId, userID, wishlistId]);
 
   let rating = parseFloat(dataAverage);
   if (isNaN(rating)) {
@@ -72,8 +98,56 @@ const CardProduct = function () {
     setActiveTab(tabId);
   };
 
+  const addToCart = async () => {
+    try {
+      const response = await axios.post(`${apiUrl}/cart/add/${userID}`, {
+        product_id: productId,
+        quantity: 1,
+      });
+
+      if (response.status === 200) {
+        toast.success(
+          "Berhasil menambahkan ke Kerangjang, silahkan refresh page untuk melihat di cart"
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const addToWishlist = async () => {
+    try {
+      const response = await axios.post(`${apiUrl}/wishlist/add/${userID}`, {
+        product_id: productId,
+      });
+
+      if (response.status === 201) {
+        setIsInWishlist(true);
+        toast.success("Berhasil menambahkan ke Wishlist");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeFromWishlist = async () => {
+    console.log(wishlistId, `====> wishlistID`);
+    try {
+      const response = await axios.delete(
+        `${apiUrl}/wishlist/delete/${wishlistId}`
+      );
+      if (response.status === 200) {
+        setIsInWishlist(false);
+        toast.success("Berhasil menghapus dari Wishlist");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
+      <ToastContainer />
       <div className="mt-16 ">
         <h1 className="pt-10 pl-20 text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold mb-2">
           PRODUCT REVIEW
@@ -217,6 +291,49 @@ const CardProduct = function () {
                   </div>
                 </div>
               )}
+              <div className="mt-5">
+                <button
+                  type="button"
+                  onClick={addToCart}
+                  className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                >
+                  <span>
+                    <i className="fa-solid fa-cart-plus"></i> Tambahkan ke Cart
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={isInWishlist ? removeFromWishlist : addToWishlist}
+                  className={`text-white ${
+                    isInWishlist
+                      ? "bg-red-500"
+                      : "bg-gray-800 hover:bg-gray-900"
+                  } focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
+                >
+                  <span>
+                    <i
+                      className={`fa-solid ${
+                        isInWishlist
+                          ? "fa-heart-circle-minus"
+                          : "fa-heart-circle-plus"
+                      }`}
+                    ></i>{" "}
+                    {isInWishlist
+                      ? "Hapus dari Wishlist"
+                      : "Tambahkan ke Wishlist"}
+                  </span>
+                </button>
+
+                {/* <button
+                  type="button"
+                  className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                >
+                  <span>
+                    <i className="fa-solid fa-heart"></i> Tambahkan ke Wishlist
+                  </span>? "fa-heart-circle-minus"
+                          : "fa-heart-circle-plus"
+                </button> */}
+              </div>
             </div>
           </div>
         </div>
