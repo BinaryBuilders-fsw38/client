@@ -1,6 +1,7 @@
 import CardWishlist from "../components/CardWishlist";
 import "../css/index.css";
 import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiUrl from "../utils/apiConfig";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,6 +14,8 @@ const Wishlist = () => {
   const [dataWishlist, setDataWishlist] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,6 +73,7 @@ const Wishlist = () => {
       );
       if (response.status === 200) {
         toast.success("Berhasil menghapus dari Wishlist");
+        navigate(0)
       }
     } catch (error) {
       console.error(error);
