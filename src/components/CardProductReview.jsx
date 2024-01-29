@@ -48,6 +48,7 @@ const CardProduct = function () {
         setIsInWishlist(
           result4.some((item) => item.product_id === parseInt(productId))
         );
+        console.log(getDataWishlist);
         // Mengatur wishlistId jika produk ada dalam wishlist
         const item = result4.find(
           (item) => item.product_id === parseInt(productId)
