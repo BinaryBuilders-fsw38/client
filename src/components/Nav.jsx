@@ -65,7 +65,7 @@ const Navbar = () => {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex w-auto h-9 items-center jutify-center">
                   <img
-                    className="h-16 w-56 object-cover mt-8"
+                    className="h-16 w-24 sm:w-56 md:w-56 lg:w-56 xl:w-56 object-cover mt-3 sm:mt-8 lg:mt-8 lg:mt-8 xl:mt-8"
                     src={Logo}
                     alt="Your Company"
                   />

@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/useAuth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,7 +19,10 @@ const Login = () => {
     console.log(result, `ini result`);
 
     if (result.success) {
-      navigate("/");
+      toast.success("Login berhasil!");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000); // Ubah jumlah milidetik sesuai kebutuhan Anda
     } else {
       console.error("Login failed:", result.error);
     }
@@ -29,6 +34,8 @@ const Login = () => {
 
   return (
     <div className="flex mt-20">
+      <ToastContainer />
+
       <div className="mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
         <div className="flex flex-wrap -mx-2">
           {/* Bagian kiri */}

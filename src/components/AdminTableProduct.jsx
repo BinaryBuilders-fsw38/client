@@ -112,14 +112,16 @@ const DataTable = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center mt-10">
-        <div className="mb-10">
-          <h1>DATA PRODUCT</h1>
+      <div className="space-y-12 mx-auto w-full max-w-7xl max-sm:px-6 max-md:px-8 max-lg:px-10 max-xl:px-12">
+        <div className=" mt-20">
+        <h1 className="text-xl sm:text-1xl md:text-2xl lg:text-2xl xl:text-3xl font-bold ">
+              Data Product
+            </h1>
         </div>
         <div className="self-end mb-4 mr-12">
           <button
             onClick={handleAdd}
-            className="px-4 py-2 bg-blue-500 text-white rounded flex items-center"
+            className="px-4 py-2 bg-slate-900 text-white rounded flex items-center"
           >
             <FaPlus className="mr-2" /> Tambah
           </button>

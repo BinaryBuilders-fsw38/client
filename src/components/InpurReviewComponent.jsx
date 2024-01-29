@@ -45,7 +45,7 @@ export default function FormReview({ dataReview }) {
 
   return (
     <>
-      <div className="w-1/2 ml-44">
+      <div className="xl:w-1/2 lg:w-1/2 w-full">
         <label className="font-bold text-lg" htmlFor="review">
           Review Product
         </label>

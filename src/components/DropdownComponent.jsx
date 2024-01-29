@@ -10,7 +10,7 @@ const handleSelect = (product) => {
 }
 
 return (
-    <div className="relative inline-block " >
+    <div className="relative xl:inline-block lg:inline-block md:inline-block sm:inline-block" >
     <select
         value={selectedProduct}
         onChange={(e) => handleSelect(e.target.value)}

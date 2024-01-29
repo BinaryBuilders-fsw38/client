@@ -26,7 +26,7 @@ const CardOrderTrack = () => {
             {/* <h2 className="text-2xl font-semibold mb-4">Order Form</h2> */}
             <h1 className="font-bold text-sm ">Belanja</h1>
             <h4 className="font-bold text-sm text-gray-500">1 Des 2023</h4>
-            <h4 className="font-bold text-sm text-gray-500  bg-teal-300 h-5 rounded-md px-2">
+            <h4 className="font-bold text-sm text-gray-500  bg-slate-600 text-white h-5 rounded-md px-2">
               Berhasil
             </h4>
             <h4 className="font-bold text-sm text-slate-500">
@@ -34,7 +34,7 @@ const CardOrderTrack = () => {
             </h4>
           </div>
           <h1 className="font-bold mt-2">Hrny official store</h1>
-          <div className="w-full flex mt-1 justify-between">
+          <div className="w-full  xl:flex lg:flex md:flex mt-1 justify-between">
             <div className="w-20 ml-4 flex gap-3">
               <img src={FotoProduct} alt="" />
               <div className="w-auto">
@@ -59,13 +59,13 @@ const CardOrderTrack = () => {
         </div>
         <div className="max-w-full flex justify-end gap-3 items-center mt-10">
           <button>
-            <h4 className="text-sm font-bold text-teal-400"
+            <h4 className="text-sm font-bold text-slate-900"
             onClick={handleClick2}>
               Lihat Detail Transaksi
             </h4>
           </button>
           <div className="button flex gap-4 ">
-            <button className="border-2 border-none bg-teal-300 text-sm px-16 py-1 font-semibold text-white rounded-md" onClick={handleClick}>
+            <button className="border-2 border-none bg-slate-900 text-sm px-16 py-1 font-semibold text-white rounded-md" onClick={handleClick}>
               Lacak
             </button>
           </div>

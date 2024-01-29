@@ -53,7 +53,7 @@ const Cart = () => {
 
   return (
     <div
-      className={`w-1/3 h-screen bg-white fixed duration-500 ease-in-out z-10 ${
+      className={`w-full sm:w-full md:w-2/3 lg:w-1/3 xl:w-1/3 h-screen bg-white fixed duration-500 ease-in-out z-10 ${
         isCartOpen ? "-right-0" : "-right-full"
       }`}
     >

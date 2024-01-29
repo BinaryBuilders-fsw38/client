@@ -1,5 +1,7 @@
 import "../css/index.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import apiUrl from "../utils/apiConfig";
 
 const CardCart = ({ productName, productPrice, productFile, cart_id }) => {
   const formatCurrency = (amount) => {
@@ -15,6 +17,25 @@ const CardCart = ({ productName, productPrice, productFile, cart_id }) => {
   const handleCheckout = (cartID) => {
     navigate(`/checkout/${cartID}`);
   };
+
+  const handleDeletCart = (id) => {
+    const cartId = id;
+
+    const deleteCart = async () => {
+      const url = `${apiUrl}/cart/del/${cartId}`;
+      try {
+        const dataFromServer = await axios.delete(url);
+        if (dataFromServer.data.status === "success") {
+          navigate(0)
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    deleteCart();
+  };
+
+
   return (
     <div className="my-4 px-4">
       <div className=" relative float-left w-20">
@@ -49,7 +70,9 @@ const CardCart = ({ productName, productPrice, productFile, cart_id }) => {
         </div>
       </div>
       <div className=" flex flex-col justify-center align-middle">
-        <button>
+        <button 
+        onClick={() => handleDeletCart(cart_id)}
+        >
           <i className="fa-solid fa-x float-right my-3"></i>
         </button>
         <button

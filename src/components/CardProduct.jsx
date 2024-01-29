@@ -3,9 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import apiUrl from "../utils/apiConfig";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CardProduct = ({ products, visible }) => {
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
 
   const handleClick = async (product) => {
     try {
@@ -19,18 +22,19 @@ const CardProduct = ({ products, visible }) => {
 
       if (response.status === 200) {
         setCart([...cart, product]);
-        alert(response.data.message);
+        toast.success("Berhasil Menambahkan Barang ke Keranjang");
+        navigate(0);
       }
     } catch (error) {
       console.error(error);
     }
   };
-  const navigate = useNavigate();
   const handleDetail = (product_id) => {
     navigate(`/product-review/${product_id}`);
   };
   return (
     <>
+      <ToastContainer />
       {products?.slice(0, visible).map((el, id) => {
         return (
           <React.Fragment key={id}>
@@ -64,14 +68,14 @@ const CardProduct = ({ products, visible }) => {
                 </div>
               </div>
               <button
-                className="hover:bg-black hover:text-white mr-4"
+                className="hover:bg-black hover:text-white mr-4 text-sm md:text-base lg:text-lg"
                 onClick={() => handleClick(el)}
               >
                 <i className="fa fa-shopping-cart"></i> Cart
               </button>
 
               <button
-                className="hover:bg-black hover:text-white"
+                className="hover:bg-black hover:text-white text-sm md:text-base lg:text-lg"
                 onClick={() => handleDetail(el.product_id)}
               >
                 <i className="fa fa-info-circle"></i> Detail
